@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		604D5FC229F2774F008DB8E5 /* MenuMonyaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */; };
-		604D5FC429F2774F008DB8E5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D5FC329F2774F008DB8E5 /* ContentView.swift */; };
 		604D5FC629F27750008DB8E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 604D5FC529F27750008DB8E5 /* Assets.xcassets */; };
 		604D5FC929F27750008DB8E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 604D5FC829F27750008DB8E5 /* Preview Assets.xcassets */; };
 		604D5FD329F27750008DB8E5 /* MenuMonyaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D5FD229F27750008DB8E5 /* MenuMonyaTests.swift */; };
 		604D5FDD29F27750008DB8E5 /* MenuMonyaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D5FDC29F27750008DB8E5 /* MenuMonyaUITests.swift */; };
 		604D5FDF29F27750008DB8E5 /* MenuMonyaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D5FDE29F27750008DB8E5 /* MenuMonyaUITestsLaunchTests.swift */; };
+		604D5FEC29F27769008DB8E5 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D5FEB29F27769008DB8E5 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,6 @@
 /* Begin PBXFileReference section */
 		604D5FBE29F2774F008DB8E5 /* MenuMonya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuMonya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMonyaApp.swift; sourceTree = "<group>"; };
-		604D5FC329F2774F008DB8E5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		604D5FC529F27750008DB8E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		604D5FC829F27750008DB8E5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		604D5FCE29F27750008DB8E5 /* MenuMonyaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuMonyaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +43,7 @@
 		604D5FD829F27750008DB8E5 /* MenuMonyaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuMonyaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		604D5FDC29F27750008DB8E5 /* MenuMonyaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMonyaUITests.swift; sourceTree = "<group>"; };
 		604D5FDE29F27750008DB8E5 /* MenuMonyaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMonyaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		604D5FEB29F27769008DB8E5 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +94,9 @@
 		604D5FC029F2774F008DB8E5 /* MenuMonya */ = {
 			isa = PBXGroup;
 			children = (
-				604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */,
-				604D5FC329F2774F008DB8E5 /* ContentView.swift */,
-				604D5FC529F27750008DB8E5 /* Assets.xcassets */,
+				604D5FEF29F2779D008DB8E5 /* App */,
+				604D5FEE29F27786008DB8E5 /* Resources */,
+				604D5FED29F2777B008DB8E5 /* Views */,
 				604D5FC729F27750008DB8E5 /* Preview Content */,
 			);
 			path = MenuMonya;
@@ -125,6 +125,38 @@
 				604D5FDE29F27750008DB8E5 /* MenuMonyaUITestsLaunchTests.swift */,
 			);
 			path = MenuMonyaUITests;
+			sourceTree = "<group>";
+		};
+		604D5FED29F2777B008DB8E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				604D5FF029F277A8008DB8E5 /* MainView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		604D5FEE29F27786008DB8E5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				604D5FC529F27750008DB8E5 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		604D5FEF29F2779D008DB8E5 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		604D5FF029F277A8008DB8E5 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				604D5FEB29F27769008DB8E5 /* MainView.swift */,
+			);
+			path = MainView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				604D5FC429F2774F008DB8E5 /* ContentView.swift in Sources */,
+				604D5FEC29F27769008DB8E5 /* MainView.swift in Sources */,
 				604D5FC229F2774F008DB8E5 /* MenuMonyaApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,21 +452,27 @@
 				DEVELOPMENT_TEAM = MV89SHQKF4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "메뉴모냐";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ericyong.MenuMonya;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ericyong.menumonya;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -449,21 +487,27 @@
 				DEVELOPMENT_TEAM = MV89SHQKF4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "메뉴모냐";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ericyong.MenuMonya;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ericyong.menumonya;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
