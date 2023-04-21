@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B95F29C4803E79F3DFDBE4E /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		46E847AFCD596BCB97DA0954 /* Pods_MenuMonya_MenuMonyaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB3D17FB971F323F5150F80 /* Pods_MenuMonya_MenuMonyaUITests.framework */; };
+		4D6134180E4A0E1184A1299D /* Pods_MenuMonyaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7DAFE4581126923703607B /* Pods_MenuMonyaTests.framework */; };
 		604D5FC229F2774F008DB8E5 /* MenuMonyaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */; };
 		604D5FC629F27750008DB8E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 604D5FC529F27750008DB8E5 /* Assets.xcassets */; };
 		604D5FC929F27750008DB8E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 604D5FC829F27750008DB8E5 /* Preview Assets.xcassets */; };
@@ -44,6 +47,8 @@
 		604D601829F27D2C008DB8E5 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D601729F27D2C008DB8E5 /* FontManager.swift */; };
 		604D601929F27D2C008DB8E5 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D601729F27D2C008DB8E5 /* FontManager.swift */; };
 		604D601A29F27D2C008DB8E5 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D601729F27D2C008DB8E5 /* FontManager.swift */; };
+		60BD117129F29C2800000FCB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD117029F29C2800000FCB /* MapView.swift */; };
+		6699D582B73BEBB9DEFDD937 /* Pods_MenuMonya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 146A3AEE89AB391085DAA4C1 /* Pods_MenuMonya.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +69,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01EF300C396A9477540C3BF8 /* Pods-MenuMonya.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya.release.xcconfig"; path = "Target Support Files/Pods-MenuMonya/Pods-MenuMonya.release.xcconfig"; sourceTree = "<group>"; };
+		146A3AEE89AB391085DAA4C1 /* Pods_MenuMonya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		33F04C51214FD2173618F7E8 /* Pods-MenuMonyaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonyaTests.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonyaTests/Pods-MenuMonyaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3B7DAFE4581126923703607B /* Pods_MenuMonyaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonyaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		604D5FBE29F2774F008DB8E5 /* MenuMonya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuMonya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMonyaApp.swift; sourceTree = "<group>"; };
 		604D5FC529F27750008DB8E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,6 +94,12 @@
 		604D5FFB29F27D1F008DB8E5 /* Pretendard-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.ttf"; sourceTree = "<group>"; };
 		604D601729F27D2C008DB8E5 /* FontManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		604D601B29F27D5A008DB8E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		60BD117029F29C2800000FCB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		70BA5F1A456BB8A3EDB4474B /* Pods-MenuMonyaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonyaTests.release.xcconfig"; path = "Target Support Files/Pods-MenuMonyaTests/Pods-MenuMonyaTests.release.xcconfig"; sourceTree = "<group>"; };
+		7A3A0FC9D3B81B2BD97E1291 /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7AAE622021B403A236623704 /* Pods-MenuMonya.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonya/Pods-MenuMonya.debug.xcconfig"; sourceTree = "<group>"; };
+		7F50A6892336273D00C3F27F /* Pods-MenuMonya-MenuMonyaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya-MenuMonyaUITests.release.xcconfig"; path = "Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		AFB3D17FB971F323F5150F80 /* Pods_MenuMonya_MenuMonyaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonya_MenuMonyaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +107,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B95F29C4803E79F3DFDBE4E /* BuildFile in Frameworks */,
+				6699D582B73BEBB9DEFDD937 /* Pods_MenuMonya.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D6134180E4A0E1184A1299D /* Pods_MenuMonyaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,12 +124,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46E847AFCD596BCB97DA0954 /* Pods_MenuMonya_MenuMonyaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4CB4F87BF374F4ACDFE21ED5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				146A3AEE89AB391085DAA4C1 /* Pods_MenuMonya.framework */,
+				AFB3D17FB971F323F5150F80 /* Pods_MenuMonya_MenuMonyaUITests.framework */,
+				3B7DAFE4581126923703607B /* Pods_MenuMonyaTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		604D5FB529F2774F008DB8E5 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +148,9 @@
 				604D5FD129F27750008DB8E5 /* MenuMonyaTests */,
 				604D5FDB29F27750008DB8E5 /* MenuMonyaUITests */,
 				604D5FBF29F2774F008DB8E5 /* Products */,
+				60BD116E29F29BA600000FCB /* Recovered References */,
+				CFD70D8EA392D02541E9EBE7 /* Pods */,
+				4CB4F87BF374F4ACDFE21ED5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -172,6 +204,7 @@
 		604D5FED29F2777B008DB8E5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				60BD116F29F29C1300000FCB /* MapView */,
 				604D5FF029F277A8008DB8E5 /* MainView */,
 			);
 			path = Views;
@@ -235,6 +268,35 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		60BD116E29F29BA600000FCB /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		60BD116F29F29C1300000FCB /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				60BD117029F29C2800000FCB /* MapView.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		CFD70D8EA392D02541E9EBE7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7AAE622021B403A236623704 /* Pods-MenuMonya.debug.xcconfig */,
+				01EF300C396A9477540C3BF8 /* Pods-MenuMonya.release.xcconfig */,
+				7A3A0FC9D3B81B2BD97E1291 /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */,
+				7F50A6892336273D00C3F27F /* Pods-MenuMonya-MenuMonyaUITests.release.xcconfig */,
+				33F04C51214FD2173618F7E8 /* Pods-MenuMonyaTests.debug.xcconfig */,
+				70BA5F1A456BB8A3EDB4474B /* Pods-MenuMonyaTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -242,9 +304,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 604D5FE229F27750008DB8E5 /* Build configuration list for PBXNativeTarget "MenuMonya" */;
 			buildPhases = (
+				B6BD036557CD4714C05CCC8C /* [CP] Check Pods Manifest.lock */,
 				604D5FBA29F2774F008DB8E5 /* Sources */,
 				604D5FBB29F2774F008DB8E5 /* Frameworks */,
 				604D5FBC29F2774F008DB8E5 /* Resources */,
+				3EF8C50554F9D01DEFF349A4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -259,6 +323,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 604D5FE529F27750008DB8E5 /* Build configuration list for PBXNativeTarget "MenuMonyaTests" */;
 			buildPhases = (
+				C44D10851205E94FB926B8DA /* [CP] Check Pods Manifest.lock */,
 				604D5FCA29F27750008DB8E5 /* Sources */,
 				604D5FCB29F27750008DB8E5 /* Frameworks */,
 				604D5FCC29F27750008DB8E5 /* Resources */,
@@ -277,9 +342,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 604D5FE829F27750008DB8E5 /* Build configuration list for PBXNativeTarget "MenuMonyaUITests" */;
 			buildPhases = (
+				274A377811E3F093609550DA /* [CP] Check Pods Manifest.lock */,
 				604D5FD429F27750008DB8E5 /* Sources */,
 				604D5FD529F27750008DB8E5 /* Frameworks */,
 				604D5FD629F27750008DB8E5 /* Resources */,
+				6B33E848517DEF2AE9EA1F81 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -387,12 +454,116 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		274A377811E3F093609550DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MenuMonya-MenuMonyaUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3EF8C50554F9D01DEFF349A4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MenuMonya/Pods-MenuMonya-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MenuMonya/Pods-MenuMonya-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MenuMonya/Pods-MenuMonya-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B33E848517DEF2AE9EA1F81 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6BD036557CD4714C05CCC8C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MenuMonya-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C44D10851205E94FB926B8DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MenuMonyaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		604D5FBA29F2774F008DB8E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				604D5FEC29F27769008DB8E5 /* MainView.swift in Sources */,
+				60BD117129F29C2800000FCB /* MapView.swift in Sources */,
 				604D601829F27D2C008DB8E5 /* FontManager.swift in Sources */,
 				604D5FC229F2774F008DB8E5 /* MenuMonyaApp.swift in Sources */,
 			);
@@ -549,6 +720,7 @@
 		};
 		604D5FE329F27750008DB8E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AAE622021B403A236623704 /* Pods-MenuMonya.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -561,6 +733,7 @@
 				INFOPLIST_FILE = MenuMonya/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "메뉴모냐";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "내 주변 한식뷔페를 찾기 위해 위치정보 제공에 동의해 주세요!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -585,6 +758,7 @@
 		};
 		604D5FE429F27750008DB8E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01EF300C396A9477540C3BF8 /* Pods-MenuMonya.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -597,6 +771,7 @@
 				INFOPLIST_FILE = MenuMonya/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "메뉴모냐";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "내 주변 한식뷔페를 찾기 위해 위치정보 제공에 동의해 주세요!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -621,6 +796,7 @@
 		};
 		604D5FE629F27750008DB8E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33F04C51214FD2173618F7E8 /* Pods-MenuMonyaTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -641,6 +817,7 @@
 		};
 		604D5FE729F27750008DB8E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70BA5F1A456BB8A3EDB4474B /* Pods-MenuMonyaTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -661,6 +838,7 @@
 		};
 		604D5FE929F27750008DB8E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A3A0FC9D3B81B2BD97E1291 /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -679,6 +857,7 @@
 		};
 		604D5FEA29F27750008DB8E5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F50A6892336273D00C3F27F /* Pods-MenuMonya-MenuMonyaUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
