@@ -21,7 +21,8 @@ struct MainView: View {
             mainViewHeader()
             ZStack {
                 /* TODO : 네이버 맵 뷰 구현 */
-                Color.black
+                MapView()
+                    .ignoresSafeArea()
                 VStack {
                     HStack {
                         Spacer()
