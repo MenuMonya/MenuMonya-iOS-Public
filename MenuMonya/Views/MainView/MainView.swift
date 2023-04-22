@@ -25,22 +25,18 @@ struct MainView: View {
                 /* TODO : 네이버 맵 뷰 구현 */
                 MapView()
                     .ignoresSafeArea()
+                myLocationButton()
                 VStack {
-                    HStack {
-                        Spacer()
-                        Button {
-                            locationState = .myLocation
-                        } label: {
-                            if self.locationState == .myLocation {
-                                Image("nearMe.enabled")
-                            } else {
-                                Image("nearMe.disabled")
+                    Spacer()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
+                                CardView(restaurant: restaurant)
                             }
                         }
+                        .padding(.horizontal, 14)
+                        .padding(.bottom, 10)
                     }
-                    .padding(.trailing, 14)
-                    .padding(.top, 10)
-                    Spacer()
                 }
             }
         }
@@ -79,6 +75,27 @@ struct MainView: View {
             .padding(.trailing, 18)
         }
         .background(Color("background.header"))
+    }
+    
+    @ViewBuilder
+    func myLocationButton() -> some View {
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    locationState = .myLocation
+                } label: {
+                    if self.locationState == .myLocation {
+                        Image("nearMe.enabled")
+                    } else {
+                        Image("nearMe.disabled")
+                    }
+                }
+            }
+            .padding(.trailing, 14)
+            .padding(.top, 10)
+            Spacer()
+        }
     }
 }
 
