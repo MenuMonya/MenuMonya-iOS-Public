@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 enum LocationSelection {
     case gangnam
@@ -14,6 +15,7 @@ enum LocationSelection {
 }
 
 struct MainView: View {
+    @StateObject var viewModel = MainViewModel()
     @State private var locationState: LocationSelection = .gangnam
     
     var body: some View {
@@ -60,6 +62,7 @@ struct MainView: View {
             .padding(.leading, 14)
             Button {
                 locationState = .yeoksam
+                print(viewModel.restaurants)
             } label: {
                 if self.locationState == .yeoksam {
                     Image("yeoksam.enabled")
