@@ -28,13 +28,24 @@ struct MainView: View {
                 myLocationButton()
                 VStack {
                     Spacer()
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
-                                CardView(restaurant: restaurant)
+                    GeometryReader {
+                        let size = $0.size
+                        let pageWidth: CGFloat = size.width
+                        VStack {
+                            Spacer()
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 0) {
+                                    ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
+                                        CardView(restaurant: restaurant)
+                                    }
+                                    .frame(width: pageWidth)
+                                }
+                                .padding(.horizontal, (size.width - pageWidth) / 2)
+                                .background {
+                                    SnapCarouselHelper(pageWidth: pageWidth, pageCount: viewModel.restaurants.count)
+                                }
                             }
                         }
-                        .padding(.horizontal, 14)
                         .padding(.bottom, 10)
                     }
                 }
