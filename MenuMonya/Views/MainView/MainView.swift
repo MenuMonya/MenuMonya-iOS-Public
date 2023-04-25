@@ -8,22 +8,17 @@
 import SwiftUI
 import FirebaseFirestore
 
-enum LocationSelection {
-    case gangnam
-    case yeoksam
-    case myLocation
-}
-
 struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @State private var locationState: LocationSelection = .gangnam
+    @State private var selectedRestaurantID: String = ""
     
     var body: some View {
         VStack(spacing: 0) {
             mainViewHeader()
             ZStack {
                 /* TODO : 네이버 맵 뷰 구현 */
-                MapView()
+                MapView(viewModel: viewModel, locationSelection: $locationState, selectedID: $selectedRestaurantID)
                     .ignoresSafeArea()
                 myLocationButton()
                 VStack {
