@@ -25,22 +25,29 @@ struct MainView: View {
                 /* TODO : 네이버 맵 뷰 구현 */
                 MapView()
                     .ignoresSafeArea()
+                myLocationButton()
                 VStack {
-                    HStack {
-                        Spacer()
-                        Button {
-                            locationState = .myLocation
-                        } label: {
-                            if self.locationState == .myLocation {
-                                Image("nearMe.enabled")
-                            } else {
-                                Image("nearMe.disabled")
+                    Spacer()
+                    GeometryReader {
+                        let size = $0.size
+                        let pageWidth: CGFloat = size.width
+                        VStack {
+                            Spacer()
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 0) {
+                                    ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
+                                        CardView(restaurant: restaurant)
+                                    }
+                                    .frame(width: pageWidth)
+                                }
+                                .padding(.horizontal, (size.width - pageWidth) / 2)
+                                .background {
+                                    SnapCarouselHelper(pageWidth: pageWidth, pageCount: viewModel.restaurants.count)
+                                }
                             }
                         }
+                        .padding(.bottom, 10)
                     }
-                    .padding(.trailing, 14)
-                    .padding(.top, 10)
-                    Spacer()
                 }
             }
         }
@@ -79,6 +86,27 @@ struct MainView: View {
             .padding(.trailing, 18)
         }
         .background(Color("background.header"))
+    }
+    
+    @ViewBuilder
+    func myLocationButton() -> some View {
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    locationState = .myLocation
+                } label: {
+                    if self.locationState == .myLocation {
+                        Image("nearMe.enabled")
+                    } else {
+                        Image("nearMe.disabled")
+                    }
+                }
+            }
+            .padding(.trailing, 14)
+            .padding(.top, 10)
+            Spacer()
+        }
     }
 }
 

@@ -15,4 +15,6 @@ struct Menu: Codable {
     var restaurantId: String
     var restaurantLocationCategory: [String]
     var restaurantName: String
+    
+    static let dummy = Menu(restaurantId: "", restaurantLocationCategory: ["강남"], restaurantName: "더미 식당")
 }

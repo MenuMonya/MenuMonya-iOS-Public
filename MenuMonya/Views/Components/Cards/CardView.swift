@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CardView: View {
+    @Binding var restaurant: Restaurant
+    
     var body: some View {
         VStack(spacing: 0) {
             menus()
@@ -27,7 +29,7 @@ struct CardView: View {
                     .font(.pretendard(.semiBold, size: 10))
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
-                Text("카레 염지치킨")
+                Text("메뉴입니다")
                     .font(.pretendard(.regular, size: 10))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(2)
@@ -73,7 +75,7 @@ struct CardView: View {
         HStack(spacing: 8) {
             VStack(spacing: 5) {
                 HStack {
-                    Text("놀란치킨")
+                    Text(restaurant.name)
                         .font(.pretendard(.semiBold, size: 12))
                         .foregroundColor(Color("grey_900"))
                         .padding(.top, 10)
@@ -85,7 +87,7 @@ struct CardView: View {
                         .font(.pretendard(.semiBold, size: 8))
                         .foregroundColor(Color("grey_900"))
                     Spacer()
-                    Text("8000원")
+                    Text(restaurant.price.cardPrice)
                         .font(.pretendard(.regular, size: 8))
                         .foregroundColor(Color("grey_900"))
                 }
@@ -94,7 +96,7 @@ struct CardView: View {
                         .font(.pretendard(.semiBold, size: 8))
                         .foregroundColor(Color("grey_900"))
                     Spacer()
-                    Text("11:00 ~ 14:00")
+                    Text("\(restaurant.time.openTime)~\(restaurant.time.closeTime)")
                         .font(.pretendard(.regular, size: 8))
                         .foregroundColor(Color("grey_900"))
                 }
@@ -103,7 +105,7 @@ struct CardView: View {
                         .font(.pretendard(.semiBold, size: 8))
                         .foregroundColor(Color("grey_900"))
                     Spacer()
-                    Text("02-123-4567")
+                    Text("아직 디비에 전번이 없어용~")
                         .font(.pretendard(.regular, size: 8))
                         .foregroundColor(Color("grey_900"))
                 }
@@ -112,7 +114,7 @@ struct CardView: View {
                         .font(.pretendard(.semiBold, size: 8))
                         .foregroundColor(Color("grey_900"))
                     Spacer()
-                    Text("서울시 서초구 강남대로 53길 11 지상 1층")
+                    Text(restaurant.location.description)
                         .font(.pretendard(.regular, size: 8))
                         .foregroundColor(Color("grey_900"))
                 }
@@ -121,7 +123,7 @@ struct CardView: View {
                 HStack {
                     Spacer()
                     Button {
-                        
+                        /* TODO - 자세히 보기 -> 가게 모달 생성? 또는 카드뷰 자체 탭 시 가게 모달 생성 */
                     } label: {
                         Text("자세히 보기")
                             .font(.pretendard(.semiBold, size: 7))
@@ -144,6 +146,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView()
+        CardView(restaurant: .constant(Restaurant.dummy))
     }
 }
