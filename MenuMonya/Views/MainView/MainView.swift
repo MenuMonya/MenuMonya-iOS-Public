@@ -47,7 +47,7 @@ struct MainView: View {
                 }
                 
                 if isShowingMenuDetail {
-                    MenuDetailView(isShowingMenuDetail: $isShowingMenuDetail)
+                    MenuDetailAlert(isShowingMenuDetail: $isShowingMenuDetail)
                 }
             }
         }

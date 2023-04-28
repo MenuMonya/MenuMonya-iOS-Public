@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MenuAlertCardView: View {
+struct MenuAlertCard: View {
     var body: some View {
         VStack(spacing: 0) {
             CustomDivider(color: Color("grey_200"))
@@ -82,6 +82,6 @@ struct MenuAlertCardView: View {
 
 struct MenuAlertCard_Previews: PreviewProvider {
     static var previews: some View {
-        MenuAlertCardView()
+        MenuAlertCard()
     }
 }

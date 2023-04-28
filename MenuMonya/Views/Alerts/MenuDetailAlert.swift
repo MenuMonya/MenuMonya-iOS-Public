@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct MenuDetailView: View {
+struct MenuDetailAlert: View {
     @Binding var isShowingMenuDetail: Bool
     
     var body: some View {
         ZStack {
-            Color.black.opacity(0.75)
+            Color.black.opacity(0.5)
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
                     isShowingMenuDetail = false
                 }
-            MenuAlertCardView()
+            MenuAlertCard()
                 .padding(.horizontal, 14)
         }
     }
@@ -25,6 +25,6 @@ struct MenuDetailView: View {
 
 struct MenuDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuDetailView(isShowingMenuDetail: .constant(false))
+        MenuDetailAlert(isShowingMenuDetail: .constant(false))
     }
 }

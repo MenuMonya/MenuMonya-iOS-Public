@@ -57,8 +57,10 @@
 		6099867E29F38CFE000B8D25 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6099867D29F38CFE000B8D25 /* MainViewModel.swift */; };
 		6099868129F39969000B8D25 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6099868029F39969000B8D25 /* CardView.swift */; };
 		6099868329F39D98000B8D25 /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6099868229F39D98000B8D25 /* CustomDivider.swift */; };
-		609DB7C229FC03D1002D2B6B /* MenuAlertCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C129FC03D1002D2B6B /* MenuAlertCardView.swift */; };
-		609DB7C529FC067C002D2B6B /* MenuDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C429FC067C002D2B6B /* MenuDetailView.swift */; };
+		609DB7C229FC03D1002D2B6B /* MenuAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C129FC03D1002D2B6B /* MenuAlertCard.swift */; };
+		609DB7C529FC067C002D2B6B /* MenuDetailAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C429FC067C002D2B6B /* MenuDetailAlert.swift */; };
+		609DB7C729FC213D002D2B6B /* LocationPermissionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C629FC213D002D2B6B /* LocationPermissionAlert.swift */; };
+		609DB7CA29FC21D1002D2B6B /* LocationPermissionAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C929FC21D1002D2B6B /* LocationPermissionAlertCard.swift */; };
 		60BD117129F29C2800000FCB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD117029F29C2800000FCB /* MapView.swift */; };
 		60F6160629F82CE600253137 /* SnapCarouselHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F6160529F82CE600253137 /* SnapCarouselHelper.swift */; };
 		6B11CB70A23F43DD45601A8E /* Pods_MenuMonya_MenuMonyaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FE82AC722921945045AB429 /* Pods_MenuMonya_MenuMonyaUITests.framework */; };
@@ -118,8 +120,10 @@
 		6099867D29F38CFE000B8D25 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		6099868029F39969000B8D25 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		6099868229F39D98000B8D25 /* CustomDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
-		609DB7C129FC03D1002D2B6B /* MenuAlertCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAlertCardView.swift; sourceTree = "<group>"; };
-		609DB7C429FC067C002D2B6B /* MenuDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDetailView.swift; sourceTree = "<group>"; };
+		609DB7C129FC03D1002D2B6B /* MenuAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAlertCard.swift; sourceTree = "<group>"; };
+		609DB7C429FC067C002D2B6B /* MenuDetailAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDetailAlert.swift; sourceTree = "<group>"; };
+		609DB7C629FC213D002D2B6B /* LocationPermissionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionAlert.swift; sourceTree = "<group>"; };
+		609DB7C929FC21D1002D2B6B /* LocationPermissionAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionAlertCard.swift; sourceTree = "<group>"; };
 		60BD117029F29C2800000FCB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		60F6160529F82CE600253137 /* SnapCarouselHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapCarouselHelper.swift; sourceTree = "<group>"; };
 		C3363DEC9A8DBD6C633C03FE /* Pods_MenuMonyaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonyaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,7 +275,7 @@
 				6099867F29F3994D000B8D25 /* Components */,
 				60BD116F29F29C1300000FCB /* MapView */,
 				604D5FF029F277A8008DB8E5 /* MainView */,
-				609DB7C329FC0659002D2B6B /* MenuDetailView */,
+				609DB7C329FC0659002D2B6B /* Alerts */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -350,25 +354,35 @@
 			children = (
 				6028F7A729F76E7F00745F4A /* Divider */,
 				6028F7A629F76E7400745F4A /* Card */,
-				609DB7C029FC03B9002D2B6B /* MenuAlertCard */,
+				609DB7C829FC219B002D2B6B /* LocationPermissionAlert */,
+				609DB7C029FC03B9002D2B6B /* MenuAlert */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		609DB7C029FC03B9002D2B6B /* MenuAlertCard */ = {
+		609DB7C029FC03B9002D2B6B /* MenuAlert */ = {
 			isa = PBXGroup;
 			children = (
-				609DB7C129FC03D1002D2B6B /* MenuAlertCardView.swift */,
+				609DB7C129FC03D1002D2B6B /* MenuAlertCard.swift */,
 			);
-			path = MenuAlertCard;
+			path = MenuAlert;
 			sourceTree = "<group>";
 		};
-		609DB7C329FC0659002D2B6B /* MenuDetailView */ = {
+		609DB7C329FC0659002D2B6B /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
-				609DB7C429FC067C002D2B6B /* MenuDetailView.swift */,
+				609DB7C429FC067C002D2B6B /* MenuDetailAlert.swift */,
+				609DB7C629FC213D002D2B6B /* LocationPermissionAlert.swift */,
 			);
-			path = MenuDetailView;
+			path = Alerts;
+			sourceTree = "<group>";
+		};
+		609DB7C829FC219B002D2B6B /* LocationPermissionAlert */ = {
+			isa = PBXGroup;
+			children = (
+				609DB7C929FC21D1002D2B6B /* LocationPermissionAlertCard.swift */,
+			);
+			path = LocationPermissionAlert;
 			sourceTree = "<group>";
 		};
 		60BD116E29F29BA600000FCB /* Recovered References */ = {
@@ -700,17 +714,19 @@
 			files = (
 				60389AF429F2F2EA00877215 /* FirestoreManager.swift in Sources */,
 				6099868129F39969000B8D25 /* CardView.swift in Sources */,
-				609DB7C529FC067C002D2B6B /* MenuDetailView.swift in Sources */,
+				609DB7C529FC067C002D2B6B /* MenuDetailAlert.swift in Sources */,
 				60F6160629F82CE600253137 /* SnapCarouselHelper.swift in Sources */,
 				604D5FEC29F27769008DB8E5 /* MainView.swift in Sources */,
 				60067EC829F3835A0037DACE /* Menu.swift in Sources */,
 				6099868329F39D98000B8D25 /* CustomDivider.swift in Sources */,
 				60BD117129F29C2800000FCB /* MapView.swift in Sources */,
-				609DB7C229FC03D1002D2B6B /* MenuAlertCardView.swift in Sources */,
+				609DB7C229FC03D1002D2B6B /* MenuAlertCard.swift in Sources */,
 				60506F3729F7A22D0044531A /* UIColor+Extensions.swift in Sources */,
+				609DB7C729FC213D002D2B6B /* LocationPermissionAlert.swift in Sources */,
 				604D601829F27D2C008DB8E5 /* FontManager.swift in Sources */,
 				60389AF729F303BA00877215 /* Restaurant.swift in Sources */,
 				604D5FC229F2774F008DB8E5 /* MenuMonyaApp.swift in Sources */,
+				609DB7CA29FC21D1002D2B6B /* LocationPermissionAlertCard.swift in Sources */,
 				6099867E29F38CFE000B8D25 /* MainViewModel.swift in Sources */,
 				6028F7AC29F7778000745F4A /* Constants.swift in Sources */,
 				60506F3429F797A40044531A /* LocationManager.swift in Sources */,
