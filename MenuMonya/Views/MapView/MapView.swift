@@ -76,6 +76,10 @@ struct NaverMapView: UIViewRepresentable {
         init(_ parent: NaverMapView) {
             self.parent = parent
         }
+        
+        func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+            parent.viewModel.isFocusedOnMarker = false
+        }
     }
 }
 

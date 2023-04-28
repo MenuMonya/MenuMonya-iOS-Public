@@ -7,6 +7,7 @@
 
 import Foundation
 import NMapsMap
+import CoreLocation
 
 enum LocationSelection {
     case gangnam
@@ -27,9 +28,12 @@ class MainViewModel: ObservableObject {
     @Published var isMapViewInitiated = false
     @Published var isMarkersAdded = false
     
+    @Published var isFocusedOnMarker = false
+    
     var mapView: NMFMapView?
     
     let firestoreManager = FirestoreManager()
+    let locationManager = LocationManager()
     
     init() {
         firestoreManager.fetchRestaurants { restaurants in
@@ -57,6 +61,7 @@ class MainViewModel: ObservableObject {
                     let cameraUpdate = NMFCameraUpdate(scrollTo: marker.position)
                     cameraUpdate.animation = .easeOut
                     marker.mapView!.moveCamera(cameraUpdate)
+                    self?.isFocusedOnMarker = true
                     return true // 이벤트 소비, -mapView:didtTapMap:point 이벤트는 발생하지 않음
                 }
                 self.markers.append(marker)
@@ -91,4 +96,5 @@ class MainViewModel: ObservableObject {
             mapView?.moveCamera(cameraupdate)
         }
     }
+    
 }

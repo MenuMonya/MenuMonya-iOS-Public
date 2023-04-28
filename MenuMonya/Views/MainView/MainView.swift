@@ -10,7 +10,6 @@ import FirebaseFirestore
 
 struct MainView: View {
     @StateObject var viewModel = MainViewModel()
-    @State private var selectedRestaurantID: String = ""
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
     
     var body: some View {
@@ -19,29 +18,31 @@ struct MainView: View {
             ZStack {
                 NaverMapView(viewModel: viewModel, restaurantIndexWhenScrollEnded: $restaurantIndexWhenScrollEnded)
                     .ignoresSafeArea()
+                    .zIndex((viewModel.isFocusedOnMarker ? 0 : 1))
                 myLocationButton()
                 VStack {
                     Spacer()
-                    GeometryReader {
-                        let size = $0.size
-                        let pageWidth: CGFloat = size.width
-                        VStack {
-                            Spacer()
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 0) {
-                                    ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
-                                        CardView(restaurant: restaurant)
+                        GeometryReader {
+                            let size = $0.size
+                            let pageWidth: CGFloat = size.width
+                            VStack {
+                                Spacer()
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 0) {
+                                        ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
+                                            CardView(restaurant: restaurant)
+                                        }
+                                        .frame(width: pageWidth)
                                     }
-                                    .frame(width: pageWidth)
-                                }
-                                .padding(.horizontal, (size.width - pageWidth) / 2)
-                                .background {
-                                    SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
+                                    .padding(.horizontal, (size.width - pageWidth) / 2)
+                                    .background {
+                                        SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
+                                    }
                                 }
                             }
+                            .padding(.bottom, 10)
                         }
-                        .padding(.bottom, 10)
-                    }
+                       
                 }
             }
         }
@@ -53,6 +54,7 @@ struct MainView: View {
             Button {
                 viewModel.locationSelection = .gangnam
                 viewModel.moveCameraToLocation(at: .gangnam)
+                viewModel.isFocusedOnMarker = false
             } label: {
                 if viewModel.locationSelection == .gangnam {
                     Image("gangnam.enabled")
@@ -65,6 +67,7 @@ struct MainView: View {
             Button {
                 viewModel.locationSelection = .yeoksam
                 viewModel.moveCameraToLocation(at: .yeoksam)
+                viewModel.isFocusedOnMarker = false
             } label: {
                 if viewModel.locationSelection == .yeoksam {
                     Image("yeoksam.enabled")
@@ -83,14 +86,15 @@ struct MainView: View {
         .background(Color("background.header"))
     }
     
+    // 내 주변 버튼
     @ViewBuilder
     func myLocationButton() -> some View {
         VStack {
             HStack {
                 Spacer()
                 Button {
-                    viewModel.locationSelection = .myLocation
-                    viewModel.moveCameraToLocation(at: .myLocation)
+                    // 위치 정보가 켜져있다면
+                    viewModel.isFocusedOnMarker = false
                 } label: {
                     if viewModel.locationSelection == .myLocation {
                         Image("nearMe.enabled")
