@@ -21,6 +21,7 @@ struct MainView: View {
                     .ignoresSafeArea()
                     .zIndex((viewModel.isFocusedOnMarker ? 0 : 1))
                 myLocationButton()
+                    .zIndex((viewModel.isFocusedOnMarker ? 0 : 2))
                 VStack {
                     Spacer()
                     GeometryReader {
