@@ -80,9 +80,7 @@ struct MainView: View {
                 }
             }
             Spacer()
-            Button {
-                /* TODO : 피드백 버튼 터치 시 피드백 전송 화면 또는 모달로 이동 */
-            } label: {
+            Link(destination: URL(string: "https://forms.gle/Emcodxf3ngNqLCHs7")!) {
                 Image("icon.feedback")
             }
             .padding(.trailing, 18)
