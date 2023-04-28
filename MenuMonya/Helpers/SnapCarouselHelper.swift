@@ -10,10 +10,11 @@ import UIKit
 
 /// SwiftUI ScrollView에서 임베딩된 UIScrollView 가져오기
 struct SnapCarouselHelper: UIViewRepresentable {
+    @ObservedObject var viewModel: MainViewModel
    
     /// @Binding을 통해 ScrollView에서 필요한 프로퍼티들 가져오기
     var pageWidth: CGFloat
-    var pageCount: Int
+    @Binding var scrolledPageIndex: CGFloat
     
     func makeUIView(context: Context) -> UIView {
         return UIView()
@@ -26,6 +27,10 @@ struct SnapCarouselHelper: UIViewRepresentable {
                 scrollView.decelerationRate = .fast
                 scrollView.delegate = context.coordinator
             }
+        }
+        
+        if let scrollView = uiView.superview?.superview?.superview as? UIScrollView {
+            scrollView.setContentOffset(CGPoint(x: viewModel.selectedRestaurantIndex * pageWidth, y: 0), animated: true)
         }
     }
     
@@ -48,6 +53,7 @@ struct SnapCarouselHelper: UIViewRepresentable {
             let targetEnd = scrollView.contentOffset.x + (velocity.x * 60)
             let targetIndex = (targetEnd / parent.pageWidth).rounded()
             
+            parent.viewModel.moveCameraToMarker(at: Int(targetIndex))
             targetContentOffset.pointee.x = targetIndex * parent.pageWidth
         }
     }

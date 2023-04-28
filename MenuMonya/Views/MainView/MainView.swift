@@ -10,15 +10,14 @@ import FirebaseFirestore
 
 struct MainView: View {
     @StateObject var viewModel = MainViewModel()
-    @State private var locationState: LocationSelection = .gangnam
     @State private var selectedRestaurantID: String = ""
+    @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
     
     var body: some View {
         VStack(spacing: 0) {
             mainViewHeader()
             ZStack {
-                /* TODO : 네이버 맵 뷰 구현 */
-                MapView(viewModel: viewModel, locationSelection: $locationState, selectedID: $selectedRestaurantID)
+                NaverMapView(viewModel: viewModel, restaurantIndexWhenScrollEnded: $restaurantIndexWhenScrollEnded)
                     .ignoresSafeArea()
                 myLocationButton()
                 VStack {
@@ -37,7 +36,7 @@ struct MainView: View {
                                 }
                                 .padding(.horizontal, (size.width - pageWidth) / 2)
                                 .background {
-                                    SnapCarouselHelper(pageWidth: pageWidth, pageCount: viewModel.restaurants.count)
+                                    SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
                                 }
                             }
                         }
@@ -52,9 +51,9 @@ struct MainView: View {
     func mainViewHeader() -> some View {
         HStack(spacing: 8) {
             Button {
-                locationState = .gangnam
+                viewModel.locationSelection = .gangnam
             } label: {
-                if self.locationState == .gangnam {
+                if viewModel.locationSelection == .gangnam {
                     Image("gangnam.enabled")
                 } else {
                     Image("gangnam.disabled")
@@ -63,10 +62,10 @@ struct MainView: View {
             .padding(.vertical, 8)
             .padding(.leading, 14)
             Button {
-                locationState = .yeoksam
+                viewModel.locationSelection = .yeoksam
                 print(viewModel.restaurants)
             } label: {
-                if self.locationState == .yeoksam {
+                if viewModel.locationSelection == .yeoksam {
                     Image("yeoksam.enabled")
                 } else {
                     Image("yeoksam.disabled")
@@ -89,9 +88,9 @@ struct MainView: View {
             HStack {
                 Spacer()
                 Button {
-                    locationState = .myLocation
+                    viewModel.locationSelection = .myLocation
                 } label: {
-                    if self.locationState == .myLocation {
+                    if viewModel.locationSelection == .myLocation {
                         Image("nearMe.enabled")
                     } else {
                         Image("nearMe.disabled")
