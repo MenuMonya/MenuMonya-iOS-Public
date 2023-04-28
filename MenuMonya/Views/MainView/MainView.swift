@@ -11,6 +11,7 @@ import FirebaseFirestore
 struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
+    @State var isShowingMenuDetail = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -22,27 +23,30 @@ struct MainView: View {
                 myLocationButton()
                 VStack {
                     Spacer()
-                        GeometryReader {
-                            let size = $0.size
-                            let pageWidth: CGFloat = size.width
-                            VStack {
-                                Spacer()
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 0) {
-                                        ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
-                                            CardView(restaurant: restaurant)
-                                        }
-                                        .frame(width: pageWidth)
+                    GeometryReader {
+                        let size = $0.size
+                        let pageWidth: CGFloat = size.width
+                        VStack {
+                            Spacer()
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 0) {
+                                    ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
+                                        CardView(restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail)
                                     }
-                                    .padding(.horizontal, (size.width - pageWidth) / 2)
-                                    .background {
-                                        SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
-                                    }
+                                    .frame(width: pageWidth)
+                                }
+                                .padding(.horizontal, (size.width - pageWidth) / 2)
+                                .background {
+                                    SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
                                 }
                             }
-                            .padding(.bottom, 10)
                         }
-                       
+                        .padding(.bottom, 10)
+                    }
+                }
+                
+                if isShowingMenuDetail {
+                    MenuDetailView(isShowingMenuDetail: $isShowingMenuDetail)
                 }
             }
         }

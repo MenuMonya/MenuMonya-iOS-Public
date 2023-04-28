@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardView: View {
     @Binding var restaurant: Restaurant
+    @Binding var isShowingMenuDetail: Bool
     
     var body: some View {
         VStack(spacing: 0) {
@@ -124,6 +125,7 @@ struct CardView: View {
                     Spacer()
                     Button {
                         /* TODO - 자세히 보기 -> 가게 모달 생성? 또는 카드뷰 자체 탭 시 가게 모달 생성 */
+                        isShowingMenuDetail = true
                     } label: {
                         Text("자세히 보기")
                             .font(.pretendard(.semiBold, size: 7))
@@ -146,6 +148,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(restaurant: .constant(Restaurant.dummy))
+        CardView(restaurant: .constant(Restaurant.dummy), isShowingMenuDetail: .constant(false))
     }
 }
