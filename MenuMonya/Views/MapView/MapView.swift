@@ -35,7 +35,7 @@ struct NaverMapView: UIViewRepresentable {
         
         return view
     }
-
+    
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
         let coordination: NMGLatLng
         if viewModel.locationSelection == .gangnam {
@@ -77,24 +77,6 @@ struct NaverMapView: UIViewRepresentable {
             self.parent = parent
         }
     }
-    
-//    func addMarker(_ mapView: NMFNaverMapView, restaurant: Restaurant) {
-//        let marker = NMFMarker()
-//        marker.captionText = restaurant.name
-//        marker.iconImage = NMFOverlayImage(name: "marker.restaurant")
-//        marker.position = NMGLatLng(lat: Double(restaurant.location.coordination.latitude)!, lng: Double(restaurant.location.coordination.longitude)!)
-//        marker.mapView = mapView.mapView
-//        marker.userInfo = ["tag": restaurant.documentID as Any]
-//
-//        marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
-//            print("마커 터치")
-//            self.selectedID = restaurant.documentID!
-//            let cameraUpdate = NMFCameraUpdate(scrollTo: marker.position)
-//            cameraUpdate.animation = .easeOut
-//            mapView.mapView.moveCamera(cameraUpdate)
-//            return true // 이벤트 소비, -mapView:didtTapMap:point 이벤트는 발생하지 않음
-//        }
-//    }
 }
 
 struct MapView_Previews: PreviewProvider {

@@ -71,4 +71,24 @@ class MainViewModel: ObservableObject {
             self.markers[selectedIndex].mapView?.moveCamera(cameraUpdate)
         }
     }
+    
+    func moveCameraToLocation(at location: LocationSelection) {
+        switch location {
+        case .gangnam:
+            let coordination = NMGLatLng(from: Constants.gangnamCoordinations)
+            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+            cameraupdate.animation = .easeOut
+            mapView?.moveCamera(cameraupdate)
+        case .yeoksam:
+            let coordination = NMGLatLng(from: Constants.yeoksamCoordinations)
+            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+            cameraupdate.animation = .easeOut
+            mapView?.moveCamera(cameraupdate)
+        case .myLocation:
+            let coordination = NMGLatLng(from: Constants.gangnamCoordinations)
+            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+            cameraupdate.animation = .easeOut
+            mapView?.moveCamera(cameraupdate)
+        }
+    }
 }

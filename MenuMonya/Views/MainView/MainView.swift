@@ -52,6 +52,7 @@ struct MainView: View {
         HStack(spacing: 8) {
             Button {
                 viewModel.locationSelection = .gangnam
+                viewModel.moveCameraToLocation(at: .gangnam)
             } label: {
                 if viewModel.locationSelection == .gangnam {
                     Image("gangnam.enabled")
@@ -63,7 +64,7 @@ struct MainView: View {
             .padding(.leading, 14)
             Button {
                 viewModel.locationSelection = .yeoksam
-                print(viewModel.restaurants)
+                viewModel.moveCameraToLocation(at: .yeoksam)
             } label: {
                 if viewModel.locationSelection == .yeoksam {
                     Image("yeoksam.enabled")
@@ -89,6 +90,7 @@ struct MainView: View {
                 Spacer()
                 Button {
                     viewModel.locationSelection = .myLocation
+                    viewModel.moveCameraToLocation(at: .myLocation)
                 } label: {
                     if viewModel.locationSelection == .myLocation {
                         Image("nearMe.enabled")
