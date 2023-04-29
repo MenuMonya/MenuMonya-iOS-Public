@@ -97,4 +97,16 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func isLocationServiceEnabled() -> Bool {
+        return locationManager.isLocationServiceEnabled()
+    }
+    
+    func isLocationPermissionAuthorized() -> Bool {
+        return locationManager.isLocationPermissionAuthorized()
+    }
+    
+    func requestLocationPermission() {
+        locationManager.requestUserAuthorization()
+    }
+    
 }

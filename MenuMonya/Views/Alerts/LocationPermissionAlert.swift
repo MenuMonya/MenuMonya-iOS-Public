@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct LocationPermissionAlert: View {
+    @ObservedObject var viewModel: MainViewModel
+    @Binding var isShowingLocationAlert: Bool
+    
     var body: some View {
         ZStack {
             Color.black.opacity(0.5)
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
-                    
+                   isShowingLocationAlert = false
                 }
             
             VStack {
                 Spacer()
-                LocationPermissionAlertCard()
+                LocationPermissionAlertCard(viewModel: viewModel, isShowingLocationAlert: $isShowingLocationAlert)
             }
             .padding(.bottom, 19)
         }
@@ -27,6 +30,6 @@ struct LocationPermissionAlert: View {
 
 struct LocationPermissionAlert_Previews: PreviewProvider {
     static var previews: some View {
-        LocationPermissionAlert()
+        LocationPermissionAlert(viewModel: MainViewModel(), isShowingLocationAlert: .constant(false))
     }
 }

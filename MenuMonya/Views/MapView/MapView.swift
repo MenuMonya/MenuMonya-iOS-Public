@@ -40,22 +40,32 @@ struct NaverMapView: UIViewRepresentable {
         let coordination: NMGLatLng
         if viewModel.locationSelection == .gangnam {
             coordination = NMGLatLng(from: Constants.gangnamCoordinations)
-            
+            uiView.mapView.locationOverlay.hidden = true
+            if isFirstCameraUpdate {
+                let cameraUpdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+                cameraUpdate.animation = .fly
+                cameraUpdate.animationDuration = 1
+                uiView.mapView.moveCamera(cameraUpdate)
+                DispatchQueue.main.async {
+                    isFirstCameraUpdate = false
+                }
+            }
         } else if viewModel.locationSelection == .yeoksam {
             coordination = NMGLatLng(from: Constants.yeoksamCoordinations)
+            uiView.mapView.locationOverlay.hidden = true
+            if isFirstCameraUpdate {
+                let cameraUpdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+                cameraUpdate.animation = .fly
+                cameraUpdate.animationDuration = 1
+                uiView.mapView.moveCamera(cameraUpdate)
+                DispatchQueue.main.async {
+                    isFirstCameraUpdate = false
+                }
+            }
         } else {
             // mylocation
-            coordination = NMGLatLng(from: Constants.gangnamCoordinations)
-        }
-        
-        if isFirstCameraUpdate {
-            let cameraUpdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
-            cameraUpdate.animation = .fly
-            cameraUpdate.animationDuration = 1
-            uiView.mapView.moveCamera(cameraUpdate)
-            DispatchQueue.main.async {
-                isFirstCameraUpdate = false
-            }
+            uiView.mapView.locationOverlay.hidden = false
+            uiView.mapView.positionMode = .direction
         }
         
         if viewModel.isFetchCompleted && viewModel.isMapViewInitiated && !viewModel.isMarkersAdded {

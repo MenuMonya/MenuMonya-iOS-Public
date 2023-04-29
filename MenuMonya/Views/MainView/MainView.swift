@@ -12,45 +12,61 @@ struct MainView: View {
     @StateObject var viewModel = MainViewModel()
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
     @State var isShowingMenuDetail = false
+    @State var isShowingLocationAlert = false
+    @State private var isPresentingAlert = false
     
     var body: some View {
-        VStack(spacing: 0) {
-            mainViewHeader()
-            ZStack {
-                NaverMapView(viewModel: viewModel, restaurantIndexWhenScrollEnded: $restaurantIndexWhenScrollEnded)
-                    .ignoresSafeArea()
-                    .zIndex((viewModel.isFocusedOnMarker ? 0 : 1))
-                myLocationButton()
-                    .zIndex((viewModel.isFocusedOnMarker ? 0 : 2))
-                VStack {
-                    Spacer()
-                    GeometryReader {
-                        let size = $0.size
-                        let pageWidth: CGFloat = size.width
-                        VStack {
-                            Spacer()
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 0) {
-                                    ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
-                                        CardView(restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail)
+        ZStack {
+            VStack(spacing: 0) {
+                mainViewHeader()
+                    .padding(.top, 1)
+                ZStack {
+                    NaverMapView(viewModel: viewModel, restaurantIndexWhenScrollEnded: $restaurantIndexWhenScrollEnded)
+                        .ignoresSafeArea()
+                        .zIndex((viewModel.isFocusedOnMarker ? 0 : 1))
+                    myLocationButton()
+                        .zIndex((viewModel.isFocusedOnMarker ? 0 : 2))
+                    VStack {
+                        Spacer()
+                        GeometryReader {
+                            let size = $0.size
+                            let pageWidth: CGFloat = size.width
+                            VStack {
+                                Spacer()
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 0) {
+                                        ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
+                                            CardView(restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail)
+                                        }
+                                        .frame(width: pageWidth)
                                     }
-                                    .frame(width: pageWidth)
-                                }
-                                .padding(.horizontal, (size.width - pageWidth) / 2)
-                                .background {
-                                    SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
+                                    .padding(.horizontal, (size.width - pageWidth) / 2)
+                                    .background {
+                                        SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
+                                    }
                                 }
                             }
+                            .padding(.bottom, 10)
                         }
-                        .padding(.bottom, 10)
+                    }
+                    if isShowingMenuDetail {
+                        MenuDetailAlert(isShowingMenuDetail: $isShowingMenuDetail)
                     }
                 }
-                
-                if isShowingMenuDetail {
-                    MenuDetailAlert(isShowingMenuDetail: $isShowingMenuDetail)
-                }
+            }
+            if isShowingLocationAlert {
+                LocationPermissionAlert(viewModel: viewModel, isShowingLocationAlert: $isShowingLocationAlert)
             }
         }
+        .alert("현재 위치를 찾을 수 없습니다", isPresented: $isPresentingAlert, actions: {
+            Button("닫기", role: .cancel, action: {})
+            Button("설정", action: {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            })
+        }, message: {
+            Text("설정에서 위치 서비스를 켜 주세요")
+        })
+        .preferredColorScheme(.light)
     }
     
     @ViewBuilder
@@ -96,8 +112,27 @@ struct MainView: View {
             HStack {
                 Spacer()
                 Button {
-                    // 위치 정보가 켜져있다면
                     viewModel.isFocusedOnMarker = false
+                    // 위치 정보 권한 설정하지 않았다면
+                    let isLocationServiceEnabled = viewModel.isLocationServiceEnabled()
+                    if !isLocationServiceEnabled {
+                        // 팝업 띄우기
+                        isShowingLocationAlert = true
+                    // 위치 정보 권한 설정했다면
+                    } else {
+                        let isLocationPermissionAuthorized = viewModel.isLocationPermissionAuthorized()
+                        // 위치 정보 권한이 있다면
+                        if isLocationPermissionAuthorized {
+                            viewModel.locationSelection = .myLocation
+                            // 내 주변 식당 보여주기
+                            // 1. 내 위치로 카메라 이동 및 내 위치 오버레이 <- 맵뷰에서 구현 완료
+                            // 2. 가까운 순으로 레스토랑 정렬 <- ?
+                        // 위치 정보 권한이 없다면
+                        } else {
+                            // 위치 정보 권한 요청 alert 띄우기
+                            isPresentingAlert = true
+                        }
+                    }
                 } label: {
                     if viewModel.locationSelection == .myLocation {
                         Image("nearMe.enabled")

@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct LocationPermissionAlertCard: View {
+    @ObservedObject var viewModel: MainViewModel
+    @Binding var isShowingLocationAlert: Bool
+    
     var body: some View {
         VStack(spacing: 10) {
             Image("description.locationPermission")
             HStack(spacing: 16) {
                 Button {
-                    
+                   isShowingLocationAlert = false 
                 } label: {
                     Text("취소")
                         .font(.pretendard(.regular, size: 14))
@@ -29,7 +32,8 @@ struct LocationPermissionAlertCard: View {
                 )
                 
                 Button {
-                    
+                    viewModel.requestLocationPermission()
+                    isShowingLocationAlert = false
                 } label: {
                     Text("동의")
                         .font(.pretendard(.regular, size: 14))
@@ -51,6 +55,6 @@ struct LocationPermissionAlertCard: View {
 
 struct LocationPermissionAlertCard_Previews: PreviewProvider {
     static var previews: some View {
-        LocationPermissionAlertCard()
+        LocationPermissionAlertCard(viewModel: MainViewModel(), isShowingLocationAlert: .constant(false))
     }
 }
