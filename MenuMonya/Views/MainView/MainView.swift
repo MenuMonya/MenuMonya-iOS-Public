@@ -35,8 +35,8 @@ struct MainView: View {
                                 Spacer()
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 0) {
-                                        ForEach($viewModel.restaurants, id: \.documentID) { restaurant in
-                                            CardView(restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail)
+                                        ForEach($viewModel.cards, id: \.self) { card in
+                                            CardView(viewModel: viewModel, card: card, isShowingMenuDetail: $isShowingMenuDetail)
                                         }
                                         .frame(width: pageWidth)
                                     }
@@ -50,7 +50,7 @@ struct MainView: View {
                         }
                     }
                     if isShowingMenuDetail {
-                        MenuDetailAlert(isShowingMenuDetail: $isShowingMenuDetail)
+                        MenuDetailAlert(viewModel: viewModel, isShowingMenuDetail: $isShowingMenuDetail)
                     }
                 }
             }

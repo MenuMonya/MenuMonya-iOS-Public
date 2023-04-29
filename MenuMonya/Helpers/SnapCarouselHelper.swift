@@ -54,6 +54,7 @@ struct SnapCarouselHelper: UIViewRepresentable {
             let targetIndex = (targetEnd / parent.pageWidth).rounded()
             
             parent.viewModel.moveCameraToMarker(at: Int(targetIndex))
+            parent.viewModel.selectedRestaurantIndex = targetIndex
             targetContentOffset.pointee.x = targetIndex * parent.pageWidth
         }
     }

@@ -17,12 +17,13 @@ struct Restaurant: Codable {
     var locationCategory: [String]
     var locationCategoryOrder: [String]
     var name: String
+    var phoneNumber: String
     var price: Price
     var time: OperatingTime
     var type: String
     var updatedTime: String
     
-    static let dummy = Restaurant(imgUrl: "", location: Location.dummy, locationCategory: ["강남"], locationCategoryOrder: ["강남?"], name: "더미 식당", price: Price.dummy, time: OperatingTime.dummy, type: "더미 식당 유형", updatedTime: "더미 식당 업데이트 시간")
+    static let dummy = Restaurant(imgUrl: "", location: Location.dummy, locationCategory: ["강남"], locationCategoryOrder: ["강남?"], name: "더미 식당", phoneNumber: "02-123-4567", price: Price.dummy, time: OperatingTime.dummy, type: "더미 식당 유형", updatedTime: "더미 식당 업데이트 시간")
 }
 
 struct Location: Codable {

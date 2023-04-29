@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MenuDetailAlert: View {
+    @ObservedObject var viewModel: MainViewModel
     @Binding var isShowingMenuDetail: Bool
     
     var body: some View {
@@ -17,7 +18,7 @@ struct MenuDetailAlert: View {
                 .onTapGesture {
                     isShowingMenuDetail = false
                 }
-            MenuAlertCard()
+            MenuAlertCard(viewModel: viewModel)
                 .padding(.horizontal, 14)
         }
     }
@@ -25,6 +26,6 @@ struct MenuDetailAlert: View {
 
 struct MenuDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuDetailAlert(isShowingMenuDetail: .constant(false))
+        MenuDetailAlert(viewModel: MainViewModel(), isShowingMenuDetail: .constant(false))
     }
 }

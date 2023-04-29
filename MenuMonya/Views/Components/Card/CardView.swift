@@ -8,18 +8,25 @@
 import SwiftUI
 
 struct CardView: View {
-    @Binding var restaurant: Restaurant
+    @ObservedObject var viewModel: MainViewModel
+    @Binding var card: Card
     @Binding var isShowingMenuDetail: Bool
     
     var body: some View {
-        VStack(spacing: 0) {
-            menus()
-            details()
+        VStack {
+            Spacer()
+            VStack(spacing: 0) {
+                if !(card.menu.date["2023-04-24"]?["main"]?.isEmpty ?? true) {
+                    menus()
+                }
+                details()
+            }
+            .frame(width: UIScreen.main.bounds.width - 28)
+            .background(Color("background.cardview"))
+            .cornerRadius(10)
+            .shadow(radius: 1)
         }
-        .frame(width: UIScreen.main.bounds.width - 28)
-        .background(Color("background.cardview"))
-        .cornerRadius(10)
-        .shadow(radius: 1)
+        .frame(maxHeight: 205)
     }
     
     @ViewBuilder
@@ -30,7 +37,7 @@ struct CardView: View {
                     .font(.pretendard(.semiBold, size: 10))
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
-                Text("메뉴입니다")
+                Text((card.menu.date["2023-04-24"]?["main"] ?? Menu.dummy.date["2023-04-24"]!["main"])!)
                     .font(.pretendard(.regular, size: 10))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(2)
@@ -45,7 +52,7 @@ struct CardView: View {
                     .font(.pretendard(.semiBold, size: 10))
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
-                Text("반찬 3종 & 김치, 계란")
+                Text((card.menu.date["2023-04-24"]?["side"] ?? Menu.dummy.date["2023-04-24"]!["side"])!)
                     .font(.pretendard(.regular, size: 10))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(1)
@@ -59,7 +66,7 @@ struct CardView: View {
                     .font(.pretendard(.semiBold, size: 10))
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
-                Text("매실차")
+                Text((card.menu.date["2023-04-24"]?["dessert"] ?? Menu.dummy.date["2023-04-24"]!["dessert"])!)
                     .font(.pretendard(.regular, size: 10))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(1)
@@ -76,7 +83,7 @@ struct CardView: View {
         HStack(spacing: 8) {
             VStack(spacing: 5) {
                 HStack {
-                    Text(restaurant.name)
+                    Text(card.restaurant.name)
                         .font(.pretendard(.semiBold, size: 12))
                         .foregroundColor(Color("grey_900"))
                         .padding(.top, 10)
@@ -88,7 +95,7 @@ struct CardView: View {
                         .font(.pretendard(.semiBold, size: 8))
                         .foregroundColor(Color("grey_900"))
                     Spacer()
-                    Text(restaurant.price.cardPrice)
+                    Text(card.restaurant.price.cardPrice)
                         .font(.pretendard(.regular, size: 8))
                         .foregroundColor(Color("grey_900"))
                 }
@@ -97,7 +104,7 @@ struct CardView: View {
                         .font(.pretendard(.semiBold, size: 8))
                         .foregroundColor(Color("grey_900"))
                     Spacer()
-                    Text("\(restaurant.time.openTime)~\(restaurant.time.closeTime)")
+                    Text("\(card.restaurant.time.openTime)~\(card.restaurant.time.closeTime)")
                         .font(.pretendard(.regular, size: 8))
                         .foregroundColor(Color("grey_900"))
                 }
@@ -106,7 +113,7 @@ struct CardView: View {
                         .font(.pretendard(.semiBold, size: 8))
                         .foregroundColor(Color("grey_900"))
                     Spacer()
-                    Text("아직 디비에 전번이 없어용~")
+                    Text(card.restaurant.phoneNumber)
                         .font(.pretendard(.regular, size: 8))
                         .foregroundColor(Color("grey_900"))
                 }
@@ -115,7 +122,7 @@ struct CardView: View {
                         .font(.pretendard(.semiBold, size: 8))
                         .foregroundColor(Color("grey_900"))
                     Spacer()
-                    Text(restaurant.location.description)
+                    Text(card.restaurant.location.description)
                         .font(.pretendard(.regular, size: 8))
                         .foregroundColor(Color("grey_900"))
                 }
@@ -123,21 +130,28 @@ struct CardView: View {
             VStack(alignment: .trailing, spacing: 5) {
                 HStack {
                     Spacer()
-                    Button {
-                        /* TODO - 자세히 보기 -> 가게 모달 생성? 또는 카드뷰 자체 탭 시 가게 모달 생성 */
-                        isShowingMenuDetail = true
-                    } label: {
-                        Text("자세히 보기")
-                            .font(.pretendard(.semiBold, size: 7))
-                            .underline()
-                            .foregroundColor(Color("grey_500"))
+                    if !(card.menu.date["2023-04-24"]?["main"]?.isEmpty ?? true) {
+                        Button {
+                            /* TODO - 자세히 보기 -> 가게 모달 생성? 또는 카드뷰 자체 탭 시 가게 모달 생성 */
+                            isShowingMenuDetail = true
+                        } label: {
+                            Text("자세히 보기")
+                                .font(.pretendard(.semiBold, size: 7))
+                                .underline()
+                                .foregroundColor(Color("grey_500"))
+                        }
+                        .padding(.top, 5)
                     }
-                    .padding(.top, 5)
                 }
-                Image(systemName: "square")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 66, height: 66)
+                AsyncImage(url: URL(string: card.restaurant.imgUrl)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 66, height: 66)
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: 66, height: 66)
+                }
             }
             .frame(width: 66)
         }
@@ -148,6 +162,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(restaurant: .constant(Restaurant.dummy), isShowingMenuDetail: .constant(false))
+        CardView(viewModel: MainViewModel(), card: .constant(Card.dummy), isShowingMenuDetail: .constant(false))
     }
 }

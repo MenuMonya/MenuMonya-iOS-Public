@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MenuAlertCard: View {
+    @ObservedObject var viewModel: MainViewModel
+    
     var body: some View {
         VStack(spacing: 0) {
             CustomDivider(color: Color("grey_200"))
@@ -16,8 +18,8 @@ struct MenuAlertCard: View {
                 Text("메인 메뉴")
                     .font(.pretendard(.semiBold, size: 16))
                     .foregroundColor(Color("primary.orange"))
-                    .frame(width: 74, alignment: .leading)
-                Text("메뉴입니다, 다다다다다다다, 미나얼, ㅁ니ㅏㅇ러 미나얼, 미나ㅓㄹㅇ, ㅁ니ㅏㅇ러, ㅁ니아러")
+                    .frame(width: 80, alignment: .leading)
+                Text((viewModel.cards[Int(viewModel.selectedRestaurantIndex)].menu.date["2023-04-24"]?["main"] ?? Menu.dummy.date["2023-04-24"]!["main"])!)
                     .font(.pretendard(.regular, size: 14))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(2)
@@ -32,11 +34,12 @@ struct MenuAlertCard: View {
                 Text("사이드 메뉴")
                     .font(.pretendard(.semiBold, size: 16))
                     .foregroundColor(Color("primary.orange"))
-                    .frame(width: 74, alignment: .leading)
-                Text("반찬 3종 & 김치, 계란")
+                    .frame(width: 80, alignment: .leading)
+                Text((viewModel.cards[Int(viewModel.selectedRestaurantIndex)].menu.date["2023-04-24"]?["side"] ?? Menu.dummy.date["2023-04-24"]!["side"])!)
                     .font(.pretendard(.regular, size: 14))
                     .foregroundColor(Color("dark_1"))
-                    .lineLimit(1)
+                    .lineLimit(2)
+                    .lineSpacing(15)
                 Spacer()
             }
             .padding(.horizontal, 10)
@@ -47,8 +50,8 @@ struct MenuAlertCard: View {
                 Text("후식")
                     .font(.pretendard(.semiBold, size: 16))
                     .foregroundColor(Color("primary.orange"))
-                    .frame(width: 74, alignment: .leading)
-                Text("매실차")
+                    .frame(width: 80, alignment: .leading)
+                Text((viewModel.cards[Int(viewModel.selectedRestaurantIndex)].menu.date["2023-04-24"]?["dessert"] ?? Menu.dummy.date["2023-04-24"]!["dessert"])!)
                     .font(.pretendard(.regular, size: 14))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(1)
@@ -62,8 +65,8 @@ struct MenuAlertCard: View {
                 Text("특이사항")
                     .font(.pretendard(.semiBold, size: 16))
                     .foregroundColor(Color("secondary.sky"))
-                    .frame(width: 74, alignment: .leading)
-                Text("후우식이 있어요옹")
+                    .frame(width: 80, alignment: .leading)
+                Text("아직 디비에 특이사항이 없어요!")
                     .font(.pretendard(.regular, size: 14))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(1)
@@ -82,6 +85,6 @@ struct MenuAlertCard: View {
 
 struct MenuAlertCard_Previews: PreviewProvider {
     static var previews: some View {
-        MenuAlertCard()
+        MenuAlertCard(viewModel: MainViewModel())
     }
 }

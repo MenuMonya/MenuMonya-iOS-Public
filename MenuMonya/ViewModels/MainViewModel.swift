@@ -15,10 +15,14 @@ enum LocationSelection {
     case myLocation
 }
 
+enum Errors: Error {
+    case noMenuMatchingID
+}
+
 class MainViewModel: ObservableObject {
-    @Published var restaurants: [Restaurant] = []
-    @Published var menus: [Menu] = []
+    @Published var cards: [Card] = []
     @Published var markers: [NMFMarker] = []
+    var restaurants: [Restaurant] = []
     
     @Published var locationSelection: LocationSelection = .gangnam
     @Published var selectedMarkerRestaurantID = ""
@@ -27,7 +31,6 @@ class MainViewModel: ObservableObject {
     @Published var isFetchCompleted = false
     @Published var isMapViewInitiated = false
     @Published var isMarkersAdded = false
-    
     @Published var isFocusedOnMarker = false
     
     var mapView: NMFMapView?
@@ -36,16 +39,26 @@ class MainViewModel: ObservableObject {
     let locationManager = LocationManager()
     
     init() {
+        // 식당 정보 fetch 후 card 모델에 담기
         firestoreManager.fetchRestaurants { restaurants in
-            self.restaurants = Array(restaurants.map { $0 }.prefix(8))
+            self.restaurants = restaurants.map { $0 }
+            for restaurant in restaurants {
+                self.cards.append(Card(restaurant: restaurant, menu: Menu.dummy))
+            }
             self.isFetchCompleted = true
-        }
-        
-        firestoreManager.fetchMenus { menus in
-            self.menus = menus.map { $0 }
+            
+            // 메뉴 정보 fetch 후 card 모델에 담기
+            self.firestoreManager.fetchMenus { menus in
+                for i in 0..<self.cards.count {
+                    self.cards[i].menu = menus.first(where: { $0.restaurantId == self.cards[i].restaurant.documentID })!
+                }
+            }
+            
+            // 이제 card 모델에는 서로 같은 인덱스에 식당과 메뉴정보가 함께 있음
         }
     }
     
+    // MARK: - 네이버 지도 관련 함수들
     func addMarkers() {
         DispatchQueue.main.async {
             for restaurant in self.restaurants {
@@ -96,7 +109,8 @@ class MainViewModel: ObservableObject {
             mapView?.moveCamera(cameraupdate)
         }
     }
-    
+   
+    // MARK: - 위치 서비스 관련 함수들
     func isLocationServiceEnabled() -> Bool {
         return locationManager.isLocationServiceEnabled()
     }
