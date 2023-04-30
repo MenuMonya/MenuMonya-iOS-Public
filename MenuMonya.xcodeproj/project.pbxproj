@@ -64,9 +64,9 @@
 		609DB7CC29FCEBEB002D2B6B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7CB29FCEBEB002D2B6B /* Card.swift */; };
 		60BD117129F29C2800000FCB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD117029F29C2800000FCB /* MapView.swift */; };
 		60F6160629F82CE600253137 /* SnapCarouselHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F6160529F82CE600253137 /* SnapCarouselHelper.swift */; };
-		6B11CB70A23F43DD45601A8E /* Pods_MenuMonya_MenuMonyaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FE82AC722921945045AB429 /* Pods_MenuMonya_MenuMonyaUITests.framework */; };
-		7B9B9B16FD7A0337C66709A9 /* Pods_MenuMonyaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3363DEC9A8DBD6C633C03FE /* Pods_MenuMonyaTests.framework */; };
-		7BEDBF8D5A42A81F30BC9C69 /* Pods_MenuMonya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF53C671F9E581873488A9EE /* Pods_MenuMonya.framework */; };
+		8B28EFC1B1A7C087BCD1F7EA /* Pods_MenuMonya_MenuMonyaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E58255BB0CC56288C4A3BC /* Pods_MenuMonya_MenuMonyaUITests.framework */; };
+		B31E5CFD045376055D569D65 /* Pods_MenuMonya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45209D3D2B1A626EF21D37CA /* Pods_MenuMonya.framework */; };
+		FD95CD4E29AC5D494FD170DA /* Pods_MenuMonyaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C8A4123C0CBCC74F4A70877 /* Pods_MenuMonyaTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,9 +87,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		21B62523FF259360056EE07F /* Pods-MenuMonya.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonya/Pods-MenuMonya.debug.xcconfig"; sourceTree = "<group>"; };
-		2FE82AC722921945045AB429 /* Pods_MenuMonya_MenuMonyaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonya_MenuMonyaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3F784D007BDE8F81FEAD9B63 /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		0C8A4123C0CBCC74F4A70877 /* Pods_MenuMonyaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonyaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14E58255BB0CC56288C4A3BC /* Pods_MenuMonya_MenuMonyaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonya_MenuMonyaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		23F66DBB3578D5515371ADEE /* Pods-MenuMonya.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya.release.xcconfig"; path = "Target Support Files/Pods-MenuMonya/Pods-MenuMonya.release.xcconfig"; sourceTree = "<group>"; };
+		43A9F7EDCE9FE98D4ED35682 /* Pods-MenuMonyaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonyaTests.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonyaTests/Pods-MenuMonyaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		45209D3D2B1A626EF21D37CA /* Pods_MenuMonya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60067EC729F3835A0037DACE /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		6028F7AB29F7778000745F4A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		60389AEA29F2C49B00877215 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -128,12 +130,10 @@
 		609DB7CB29FCEBEB002D2B6B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		60BD117029F29C2800000FCB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		60F6160529F82CE600253137 /* SnapCarouselHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapCarouselHelper.swift; sourceTree = "<group>"; };
-		C3363DEC9A8DBD6C633C03FE /* Pods_MenuMonyaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonyaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C46BEBF0EEB076FB3C13B937 /* Pods-MenuMonya.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya.release.xcconfig"; path = "Target Support Files/Pods-MenuMonya/Pods-MenuMonya.release.xcconfig"; sourceTree = "<group>"; };
-		DA57846C5BFC4C4785633A2E /* Pods-MenuMonya-MenuMonyaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya-MenuMonyaUITests.release.xcconfig"; path = "Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests.release.xcconfig"; sourceTree = "<group>"; };
-		E0279E7EA8C97DAAC5D649E5 /* Pods-MenuMonyaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonyaTests.release.xcconfig"; path = "Target Support Files/Pods-MenuMonyaTests/Pods-MenuMonyaTests.release.xcconfig"; sourceTree = "<group>"; };
-		E681EA8428A6BB4AF2977080 /* Pods-MenuMonyaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonyaTests.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonyaTests/Pods-MenuMonyaTests.debug.xcconfig"; sourceTree = "<group>"; };
-		EF53C671F9E581873488A9EE /* Pods_MenuMonya.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MenuMonya.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		944B89B94EAAD9B5EC0D01DC /* Pods-MenuMonya.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonya/Pods-MenuMonya.debug.xcconfig"; sourceTree = "<group>"; };
+		B10670EC6025257250FD1E7A /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D84958580EED34D7D29B395B /* Pods-MenuMonyaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonyaTests.release.xcconfig"; path = "Target Support Files/Pods-MenuMonyaTests/Pods-MenuMonyaTests.release.xcconfig"; sourceTree = "<group>"; };
+		DAB90F5B967317E8886EA8AB /* Pods-MenuMonya-MenuMonyaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya-MenuMonyaUITests.release.xcconfig"; path = "Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B95F29C4803E79F3DFDBE4E /* (null) in Frameworks */,
-				7BEDBF8D5A42A81F30BC9C69 /* Pods_MenuMonya.framework in Frameworks */,
+				B31E5CFD045376055D569D65 /* Pods_MenuMonya.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B9B9B16FD7A0337C66709A9 /* Pods_MenuMonyaTests.framework in Frameworks */,
+				FD95CD4E29AC5D494FD170DA /* Pods_MenuMonyaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B11CB70A23F43DD45601A8E /* Pods_MenuMonya_MenuMonyaUITests.framework in Frameworks */,
+				8B28EFC1B1A7C087BCD1F7EA /* Pods_MenuMonya_MenuMonyaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +219,7 @@
 				604D5FBF29F2774F008DB8E5 /* Products */,
 				60BD116E29F29BA600000FCB /* Recovered References */,
 				CFD70D8EA392D02541E9EBE7 /* Pods */,
-				E9B4987366460E9D2CD69F21 /* Frameworks */,
+				9DE4A5733318501E4BC6F45B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -403,27 +403,27 @@
 			path = MapView;
 			sourceTree = "<group>";
 		};
+		9DE4A5733318501E4BC6F45B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45209D3D2B1A626EF21D37CA /* Pods_MenuMonya.framework */,
+				14E58255BB0CC56288C4A3BC /* Pods_MenuMonya_MenuMonyaUITests.framework */,
+				0C8A4123C0CBCC74F4A70877 /* Pods_MenuMonyaTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CFD70D8EA392D02541E9EBE7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				21B62523FF259360056EE07F /* Pods-MenuMonya.debug.xcconfig */,
-				C46BEBF0EEB076FB3C13B937 /* Pods-MenuMonya.release.xcconfig */,
-				3F784D007BDE8F81FEAD9B63 /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */,
-				DA57846C5BFC4C4785633A2E /* Pods-MenuMonya-MenuMonyaUITests.release.xcconfig */,
-				E681EA8428A6BB4AF2977080 /* Pods-MenuMonyaTests.debug.xcconfig */,
-				E0279E7EA8C97DAAC5D649E5 /* Pods-MenuMonyaTests.release.xcconfig */,
+				944B89B94EAAD9B5EC0D01DC /* Pods-MenuMonya.debug.xcconfig */,
+				23F66DBB3578D5515371ADEE /* Pods-MenuMonya.release.xcconfig */,
+				B10670EC6025257250FD1E7A /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */,
+				DAB90F5B967317E8886EA8AB /* Pods-MenuMonya-MenuMonyaUITests.release.xcconfig */,
+				43A9F7EDCE9FE98D4ED35682 /* Pods-MenuMonyaTests.debug.xcconfig */,
+				D84958580EED34D7D29B395B /* Pods-MenuMonyaTests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		E9B4987366460E9D2CD69F21 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EF53C671F9E581873488A9EE /* Pods_MenuMonya.framework */,
-				2FE82AC722921945045AB429 /* Pods_MenuMonya_MenuMonyaUITests.framework */,
-				C3363DEC9A8DBD6C633C03FE /* Pods_MenuMonyaTests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -433,11 +433,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 604D5FE229F27750008DB8E5 /* Build configuration list for PBXNativeTarget "MenuMonya" */;
 			buildPhases = (
-				025A0001E4BB99729DF47BB8 /* [CP] Check Pods Manifest.lock */,
+				352799AFB96886193A76D298 /* [CP] Check Pods Manifest.lock */,
 				604D5FBA29F2774F008DB8E5 /* Sources */,
 				604D5FBB29F2774F008DB8E5 /* Frameworks */,
 				604D5FBC29F2774F008DB8E5 /* Resources */,
-				C581A0700615F84D9AC84121 /* [CP] Embed Pods Frameworks */,
+				FD6D23469B10322407B58609 /* [CP] Embed Pods Frameworks */,
 				60389AF129F2D4E700877215 /* Run Script */,
 			);
 			buildRules = (
@@ -453,7 +453,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 604D5FE529F27750008DB8E5 /* Build configuration list for PBXNativeTarget "MenuMonyaTests" */;
 			buildPhases = (
-				14617CBD3FD394DA9DCFFBED /* [CP] Check Pods Manifest.lock */,
+				AAAD05241431AD89C5A091B1 /* [CP] Check Pods Manifest.lock */,
 				604D5FCA29F27750008DB8E5 /* Sources */,
 				604D5FCB29F27750008DB8E5 /* Frameworks */,
 				604D5FCC29F27750008DB8E5 /* Resources */,
@@ -472,11 +472,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 604D5FE829F27750008DB8E5 /* Build configuration list for PBXNativeTarget "MenuMonyaUITests" */;
 			buildPhases = (
-				3BC6A5924222663AE65C7EFF /* [CP] Check Pods Manifest.lock */,
+				A53C78F623B1F301367A984F /* [CP] Check Pods Manifest.lock */,
 				604D5FD429F27750008DB8E5 /* Sources */,
 				604D5FD529F27750008DB8E5 /* Frameworks */,
 				604D5FD629F27750008DB8E5 /* Resources */,
-				C32BB89D4B10C34FA357D7DF /* [CP] Embed Pods Frameworks */,
+				74DF140F3E53E687D706FABE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -588,7 +588,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		025A0001E4BB99729DF47BB8 /* [CP] Check Pods Manifest.lock */ = {
+		352799AFB96886193A76D298 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -610,29 +610,44 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		14617CBD3FD394DA9DCFFBED /* [CP] Check Pods Manifest.lock */ = {
+		60389AF129F2D4E700877215 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"$(SRCROOT)/newInputFile",
+				"$(SRCROOT)/",
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MenuMonyaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n    \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\n";
+		};
+		74DF140F3E53E687D706FABE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3BC6A5924222663AE65C7EFF /* [CP] Check Pods Manifest.lock */ = {
+		A53C78F623B1F301367A984F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -654,7 +669,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		60389AF129F2D4E700877215 /* Run Script */ = {
+		AAAD05241431AD89C5A091B1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -662,36 +677,21 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/newInputFile",
-				"$(SRCROOT)/",
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "Run Script";
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MenuMonyaTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n    \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\n";
-		};
-		C32BB89D4B10C34FA357D7DF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C581A0700615F84D9AC84121 /* [CP] Embed Pods Frameworks */ = {
+		FD6D23469B10322407B58609 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -822,7 +822,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -876,7 +876,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -888,7 +888,7 @@
 		};
 		604D5FE329F27750008DB8E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 21B62523FF259360056EE07F /* Pods-MenuMonya.debug.xcconfig */;
+			baseConfigurationReference = 944B89B94EAAD9B5EC0D01DC /* Pods-MenuMonya.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -928,7 +928,7 @@
 		};
 		604D5FE429F27750008DB8E5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C46BEBF0EEB076FB3C13B937 /* Pods-MenuMonya.release.xcconfig */;
+			baseConfigurationReference = 23F66DBB3578D5515371ADEE /* Pods-MenuMonya.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -968,7 +968,7 @@
 		};
 		604D5FE629F27750008DB8E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E681EA8428A6BB4AF2977080 /* Pods-MenuMonyaTests.debug.xcconfig */;
+			baseConfigurationReference = 43A9F7EDCE9FE98D4ED35682 /* Pods-MenuMonyaTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -989,7 +989,7 @@
 		};
 		604D5FE729F27750008DB8E5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0279E7EA8C97DAAC5D649E5 /* Pods-MenuMonyaTests.release.xcconfig */;
+			baseConfigurationReference = D84958580EED34D7D29B395B /* Pods-MenuMonyaTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1010,7 +1010,7 @@
 		};
 		604D5FE929F27750008DB8E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F784D007BDE8F81FEAD9B63 /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */;
+			baseConfigurationReference = B10670EC6025257250FD1E7A /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1029,7 +1029,7 @@
 		};
 		604D5FEA29F27750008DB8E5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA57846C5BFC4C4785633A2E /* Pods-MenuMonya-MenuMonyaUITests.release.xcconfig */;
+			baseConfigurationReference = DAB90F5B967317E8886EA8AB /* Pods-MenuMonya-MenuMonyaUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
