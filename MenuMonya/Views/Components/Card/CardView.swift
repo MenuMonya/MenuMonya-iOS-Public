@@ -26,7 +26,7 @@ struct CardView: View {
             .cornerRadius(10)
             .shadow(radius: 1)
         }
-        .frame(maxHeight: 205)
+        .frame(maxHeight: 230)
     }
     
     @ViewBuilder
