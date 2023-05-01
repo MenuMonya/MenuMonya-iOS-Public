@@ -76,12 +76,12 @@ struct CardView: View {
     @ViewBuilder
     func details() -> some View {
         HStack(spacing: 8) {
-            VStack(spacing: 5) {
+            VStack(spacing: 4) {
                 HStack {
                     Text(card.restaurant.name)
                         .font(.pretendard(.semiBold, size: 14))
                         .foregroundColor(Color("grey_900"))
-                        .padding(.top, 10)
+                        .padding(.top, 8)
                     Spacer()
                 }
                 .padding(.bottom, 3)

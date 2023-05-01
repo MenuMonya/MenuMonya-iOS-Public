@@ -22,7 +22,6 @@ enum Errors: Error {
 class MainViewModel: ObservableObject {
     @Published var cards: [Card] = []
     @Published var markers: [NMFMarker] = []
-    var restaurants: [Restaurant] = []
     
     @Published var locationSelection: LocationSelection = .gangnam
     @Published var selectedMarkerRestaurantID = ""
@@ -34,9 +33,13 @@ class MainViewModel: ObservableObject {
     @Published var isFocusedOnMarker = false
     
     var mapView: NMFMapView?
+    var restaurants: [Restaurant] = []
     
     let firestoreManager = FirestoreManager()
     let locationManager = LocationManager()
+    
+    let selectedMarkerImage = NMFOverlayImage(name: "marker.restaurant.selected")
+    let markerImage = NMFOverlayImage(name: "marker.restaurant")
     
     init() {
         // 식당 정보 fetch 후 card 모델에 담기
@@ -53,7 +56,6 @@ class MainViewModel: ObservableObject {
                     self.cards[i].menu = menus.first(where: { $0.restaurantId == self.cards[i].restaurant.documentID })!
                 }
             }
-            
             // 이제 card 모델에는 서로 같은 인덱스에 식당과 메뉴정보가 함께 있음
         }
     }
@@ -64,15 +66,21 @@ class MainViewModel: ObservableObject {
             for restaurant in self.restaurants {
                 let marker = NMFMarker()
                 marker.captionText = restaurant.name
-                marker.iconImage = NMFOverlayImage(name: "marker.restaurant")
+                marker.iconImage = self.markerImage
                 marker.position = NMGLatLng(lat: Double(restaurant.location.coordination.latitude)!, lng: Double(restaurant.location.coordination.longitude)!)
+                marker.isHideCollidedSymbols = true
                 marker.mapView = self.mapView
                 // 마커 터치 시 동작
                 marker.touchHandler = { [weak self] (overlay: NMFOverlay) -> Bool in
                     self?.selectedMarkerRestaurantID = restaurant.documentID!
                     self?.selectedRestaurantIndex = Double(Int((self?.restaurants.firstIndex(where: { $0.documentID == restaurant.documentID })!)!))
+                    self?.setMarkerImagesToDefault()
+                    // 나만 selected 이미지로 보이기
+                    marker.iconImage = self!.selectedMarkerImage
+                    marker.zIndex = 100
                     let cameraUpdate = NMFCameraUpdate(scrollTo: marker.position)
                     cameraUpdate.animation = .easeOut
+                    cameraUpdate.pivot = CGPoint(x: 0.5, y: 0.35)
                     marker.mapView!.moveCamera(cameraUpdate)
                     self?.isFocusedOnMarker = true
                     return true // 이벤트 소비, -mapView:didtTapMap:point 이벤트는 발생하지 않음
@@ -82,10 +90,29 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func setMarkerZIndexesToDefault() {
+        for marker in markers {
+            marker.zIndex = 0
+        }
+    }
+    
+    func setMarkerImagesToDefault() {
+        setMarkerZIndexesToDefault()
+        for marker in markers {
+            marker.iconImage = markerImage
+        }
+    }
+    
+    func setMarkerImageToSelected(at index: Int) {
+        setMarkerImagesToDefault()
+        markers[index].iconImage = selectedMarkerImage
+    }
+    
     func moveCameraToMarker(at selectedIndex: Int) {
         if selectedIndex < markers.count && selectedIndex >= 0{
             let cameraUpdate = NMFCameraUpdate(scrollTo: self.markers[selectedIndex].position)
             cameraUpdate.animation = .easeOut
+            cameraUpdate.pivot = CGPoint(x: 0.5, y: 0.35)
             self.markers[selectedIndex].mapView?.moveCamera(cameraUpdate)
         }
     }

@@ -53,9 +53,12 @@ struct SnapCarouselHelper: UIViewRepresentable {
             let targetEnd = scrollView.contentOffset.x + (velocity.x * 60)
             let targetIndex = (targetEnd / parent.pageWidth).rounded()
             
-            parent.viewModel.moveCameraToMarker(at: Int(targetIndex))
-            parent.viewModel.selectedRestaurantIndex = targetIndex
-            targetContentOffset.pointee.x = targetIndex * parent.pageWidth
+            if Int(targetIndex) >= 0 && Int(targetIndex) < parent.viewModel.restaurants.count {
+                parent.viewModel.moveCameraToMarker(at: Int(targetIndex))
+                parent.viewModel.selectedRestaurantIndex = targetIndex
+                parent.viewModel.setMarkerImageToSelected(at: Int(targetIndex))
+                targetContentOffset.pointee.x = targetIndex * parent.pageWidth
+            }
         }
     }
 }
