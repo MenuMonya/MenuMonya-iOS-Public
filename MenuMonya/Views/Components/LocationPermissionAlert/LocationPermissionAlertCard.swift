@@ -14,6 +14,7 @@ struct LocationPermissionAlertCard: View {
     var body: some View {
         VStack(spacing: 10) {
             Image("description.locationPermission")
+                .frame(height: 48)
             HStack(spacing: 16) {
                 Button {
                    isShowingLocationAlert = false 

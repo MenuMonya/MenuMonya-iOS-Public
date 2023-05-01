@@ -83,7 +83,7 @@ struct MainView: View {
                     Image("gangnam.disabled")
                 }
             }
-            .padding(.vertical, 8)
+            .padding(.vertical, 10)
             .padding(.leading, 14)
             Button {
                 viewModel.locationSelection = .yeoksam
