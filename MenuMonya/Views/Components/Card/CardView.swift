@@ -16,7 +16,7 @@ struct CardView: View {
         VStack {
             Spacer()
             VStack(spacing: 0) {
-                if !(card.menu.date["2023-04-24"]?["main"]?.isEmpty ?? true) {
+                if !(card.menu.date[viewModel.currentDateString]?["main"]?.isEmpty ?? true) {
                     menus()
                 }
                 details()
@@ -26,7 +26,7 @@ struct CardView: View {
             .cornerRadius(10)
             .shadow(radius: 1)
         }
-        .frame(maxHeight: 230)
+        .frame(maxHeight: 240)
     }
     
     @ViewBuilder
@@ -37,7 +37,7 @@ struct CardView: View {
                     .font(.pretendard(.semiBold, size: 12))
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
-                Text((card.menu.date["2023-04-24"]?["main"] ?? Menu.dummy.date["2023-04-24"]!["main"])!)
+                Text((card.menu.date[viewModel.currentDateString]?["main"] ?? Menu.dummy.date[viewModel.currentDateString]!["main"])!)
                     .font(.pretendard(.regular, size: 12))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(2)
@@ -50,7 +50,7 @@ struct CardView: View {
                     .font(.pretendard(.semiBold, size: 12))
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
-                Text((card.menu.date["2023-04-24"]?["side"] ?? Menu.dummy.date["2023-04-24"]!["side"])!)
+                Text((card.menu.date[viewModel.currentDateString]?["side"] ?? Menu.dummy.date[viewModel.currentDateString]!["side"])!)
                     .font(.pretendard(.regular, size: 12))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(1)
@@ -62,7 +62,7 @@ struct CardView: View {
                     .font(.pretendard(.semiBold, size: 12))
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
-                Text((card.menu.date["2023-04-24"]?["dessert"] ?? Menu.dummy.date["2023-04-24"]!["dessert"])!)
+                Text((card.menu.date[viewModel.currentDateString]?["dessert"] ?? Menu.dummy.date[viewModel.currentDateString]!["dessert"])!)
                     .font(.pretendard(.regular, size: 12))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(1)
@@ -125,7 +125,7 @@ struct CardView: View {
             VStack(alignment: .trailing, spacing: 8) {
                 HStack {
                     Spacer()
-                    if !(card.menu.date["2023-04-24"]?["main"]?.isEmpty ?? true) {
+                    if !(card.menu.date[viewModel.currentDateString]?["main"]?.isEmpty ?? true) {
                         Button {
                             /* TODO - 자세히 보기 -> 가게 모달 생성? 또는 카드뷰 자체 탭 시 가게 모달 생성 */
                             isShowingMenuDetail = true

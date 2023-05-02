@@ -26,6 +26,7 @@ class MainViewModel: ObservableObject {
     @Published var locationSelection: LocationSelection = .gangnam
     @Published var selectedMarkerRestaurantID = ""
     @Published var selectedRestaurantIndex: CGFloat = 0
+    @Published var currentDateString = ""
     
     @Published var isFetchCompleted = false
     @Published var isMapViewInitiated = false
@@ -42,6 +43,7 @@ class MainViewModel: ObservableObject {
     let markerImage = NMFOverlayImage(name: "marker.restaurant")
     
     init() {
+        setCurrentDateString()
         // 식당 정보 fetch 후 card 모델에 담기
         firestoreManager.fetchRestaurants { restaurants in
             self.restaurants = restaurants.map { $0 }
@@ -58,6 +60,13 @@ class MainViewModel: ObservableObject {
             }
             // 이제 card 모델에는 서로 같은 인덱스에 식당과 메뉴정보가 함께 있음
         }
+    }
+    
+    // 오늘 날짜로 dateString 변경
+    func setCurrentDateString() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        self.currentDateString = dateFormatter.string(from: Date())
     }
     
     // MARK: - 네이버 지도 관련 함수들
@@ -106,6 +115,7 @@ class MainViewModel: ObservableObject {
     func setMarkerImageToSelected(at index: Int) {
         setMarkerImagesToDefault()
         markers[index].iconImage = selectedMarkerImage
+        markers[index].zIndex = 100
     }
     
     func moveCameraToMarker(at selectedIndex: Int) {
