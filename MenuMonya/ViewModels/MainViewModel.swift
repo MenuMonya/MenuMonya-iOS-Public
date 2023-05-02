@@ -57,6 +57,14 @@ class MainViewModel: ObservableObject {
             self.firestoreManager.fetchMenus { menus in
                 for i in 0..<self.cards.count {
                     self.cards[i].menu = menus.first(where: { $0.restaurantId == self.cards[i].restaurant.documentID })!
+                    
+                    let trimmedMain = self.cards[i].menu.date[self.currentDateString]?["main"]?.replacingOccurrences(of: ",", with: ", ")
+                    let trimmedSide = self.cards[i].menu.date[self.currentDateString]?["side"]?.replacingOccurrences(of: ",", with: ", ")
+                    let trimmedDessert = self.cards[i].menu.date[self.currentDateString]?["dessert"]?.replacingOccurrences(of: ",", with: ", ")
+                    
+                    self.cards[i].menu.date[self.currentDateString]?["main"] = trimmedMain
+                    self.cards[i].menu.date[self.currentDateString]?["side"] = trimmedSide
+                    self.cards[i].menu.date[self.currentDateString]?["dessert"] = trimmedDessert
                 }
             }
             // 이제 card 모델에는 서로 같은 인덱스에 식당과 메뉴정보가 함께 있음
