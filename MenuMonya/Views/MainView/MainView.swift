@@ -49,10 +49,11 @@ struct MainView: View {
                             .padding(.bottom, 10)
                         }
                     }
-                    if isShowingMenuDetail {
-                        MenuDetailAlert(viewModel: viewModel, isShowingMenuDetail: $isShowingMenuDetail)
-                    }
+               
                 }
+            }
+            if isShowingMenuDetail {
+                MenuDetailAlert(viewModel: viewModel, isShowingMenuDetail: $isShowingMenuDetail)
             }
             if isShowingLocationAlert {
                 LocationPermissionAlert(viewModel: viewModel, isShowingLocationAlert: $isShowingLocationAlert)
