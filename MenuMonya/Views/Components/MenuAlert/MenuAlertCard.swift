@@ -54,7 +54,7 @@ struct MenuAlertCard: View {
                 Text((viewModel.cards[Int(viewModel.selectedRestaurantIndex)].menu.date[viewModel.currentDateString]?["dessert"] ?? Menu.dummy.date[viewModel.currentDateString]!["dessert"])!)
                     .font(.pretendard(.regular, size: 14))
                     .foregroundColor(Color("dark_1"))
-                    .lineLimit(1)
+                    .lineLimit(2)
                 Spacer()
             }
             .padding(.horizontal, 10)
