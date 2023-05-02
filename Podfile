@@ -10,6 +10,7 @@ target 'MenuMonya' do
   # Add the Firebase pod for Google Analytics
   pod 'FirebaseAnalytics'
   pod 'Firebase/Crashlytics'
+  pod 'Firebase/RemoteConfig'
 
   # Add the pods for any other Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore

@@ -98,7 +98,7 @@ struct MainView: View {
                 }
             }
             Spacer()
-            Link(destination: URL(string: "https://forms.gle/Emcodxf3ngNqLCHs7")!) {
+            Link(destination: viewModel.surveyLink ?? URL(string: "https://bit.ly/3oDijQp")!) {
                 Image("icon.feedback")
             }
             .padding(.trailing, 18)

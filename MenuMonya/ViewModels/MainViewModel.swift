@@ -27,6 +27,7 @@ class MainViewModel: ObservableObject {
     @Published var selectedMarkerRestaurantID = ""
     @Published var selectedRestaurantIndex: CGFloat = 0
     @Published var currentDateString = ""
+    @Published var surveyLink: URL?
     
     @Published var isFetchCompleted = false
     @Published var isMapViewInitiated = false
@@ -59,6 +60,14 @@ class MainViewModel: ObservableObject {
                 }
             }
             // 이제 card 모델에는 서로 같은 인덱스에 식당과 메뉴정보가 함께 있음
+        }
+        
+        firestoreManager.setupValueFromRemoteConfig { formURL in
+            if let formURL = formURL {
+                DispatchQueue.main.async {
+                    self.surveyLink = URL(string: formURL)
+                }
+            }
         }
     }
     

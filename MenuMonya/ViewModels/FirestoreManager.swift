@@ -7,6 +7,7 @@
 
 import Combine
 import Firebase
+import FirebaseRemoteConfig
 
 class FirestoreManager  {
     
@@ -57,6 +58,27 @@ class FirestoreManager  {
                 }
             }
             completion(menus)
+        }
+    }
+    
+    func setupValueFromRemoteConfig(completion: @escaping(String?) -> Void) {
+        let remoteConfig = RemoteConfig.remoteConfig()
+        let settings = RemoteConfigSettings()
+        settings.minimumFetchInterval = 0
+        remoteConfig.configSettings = settings
+        
+        /* TODO : 여기 강제 언래핑 말구 nil일때 예외처리 확실하게 하기! */
+        remoteConfig.fetch() { (status, error) -> Void in
+            if status == .success {
+                remoteConfig.activate() { (changed, error) in
+                    print(changed, error as Any)
+                    let resultValue = remoteConfig["FEEDBACK_URL_PROD"].stringValue
+                    print("resultValue=", resultValue!)
+                    completion(resultValue)
+                }
+            } else {
+                print("Error: \(error?.localizedDescription ?? "No error available")")
+            }
         }
     }
 }
