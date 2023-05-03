@@ -16,6 +16,9 @@ target 'MenuMonya' do
   # For example, to use Firebase Authentication and Cloud Firestore
   pod 'FirebaseFirestore'
   pod 'FirebaseFirestoreSwift'
+  
+  # Add pod for lottie
+  pod 'lottie-ios'
 
   target 'MenuMonyaTests' do
     inherit! :search_paths
