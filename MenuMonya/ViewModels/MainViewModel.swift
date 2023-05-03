@@ -33,6 +33,7 @@ class MainViewModel: ObservableObject {
     @Published var isMapViewInitiated = false
     @Published var isMarkersAdded = false
     @Published var isFocusedOnMarker = false
+    @Published var isUpdatingCards = false
     
     var mapView: NMFMapView?
     var restaurants: [Restaurant] = []
@@ -102,6 +103,7 @@ class MainViewModel: ObservableObject {
     
     // 다시 실행할 때 마다 메뉴 업데이트
     func updateCardDatas() {
+        isUpdatingCards = true
         setCurrentDateString()
         print("card update executed")
         /* TODO : 업데이트된 식단 명단도 반영 가능! -> card / 레스토랑 리스트 초기화 후 다시 받아오기? */
@@ -140,6 +142,7 @@ class MainViewModel: ObservableObject {
                     self.cards[i].menu.date[self.currentDateString]?["side"] = trimmedSide
                     self.cards[i].menu.date[self.currentDateString]?["dessert"] = trimmedDessert
                 }
+                self.isUpdatingCards = false
             }
             // 이제 card 모델에는 서로 같은 인덱스에 식당과 메뉴정보가 함께 있음
         }

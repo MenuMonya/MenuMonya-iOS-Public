@@ -36,6 +36,9 @@ struct MainView: View {
             if isShowingLocationAlert {
                 LocationPermissionAlert(viewModel: viewModel, isShowingLocationAlert: $isShowingLocationAlert)
             }
+            if viewModel.isUpdatingCards {
+                LoadingView()
+            }
         }
         .alert("현재 위치를 찾을 수 없습니다", isPresented: $isPresentingAlert, actions: {
             Button("닫기", role: .cancel, action: {})
