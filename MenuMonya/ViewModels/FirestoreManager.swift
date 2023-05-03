@@ -73,7 +73,6 @@ class FirestoreManager  {
                 remoteConfig.activate() { (changed, error) in
                     print(changed, error as Any)
                     let resultValue = remoteConfig["FEEDBACK_URL_PROD"].stringValue
-                    print("resultValue=", resultValue!)
                     completion(resultValue)
                 }
             } else {

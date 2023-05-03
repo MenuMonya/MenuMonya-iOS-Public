@@ -14,6 +14,7 @@ struct MainView: View {
     @State var isShowingMenuDetail = false
     @State var isShowingLocationAlert = false
     @State private var isPresentingAlert = false
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
         ZStack {
@@ -26,30 +27,7 @@ struct MainView: View {
                         .zIndex((viewModel.isFocusedOnMarker ? 0 : 1))
                     myLocationButton()
                         .zIndex((viewModel.isFocusedOnMarker ? 0 : 2))
-                    VStack {
-                        Spacer()
-                        GeometryReader {
-                            let size = $0.size
-                            let pageWidth: CGFloat = size.width
-                            VStack {
-                                Spacer()
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 0) {
-                                        ForEach($viewModel.cards, id: \.self) { card in
-                                            CardView(viewModel: viewModel, card: card, isShowingMenuDetail: $isShowingMenuDetail)
-                                        }
-                                        .frame(width: pageWidth)
-                                    }
-                                    .padding(.horizontal, (size.width - pageWidth) / 2)
-                                    .background {
-                                        SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
-                                    }
-                                }
-                            }
-                            .padding(.bottom, 10)
-                        }
-                    }
-               
+                    restaurantCardScrollView()
                 }
             }
             if isShowingMenuDetail {
@@ -67,6 +45,21 @@ struct MainView: View {
         }, message: {
             Text("설정에서 위치 서비스를 켜 주세요")
         })
+        .onChange(of: scenePhase) { phase in
+            switch phase {
+            case .background:
+                print("앱 백그라운드")
+            case .active:
+                print("앱 액티브")
+                if viewModel.isMarkersAdded {
+                    viewModel.updateCardDatas()
+                }
+            case .inactive:
+                print("앱 인액티브")
+            @unknown default:
+                print("앱 언노운 디폴트")
+            }
+        }
         .preferredColorScheme(.light)
     }
     
@@ -145,6 +138,33 @@ struct MainView: View {
             .padding(.trailing, 14)
             .padding(.top, 10)
             Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    func restaurantCardScrollView() -> some View {
+        VStack {
+            Spacer()
+            GeometryReader {
+                let size = $0.size
+                let pageWidth: CGFloat = size.width
+                VStack {
+                    Spacer()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 0) {
+                            ForEach($viewModel.cards, id: \.self) { card in
+                                CardView(viewModel: viewModel, card: card, isShowingMenuDetail: $isShowingMenuDetail)
+                            }
+                            .frame(width: pageWidth)
+                        }
+                        .padding(.horizontal, (size.width - pageWidth) / 2)
+                        .background {
+                            SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
+                        }
+                    }
+                }
+                .padding(.bottom, 10)
+            }
         }
     }
 }
