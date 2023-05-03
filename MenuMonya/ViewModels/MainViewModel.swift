@@ -104,6 +104,7 @@ class MainViewModel: ObservableObject {
     func updateCardDatas() {
         setCurrentDateString()
         print("card update executed")
+        /* TODO : 업데이트된 식단 명단도 반영 가능! -> card / 레스토랑 리스트 초기화 후 다시 받아오기? */
         // 식당 정보도 다시 불러와야 할까?
         // 일단 있는 식당만 찾아서 넣어주고, 추가된 식당은 생각하지 말자!
         firestoreManager.fetchRestaurants { restaurants in
