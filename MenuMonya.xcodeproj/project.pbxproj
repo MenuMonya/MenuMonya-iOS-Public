@@ -67,7 +67,6 @@
 		609DB7CA29FC21D1002D2B6B /* LocationPermissionAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C929FC21D1002D2B6B /* LocationPermissionAlertCard.swift */; };
 		609DB7CC29FCEBEB002D2B6B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7CB29FCEBEB002D2B6B /* Card.swift */; };
 		60BD117129F29C2800000FCB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BD117029F29C2800000FCB /* MapView.swift */; };
-		60F6160629F82CE600253137 /* SnapCarouselHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F6160529F82CE600253137 /* SnapCarouselHelper.swift */; };
 		8B28EFC1B1A7C087BCD1F7EA /* Pods_MenuMonya_MenuMonyaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E58255BB0CC56288C4A3BC /* Pods_MenuMonya_MenuMonyaUITests.framework */; };
 		B31E5CFD045376055D569D65 /* Pods_MenuMonya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45209D3D2B1A626EF21D37CA /* Pods_MenuMonya.framework */; };
 		FD95CD4E29AC5D494FD170DA /* Pods_MenuMonyaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C8A4123C0CBCC74F4A70877 /* Pods_MenuMonyaTests.framework */; };
@@ -137,7 +136,6 @@
 		609DB7C929FC21D1002D2B6B /* LocationPermissionAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionAlertCard.swift; sourceTree = "<group>"; };
 		609DB7CB29FCEBEB002D2B6B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		60BD117029F29C2800000FCB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		60F6160529F82CE600253137 /* SnapCarouselHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapCarouselHelper.swift; sourceTree = "<group>"; };
 		944B89B94EAAD9B5EC0D01DC /* Pods-MenuMonya.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonya/Pods-MenuMonya.debug.xcconfig"; sourceTree = "<group>"; };
 		B10670EC6025257250FD1E7A /* Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig"; path = "Target Support Files/Pods-MenuMonya-MenuMonyaUITests/Pods-MenuMonya-MenuMonyaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D84958580EED34D7D29B395B /* Pods-MenuMonyaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MenuMonyaTests.release.xcconfig"; path = "Target Support Files/Pods-MenuMonyaTests/Pods-MenuMonyaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 		6028F7A829F76E9200745F4A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				60F6160529F82CE600253137 /* SnapCarouselHelper.swift */,
 				6028F7AB29F7778000745F4A /* Constants.swift */,
 			);
 			path = Helpers;
@@ -749,7 +746,6 @@
 				6099868129F39969000B8D25 /* CardView.swift in Sources */,
 				609DB7CC29FCEBEB002D2B6B /* Card.swift in Sources */,
 				609DB7C529FC067C002D2B6B /* MenuDetailAlert.swift in Sources */,
-				60F6160629F82CE600253137 /* SnapCarouselHelper.swift in Sources */,
 				603BE2D82A0274ED005B2018 /* LoadingView.swift in Sources */,
 				604D5FEC29F27769008DB8E5 /* MainView.swift in Sources */,
 				60067EC829F3835A0037DACE /* Menu.swift in Sources */,

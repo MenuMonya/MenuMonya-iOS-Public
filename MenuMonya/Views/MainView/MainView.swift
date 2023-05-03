@@ -14,7 +14,9 @@ struct MainView: View {
     @State var isShowingMenuDetail = false
     @State var isShowingLocationAlert = false
     @State private var isPresentingAlert = false
+    @State private var currentIndex = 0
     @Environment(\.scenePhase) var scenePhase
+    @GestureState var dragOffset: CGFloat = 0
     
     var body: some View {
         ZStack {
@@ -115,7 +117,7 @@ struct MainView: View {
                     if !isLocationServiceEnabled {
                         // 팝업 띄우기
                         isShowingLocationAlert = true
-                    // 위치 정보 권한 설정했다면
+                        // 위치 정보 권한 설정했다면
                     } else {
                         let isLocationPermissionAuthorized = viewModel.isLocationPermissionAuthorized()
                         // 위치 정보 권한이 있다면
@@ -124,7 +126,7 @@ struct MainView: View {
                             // 내 주변 식당 보여주기
                             // 1. 내 위치로 카메라 이동 및 내 위치 오버레이 <- 맵뷰에서 구현 완료
                             // 2. 가까운 순으로 레스토랑 정렬 <- ?
-                        // 위치 정보 권한이 없다면
+                            // 위치 정보 권한이 없다면
                         } else {
                             // 위치 정보 권한 요청 alert 띄우기
                             isPresentingAlert = true
@@ -146,27 +148,56 @@ struct MainView: View {
     
     @ViewBuilder
     func restaurantCardScrollView() -> some View {
-        VStack {
-            Spacer()
-            GeometryReader {
-                let size = $0.size
-                let pageWidth: CGFloat = size.width
-                VStack {
-                    Spacer()
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 0) {
-                            ForEach($viewModel.cards, id: \.self) { card in
-                                CardView(viewModel: viewModel, card: card, isShowingMenuDetail: $isShowingMenuDetail)
-                            }
+        let spacing: CGFloat = 6
+        let visibleEdgeSpace: CGFloat = 8
+        GeometryReader { proxy in
+            let baseOffset: CGFloat = spacing + visibleEdgeSpace
+            let pageWidth: CGFloat = UIScreen.main.bounds.width - (visibleEdgeSpace + spacing) * 2
+            let offsetX: CGFloat = baseOffset + CGFloat(currentIndex) * -pageWidth + CGFloat(currentIndex) * -spacing + dragOffset
+            VStack(spacing: 0) {
+                Spacer()
+                HStack(spacing: 6) {
+                    ForEach($viewModel.cards, id: \.self) { card in
+                        CardView(viewModel: viewModel, card: card, isShowingMenuDetail: $isShowingMenuDetail)
                             .frame(width: pageWidth)
-                        }
-                        .padding(.horizontal, (size.width - pageWidth) / 2)
-                        .background {
-                            SnapCarouselHelper(viewModel: viewModel, pageWidth: pageWidth, scrolledPageIndex: $restaurantIndexWhenScrollEnded)
-                        }
+                            .padding(.bottom, 14)
                     }
                 }
-                .padding(.bottom, 10)
+                .offset(x: offsetX)
+                .gesture(
+                    DragGesture()
+                        .updating($dragOffset, body: { value, out, _ in
+                            out = value.translation.width
+                        })
+                        .onEnded { value in
+                            let offsetX = value.translation.width
+                            let progress = -offsetX / pageWidth
+                            let increment = Int(progress.rounded())
+                            
+                            // 드래그 velocity 계산
+                            if value.predictedEndLocation.x - value.location.x > 50 {
+                                // 왼쪽 스냅
+                                if currentIndex > 0 {
+                                    currentIndex -= 1
+                                }
+                            } else if value.predictedEndLocation.x - value.location.x < -50 {
+                                // 오른쪽 스냅
+                                if currentIndex < (viewModel.cards.count-1) {
+                                    currentIndex += 1
+                                }
+                            } else {
+                                currentIndex = max(min(currentIndex + increment, viewModel.cards.count - 1), 0)
+                            }
+                            viewModel.moveCameraToMarker(at: currentIndex)
+                            viewModel.selectedRestaurantIndex = CGFloat(currentIndex)
+                            viewModel.setMarkerImageToSelected(at: currentIndex)
+                        }
+                )
+                .animation(.easeOut, value: currentIndex)
+                .animation(.easeOut, value: dragOffset)
+                .onChange(of: viewModel.selectedRestaurantIndex) { newValue in
+                    currentIndex = Int(newValue)
+                }
             }
         }
     }
