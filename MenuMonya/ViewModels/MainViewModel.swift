@@ -51,6 +51,20 @@ class MainViewModel: ObservableObject {
             for restaurant in restaurants {
                 self.cards.append(Card(restaurant: restaurant, menu: Menu.dummy))
             }
+            
+            for i in 0..<self.cards.count {
+                // 가격 포매팅
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                if let integerPrice = Int(self.cards[i].restaurant.price.cardPrice) {
+                    let myNumber = NSNumber(value: integerPrice)
+                    let decimalPrice = numberFormatter.string(from: myNumber)
+                    if let price = decimalPrice {
+                        self.cards[i].restaurant.price.cardPrice = price
+                    }
+                }
+            }
+            
             self.isFetchCompleted = true
             
             // 메뉴 정보 fetch 후 card 모델에 담기
