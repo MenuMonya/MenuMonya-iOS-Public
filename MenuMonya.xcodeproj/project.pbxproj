@@ -18,6 +18,7 @@
 		603BE2D32A02714A005B2018 /* LoadingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603BE2D22A02714A005B2018 /* LoadingImage.swift */; };
 		603BE2D52A0272FE005B2018 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 603BE2D42A0272FE005B2018 /* Loading.json */; };
 		603BE2D82A0274ED005B2018 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 603BE2D72A0274ED005B2018 /* LoadingView.swift */; };
+		603BE2DA2A027968005B2018 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 603BE2D92A027968005B2018 /* Launch Screen.storyboard */; };
 		604D5FC229F2774F008DB8E5 /* MenuMonyaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */; };
 		604D5FC629F27750008DB8E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 604D5FC529F27750008DB8E5 /* Assets.xcassets */; };
 		604D5FC929F27750008DB8E5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 604D5FC829F27750008DB8E5 /* Preview Assets.xcassets */; };
@@ -103,6 +104,7 @@
 		603BE2D22A02714A005B2018 /* LoadingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingImage.swift; sourceTree = "<group>"; };
 		603BE2D42A0272FE005B2018 /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Loading.json; sourceTree = "<group>"; };
 		603BE2D72A0274ED005B2018 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		603BE2D92A027968005B2018 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		604D5FBE29F2774F008DB8E5 /* MenuMonya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuMonya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuMonyaApp.swift; sourceTree = "<group>"; };
 		604D5FC529F27750008DB8E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */,
+				603BE2D92A027968005B2018 /* Launch Screen.storyboard */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				604D600529F27D20008DB8E5 /* Pretendard-Thin.ttf in Resources */,
 				604D5FC929F27750008DB8E5 /* Preview Assets.xcassets in Resources */,
 				60389AEB29F2C49B00877215 /* GoogleService-Info.plist in Resources */,
+				603BE2DA2A027968005B2018 /* Launch Screen.storyboard in Resources */,
 				604D5FC629F27750008DB8E5 /* Assets.xcassets in Resources */,
 				604D600229F27D20008DB8E5 /* Pretendard-Regular.ttf in Resources */,
 				604D601129F27D20008DB8E5 /* Pretendard-Bold.ttf in Resources */,
@@ -921,7 +925,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MenuMonya/Preview Content\"";
 				DEVELOPMENT_TEAM = MV89SHQKF4;
@@ -935,6 +939,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -961,7 +966,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"MenuMonya/Preview Content\"";
 				DEVELOPMENT_TEAM = MV89SHQKF4;
@@ -975,6 +980,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

@@ -51,16 +51,16 @@ struct MainView: View {
         .onChange(of: scenePhase) { phase in
             switch phase {
             case .background:
-                print("앱 백그라운드")
+                break
             case .active:
-                print("앱 액티브")
                 if viewModel.isMarkersAdded {
                     viewModel.updateCardDatas()
                 }
+                break
             case .inactive:
-                print("앱 인액티브")
+                break
             @unknown default:
-                print("앱 언노운 디폴트")
+                break
             }
         }
         .preferredColorScheme(.light)
