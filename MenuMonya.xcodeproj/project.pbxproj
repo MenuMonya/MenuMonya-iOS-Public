@@ -236,6 +236,8 @@
 		604D5FC029F2774F008DB8E5 /* MenuMonya */ = {
 			isa = PBXGroup;
 			children = (
+				60389AEA29F2C49B00877215 /* GoogleService-Info.plist */,
+				604D601B29F27D5A008DB8E5 /* Info.plist */,
 				604D5FEF29F2779D008DB8E5 /* App */,
 				604D5FEE29F27786008DB8E5 /* Resources */,
 				6028F7A829F76E9200745F4A /* Helpers */,
@@ -297,8 +299,6 @@
 			isa = PBXGroup;
 			children = (
 				604D5FC129F2774F008DB8E5 /* MenuMonyaApp.swift */,
-				604D601B29F27D5A008DB8E5 /* Info.plist */,
-				60389AEA29F2C49B00877215 /* GoogleService-Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -618,8 +618,8 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/newInputFile",
-				"$(SRCROOT)/",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
 			name = "Run Script";
 			outputFileListPaths = (
@@ -628,7 +628,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n    \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		74DF140F3E53E687D706FABE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -899,7 +899,7 @@
 				DEVELOPMENT_TEAM = MV89SHQKF4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MenuMonya/App/Info.plist;
+				INFOPLIST_FILE = MenuMonya/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "메뉴머냐";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "내 주변 한식뷔페를 찾기 위해 위치정보 제공에 동의해 주세요!";
@@ -939,7 +939,7 @@
 				DEVELOPMENT_TEAM = MV89SHQKF4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MenuMonya/App/Info.plist;
+				INFOPLIST_FILE = MenuMonya/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "메뉴머냐";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "내 주변 한식뷔페를 찾기 위해 위치정보 제공에 동의해 주세요!";
