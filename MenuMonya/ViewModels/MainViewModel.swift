@@ -175,8 +175,8 @@ class MainViewModel: ObservableObject {
                     self?.setMarkerImagesToDefault()
                     // 나만 selected 이미지로 보이기
                     marker.iconImage = self!.selectedMarkerImage
-                    marker.width = 28
-                    marker.height = 28
+                    marker.width = 30
+                    marker.height = 30
                     marker.zIndex = 100
                     let cameraUpdate = NMFCameraUpdate(scrollTo: marker.position)
                     cameraUpdate.animation = .easeOut
