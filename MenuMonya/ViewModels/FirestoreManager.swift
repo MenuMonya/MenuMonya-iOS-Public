@@ -18,7 +18,9 @@ class FirestoreManager  {
         var restaurants = [Restaurant]()
         
         let restaruatnsCollection = db.collection("restaurants")
-        restaruatnsCollection.getDocuments { snapshot, error in
+        restaruatnsCollection
+            .order(by: "locationCategoryOrder")
+            .getDocuments { snapshot, error in
             if let error = error {
                 print(error)
                 return
