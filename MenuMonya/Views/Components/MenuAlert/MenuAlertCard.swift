@@ -22,7 +22,6 @@ struct MenuAlertCard: View {
                 Text((viewModel.cards[Int(viewModel.selectedRestaurantIndex)].menu.date[viewModel.currentDateString]?["main"] ?? Menu.dummy.date[viewModel.currentDateString]!["main"])!)
                     .font(.pretendard(.regular, size: 14))
                     .foregroundColor(Color("dark_1"))
-                    .lineLimit(2)
                     .lineSpacing(15)
                 Spacer()
             }
@@ -38,7 +37,6 @@ struct MenuAlertCard: View {
                 Text((viewModel.cards[Int(viewModel.selectedRestaurantIndex)].menu.date[viewModel.currentDateString]?["side"] ?? Menu.dummy.date[viewModel.currentDateString]!["side"])!)
                     .font(.pretendard(.regular, size: 14))
                     .foregroundColor(Color("dark_1"))
-                    .lineLimit(2)
                     .lineSpacing(15)
                 Spacer()
             }
@@ -54,7 +52,6 @@ struct MenuAlertCard: View {
                 Text((viewModel.cards[Int(viewModel.selectedRestaurantIndex)].menu.date[viewModel.currentDateString]?["dessert"] ?? Menu.dummy.date[viewModel.currentDateString]!["dessert"])!)
                     .font(.pretendard(.regular, size: 14))
                     .foregroundColor(Color("dark_1"))
-                    .lineLimit(2)
                 Spacer()
             }
             .padding(.horizontal, 10)
