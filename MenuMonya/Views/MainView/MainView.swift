@@ -13,7 +13,8 @@ struct MainView: View {
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
     @State var isShowingMenuDetail = false
     @State var isShowingLocationAlert = false
-    @State private var isPresentingAlert = false
+    @State private var isPresentingLocationAlert = false
+    @State private var isPresentingUpdateAlert = false
     @State private var currentIndex = 0
     @Environment(\.scenePhase) var scenePhase
     @GestureState var dragOffset: CGFloat = 0
@@ -42,7 +43,15 @@ struct MainView: View {
                 LoadingView()
             }
         }
-        .alert("현재 위치를 찾을 수 없습니다", isPresented: $isPresentingAlert, actions: {
+        .alert("새로운 버전으로 업데이트가 가능합니다", isPresented: $isPresentingUpdateAlert, actions: {
+            Button("닫기", role: .cancel, action: {})
+            Button("스토어로 이동", action: {
+                if let url = URL(string: "https://apple.co/3nOuASc") {
+                    UIApplication.shared.open(url)
+                }
+            })
+        })
+        .alert("현재 위치를 찾을 수 없습니다", isPresented: $isPresentingLocationAlert, actions: {
             Button("닫기", role: .cancel, action: {})
             Button("설정", action: {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
@@ -63,6 +72,11 @@ struct MainView: View {
                 break
             @unknown default:
                 break
+            }
+        }
+        .onAppear {
+            if viewModel.isUpdateAvailableOnAppStore {
+                self.isPresentingUpdateAlert = true
             }
         }
         .preferredColorScheme(.light)
@@ -134,7 +148,7 @@ struct MainView: View {
                             // 위치 정보 권한이 없다면
                         } else {
                             // 위치 정보 권한 요청 alert 띄우기
-                            isPresentingAlert = true
+                            isPresentingLocationAlert = true
                         }
                     }
                 } label: {
