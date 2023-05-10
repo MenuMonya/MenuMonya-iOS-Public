@@ -174,8 +174,6 @@ class MainViewModel: ObservableObject {
                 let marker = NMFMarker()
                 marker.captionText = restaurant.name
                 marker.iconImage = self.markerImage
-                marker.width = 24
-                marker.height = 24
                 marker.position = NMGLatLng(lat: Double(restaurant.location.coordination.latitude)!, lng: Double(restaurant.location.coordination.longitude)!)
                 marker.isHideCollidedSymbols = true
                 marker.mapView = self.mapView
@@ -186,8 +184,6 @@ class MainViewModel: ObservableObject {
                     self?.setMarkerImagesToDefault()
                     // 나만 selected 이미지로 보이기
                     marker.iconImage = self!.selectedMarkerImage
-                    marker.width = 30
-                    marker.height = 30
                     marker.zIndex = 100
                     let cameraUpdate = NMFCameraUpdate(scrollTo: marker.position)
                     cameraUpdate.animation = .easeOut
@@ -211,8 +207,6 @@ class MainViewModel: ObservableObject {
         setMarkerZIndexesToDefault()
         for marker in markers {
             marker.iconImage = markerImage
-            marker.width = 24
-            marker.height = 24
         }
     }
     
