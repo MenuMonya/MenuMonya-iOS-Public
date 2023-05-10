@@ -18,7 +18,6 @@ struct CardView: View {
                 menus()
             } else {
                 menuReportLink()
-                    .padding(.top, 10)
             }
             details()
                 .padding(.vertical, 10)
@@ -33,20 +32,32 @@ struct CardView: View {
     @ViewBuilder
     func menus() -> some View {
         VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                Text(viewModel.currentDateKorean)
+                    .font(.pretendard(.semiBold, size: 10))
+                    .foregroundColor(Color("primary.date"))
+                    .padding(.top, 10)
+                Spacer()
+                Text("제공해주신 분 : \((card.menu.date[viewModel.currentDateString]?["provider"] ?? Menu.dummy.date[viewModel.currentDateString]!["provider"])!)")
+                    .font(.pretendard(.semiBold, size: 10))
+                    .foregroundColor(Color("grey_500"))
+                    .padding(.top, 10)
+            }
+            CustomDivider(color: Color("grey_200"))
+                .padding(.bottom, 7)
+                .padding(.top, 6)
             HStack(alignment: .top, spacing: 0) {
                 Text("메인 메뉴")
                     .font(.pretendard(.semiBold, size: 12))
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
                     .padding(.bottom, 24)
-                    .padding(.top, 10)
                 Text((card.menu.date[viewModel.currentDateString]?["main"] ?? Menu.dummy.date[viewModel.currentDateString]!["main"])!)
                     .font(.pretendard(.regular, size: 12))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(2)
                     .lineSpacing(6)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding(.top, 10)
                 Spacer()
             }
             CustomDivider(color: Color("grey_200"))
@@ -87,12 +98,13 @@ struct CardView: View {
     func menuReportLink() -> some View {
         VStack(spacing: 0) {
             CustomDivider(color: Color("grey_200"))
+                .padding(.top, 10)
             Link(destination: URL(string: "https://open.kakao.com/o/gKPs3pif")!) {
                 Image("button.reportMenu")
             }
-            .padding(.vertical, 25)
+            .padding(.vertical, 29)
             CustomDivider(color: Color("grey_200"))
-            Text("메뉴는 매일 11시에 업데이트됩니다.")
+            Text("메뉴는 평일 오전 11시에 업데이트됩니다")
                 .font(.pretendard(.regular, size: 12))
                 .padding(.vertical, 6)
             CustomDivider(color: Color("grey_200"))

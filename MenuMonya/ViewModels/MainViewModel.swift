@@ -27,6 +27,7 @@ class MainViewModel: ObservableObject {
     @Published var selectedMarkerRestaurantID = ""
     @Published var selectedRestaurantIndex: CGFloat = 0
     @Published var currentDateString = ""
+    @Published var currentDateKorean = ""
     @Published var surveyLink: URL?
     
     @Published var isFetchCompleted = false
@@ -46,6 +47,7 @@ class MainViewModel: ObservableObject {
     
     init() {
         setCurrentDateString()
+        setCurrentDateKorean()
         // 식당 정보 fetch 후 card 모델에 담기
         firestoreManager.fetchRestaurants { restaurants in
             self.restaurants = restaurants.map { $0 }
@@ -94,6 +96,7 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    // MARK: - 날짜 포맷
     // 오늘 날짜로 dateString 변경
     func setCurrentDateString() {
         let dateFormatter = DateFormatter()
@@ -101,6 +104,14 @@ class MainViewModel: ObservableObject {
         self.currentDateString = dateFormatter.string(from: Date())
     }
     
+    // 오늘 날짜 한글 표시
+    func setCurrentDateKorean() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM월 dd일 (E요일)"
+        self.currentDateKorean = dateFormatter.string(from: Date())
+    }
+    
+    // MARK: - 메뉴 업데이트
     // 다시 실행할 때 마다 메뉴 업데이트
     func updateCardDatas() {
         isUpdatingCards = true
