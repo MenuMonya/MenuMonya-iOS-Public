@@ -62,10 +62,6 @@ struct NaverMapView: UIViewRepresentable {
                     isFirstCameraUpdate = false
                 }
             }
-        } else {
-            // mylocation
-            uiView.mapView.locationOverlay.hidden = false
-            uiView.mapView.positionMode = .direction
         }
         
         if viewModel.isFetchCompleted && viewModel.isMapViewInitiated && !viewModel.isMarkersAdded {

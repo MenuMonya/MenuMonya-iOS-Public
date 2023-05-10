@@ -75,6 +75,7 @@ struct MainView: View {
                 viewModel.locationSelection = .gangnam
                 viewModel.moveCameraToLocation(at: .gangnam)
                 viewModel.isFocusedOnMarker = false
+                viewModel.setMarkerImagesToDefault()
             } label: {
                 if viewModel.locationSelection == .gangnam {
                     Image("gangnam.enabled")
@@ -88,6 +89,7 @@ struct MainView: View {
                 viewModel.locationSelection = .yeoksam
                 viewModel.moveCameraToLocation(at: .yeoksam)
                 viewModel.isFocusedOnMarker = false
+                viewModel.setMarkerImagesToDefault()
             } label: {
                 if viewModel.locationSelection == .yeoksam {
                     Image("yeoksam.enabled")
@@ -112,6 +114,7 @@ struct MainView: View {
                 Spacer()
                 Button {
                     viewModel.isFocusedOnMarker = false
+                    viewModel.setMarkerImagesToDefault()
                     // 위치 정보 권한 설정하지 않았다면
                     let isLocationServiceEnabled = viewModel.isLocationServiceEnabled()
                     if !isLocationServiceEnabled {
@@ -123,6 +126,8 @@ struct MainView: View {
                         // 위치 정보 권한이 있다면
                         if isLocationPermissionAuthorized {
                             viewModel.locationSelection = .myLocation
+                            viewModel.setLocationModeToMyLocation()
+                            viewModel.moveCameraToLocation(at: .myLocation)
                             // 내 주변 식당 보여주기
                             // 1. 내 위치로 카메라 이동 및 내 위치 오버레이 <- 맵뷰에서 구현 완료
                             // 2. 가까운 순으로 레스토랑 정렬 <- ?

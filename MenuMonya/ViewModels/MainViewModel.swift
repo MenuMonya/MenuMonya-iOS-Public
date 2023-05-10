@@ -233,11 +233,17 @@ class MainViewModel: ObservableObject {
             cameraupdate.animation = .easeOut
             mapView?.moveCamera(cameraupdate)
         case .myLocation:
-            let coordination = NMGLatLng(from: Constants.gangnamCoordinations)
+            let coordination = mapView!.locationOverlay.location
             let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+            cameraupdate.pivot = CGPoint(x: 0.5, y: 0.35)
             cameraupdate.animation = .easeOut
             mapView?.moveCamera(cameraupdate)
         }
+    }
+    
+    func setLocationModeToMyLocation() {
+        mapView!.locationOverlay.hidden = false
+        mapView!.positionMode = .direction
     }
    
     // MARK: - 위치 서비스 관련 함수들
