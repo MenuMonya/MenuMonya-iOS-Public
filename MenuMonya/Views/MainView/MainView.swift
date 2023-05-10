@@ -169,7 +169,7 @@ struct MainView: View {
                     }
                 }
                 .offset(x: offsetX)
-                .gesture(
+                .highPriorityGesture(
                     DragGesture()
                         .updating($dragOffset, body: { value, out, _ in
                             out = value.translation.width
