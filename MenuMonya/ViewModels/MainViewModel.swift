@@ -96,7 +96,9 @@ class MainViewModel: ObservableObject {
             if let error = error {
                 print(error)
             } else if let update = update {
-                self.isUpdateAvailableOnAppStore = update
+                DispatchQueue.main.async {
+                    self.isUpdateAvailableOnAppStore = update
+                }
             }
         }
     }
@@ -118,6 +120,7 @@ class MainViewModel: ObservableObject {
                 guard let result = (json?["results"] as? [Any])?.first as? [String: Any], let version = result["version"] as? String else {
                     throw VersionError.invalidResponse
                 }
+                print(version)
                 completion(version != currentVersion, nil)
             } catch {
                 completion(nil, error)
