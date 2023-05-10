@@ -12,9 +12,6 @@ struct LoadingView: View {
         ZStack {
             Color.black.opacity(0.5)
                 .edgesIgnoringSafeArea(.all)
-            Circle()
-                .fill(.white)
-                .frame(width: 70)
             LoadingImage(fileName: "Loading")
                 .frame(width: 200, height: 200)
         }
