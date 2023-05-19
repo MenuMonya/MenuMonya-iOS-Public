@@ -170,8 +170,8 @@ struct MainView: View {
             VStack(spacing: 0) {
                 Spacer()
                 HStack(spacing: 6) {
-                    ForEach($viewModel.cards, id: \.self) { card in
-                        CardView(viewModel: viewModel, card: card, isShowingMenuDetail: $isShowingMenuDetail)
+                    ForEach($viewModel.restaurants, id: \.self) { restaurant in
+                        CardView(viewModel: viewModel, restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail)
                             .frame(width: pageWidth)
                             .padding(.bottom, 14)
                     }
@@ -195,11 +195,11 @@ struct MainView: View {
                                 }
                             } else if value.predictedEndLocation.x - value.location.x < -50 {
                                 // 오른쪽 스냅
-                                if currentIndex < (viewModel.cards.count-1) {
+                                if currentIndex < (viewModel.restaurants.count-1) {
                                     currentIndex += 1
                                 }
                             } else {
-                                currentIndex = max(min(currentIndex + increment, viewModel.cards.count - 1), 0)
+                                currentIndex = max(min(currentIndex + increment, viewModel.restaurants.count - 1), 0)
                             }
                             viewModel.moveCameraToMarker(at: currentIndex)
                             viewModel.selectedRestaurantIndex = CGFloat(currentIndex)

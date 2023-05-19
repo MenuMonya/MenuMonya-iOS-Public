@@ -9,7 +9,19 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-struct Restaurant: Codable {
+struct Restaurant: Codable, Hashable {
+    static func == (lhs: Restaurant, rhs: Restaurant) -> Bool {
+        if lhs.documentID == rhs.documentID {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        return hasher.combine(documentID)
+    }
+    
     @DocumentID var documentID: String?
     
     var imgUrl: String
@@ -20,10 +32,22 @@ struct Restaurant: Codable {
     var phoneNumber: String
     var price: Price
     var time: OperatingTime
+    var todayMenu: Menu?
     var type: String
     var updatedTime: String
     
-    static let dummy = Restaurant(imgUrl: "", location: Location.dummy, locationCategory: ["강남"], locationCategoryOrder: ["강남?"], name: "더미 식당", phoneNumber: "02-123-4567", price: Price.dummy, time: OperatingTime.dummy, type: "더미 식당 유형", updatedTime: "더미 식당 업데이트 시간")
+    static let dummy = Restaurant(imgUrl: "", location: Location.dummy, locationCategory: ["강남"], locationCategoryOrder: ["강남?"], name: "더미 식당", phoneNumber: "02-123-4567", price: Price.dummy, time: OperatingTime.dummy, todayMenu: Menu.dummy, type: "더미 식당 유형", updatedTime: "더미 식당 업데이트 시간")
+}
+
+struct Menu: Codable {
+    var date: String
+    var main: String
+    var side: String
+    var dessert: String
+    var provider: String
+    var updatedTime: String
+    
+    static let dummy = Menu(date: "2023-05-19", main: "메인 메뉴 입니다", side: "사이드 메뉴 입니다", dessert: "후식 메뉴 입니다", provider: "엄지척 프로도", updatedTime: "2023-05-19 02:11:11")
 }
 
 struct Location: Codable {

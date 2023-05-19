@@ -16,7 +16,7 @@ enum LocationSelection {
 }
 
 class MainViewModel: ObservableObject {
-    @Published var cards: [Card] = []
+    @Published var restaurants: [Restaurant] = []
     @Published var markers: [NMFMarker] = []
     
     @Published var locationSelection: LocationSelection = .gangnam
@@ -34,7 +34,6 @@ class MainViewModel: ObservableObject {
     @Published var isUpdateAvailableOnAppStore = false
     
     var mapView: NMFMapView?
-    var restaurants: [Restaurant] = []
     
     let firestoreManager = FirestoreManager()
     let locationManager = LocationManager()
@@ -43,45 +42,27 @@ class MainViewModel: ObservableObject {
     let markerImage = NMFOverlayImage(name: "marker.restaurant")
     
     init() {
+        
         setCurrentDateString()
         setCurrentDateKorean()
+        
         // 식당 정보 fetch 후 card 모델에 담기
         firestoreManager.fetchRestaurants { restaurants in
             self.restaurants = restaurants.map { $0 }
-            for restaurant in restaurants {
-                self.cards.append(Card(restaurant: restaurant, menu: Menu.dummy))
-            }
             
-            for i in 0..<self.cards.count {
+            for i in 0..<self.restaurants.count {
                 // 가격 포매팅
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
-                if let integerPrice = Int(self.cards[i].restaurant.price.cardPrice) {
+                if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
                     let myNumber = NSNumber(value: integerPrice)
                     let decimalPrice = numberFormatter.string(from: myNumber)
                     if let price = decimalPrice {
-                        self.cards[i].restaurant.price.cardPrice = price
+                        self.restaurants[i].price.cardPrice = price
                     }
                 }
             }
-            
             self.isFetchCompleted = true
-            
-            // 메뉴 정보 fetch 후 card 모델에 담기
-            self.firestoreManager.fetchMenus { menus in
-                for i in 0..<self.cards.count {
-                    self.cards[i].menu = menus.first(where: { $0.restaurantId == self.cards[i].restaurant.documentID })!
-                    
-                    let trimmedMain = self.cards[i].menu.date[self.currentDateString]?["main"]?.replacingOccurrences(of: ",", with: ", ")
-                    let trimmedSide = self.cards[i].menu.date[self.currentDateString]?["side"]?.replacingOccurrences(of: ",", with: ", ")
-                    let trimmedDessert = self.cards[i].menu.date[self.currentDateString]?["dessert"]?.replacingOccurrences(of: ",", with: ", ")
-                    
-                    self.cards[i].menu.date[self.currentDateString]?["main"] = trimmedMain
-                    self.cards[i].menu.date[self.currentDateString]?["side"] = trimmedSide
-                    self.cards[i].menu.date[self.currentDateString]?["dessert"] = trimmedDessert
-                }
-            }
-            // 이제 card 모델에는 서로 같은 인덱스에 식당과 메뉴정보가 함께 있음
         }
         
         firestoreManager.setupValueFromRemoteConfig { formURL in
@@ -92,6 +73,7 @@ class MainViewModel: ObservableObject {
             }
         }
         
+        // 스토어 업데이트 가능한지 확인
         _ = try? self.isUpdateAvailable { (update, error) in
             if let error = error {
                 print(error)
@@ -120,14 +102,21 @@ class MainViewModel: ObservableObject {
                 guard let result = (json?["results"] as? [Any])?.first as? [String: Any], let version = result["version"] as? String else {
                     throw VersionError.invalidResponse
                 }
-                print(version)
-                completion(version != currentVersion, nil)
+                completion(version > currentVersion, nil)
             } catch {
                 completion(nil, error)
             }
         }
         task.resume()
         return task
+    }
+    
+    func isShowingTodayMenu(of restaurant: Restaurant) -> Bool {
+        if self.currentDateString == restaurant.todayMenu?.date ?? "-" && !(restaurant.todayMenu?.main.isEmpty ?? false) {
+            return true
+        } else {
+            return false
+        }
     }
     
     // MARK: - 날짜 포맷
@@ -156,40 +145,23 @@ class MainViewModel: ObservableObject {
         // 일단 있는 식당만 찾아서 넣어주고, 추가된 식당은 생각하지 말자!
         firestoreManager.fetchRestaurants { restaurants in
             for restaurant in restaurants {
-                if let index = self.cards.firstIndex(where: { $0.restaurant.documentID == restaurant.documentID }) {
-                    self.cards[index].restaurant = restaurant
+                if let index = self.restaurants.firstIndex(where: { $0.documentID == restaurant.documentID }) {
+                    self.restaurants[index] = restaurant
                 }
             }
             
-            for i in 0..<self.cards.count {
+            for i in 0..<self.restaurants.count {
                 // 가격 포매팅
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
-                if let integerPrice = Int(self.cards[i].restaurant.price.cardPrice) {
+                if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
                     let myNumber = NSNumber(value: integerPrice)
                     let decimalPrice = numberFormatter.string(from: myNumber)
                     if let price = decimalPrice {
-                        self.cards[i].restaurant.price.cardPrice = price
+                        self.restaurants[i].price.cardPrice = price
                     }
                 }
             }
-            
-            // 메뉴 정보 fetch 후 card 모델에 담기
-            self.firestoreManager.fetchMenus { menus in
-                for i in 0..<self.cards.count {
-                    self.cards[i].menu = menus.first(where: { $0.restaurantId == self.cards[i].restaurant.documentID })!
-                    
-                    let trimmedMain = self.cards[i].menu.date[self.currentDateString]?["main"]?.replacingOccurrences(of: ",", with: ", ")
-                    let trimmedSide = self.cards[i].menu.date[self.currentDateString]?["side"]?.replacingOccurrences(of: ",", with: ", ")
-                    let trimmedDessert = self.cards[i].menu.date[self.currentDateString]?["dessert"]?.replacingOccurrences(of: ",", with: ", ")
-                    
-                    self.cards[i].menu.date[self.currentDateString]?["main"] = trimmedMain
-                    self.cards[i].menu.date[self.currentDateString]?["side"] = trimmedSide
-                    self.cards[i].menu.date[self.currentDateString]?["dessert"] = trimmedDessert
-                }
-                self.isUpdatingCards = false
-            }
-            // 이제 card 모델에는 서로 같은 인덱스에 식당과 메뉴정보가 함께 있음
         }
         
         firestoreManager.setupValueFromRemoteConfig { formURL in
