@@ -39,30 +39,7 @@ class FirestoreManager  {
         }
     }
     
-    // 메뉴 리스트 가져오기
-    func fetchMenus(completion: @escaping([Menu]) -> Void) {
-        var menus = [Menu]()
-        
-        let menusCollection = db.collection("menus")
-        menusCollection.getDocuments { snapshot, error in
-            if let error = error {
-                print(error)
-                return
-            }
-            guard let docs = snapshot?.documents else { return }
-            for doc in docs {
-                do {
-                    let menu = try doc.data(as: Menu.self)
-                    menus.append(menu)
-                }
-                catch {
-                    print(error)
-                }
-            }
-            completion(menus)
-        }
-    }
-    
+    // Remot Config 사용해 값 설정하기
     func setupValueFromRemoteConfig(completion: @escaping(String?) -> Void) {
         let remoteConfig = RemoteConfig.remoteConfig()
         let settings = RemoteConfigSettings()

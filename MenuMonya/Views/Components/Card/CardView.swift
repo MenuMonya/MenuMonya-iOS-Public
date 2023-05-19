@@ -9,12 +9,12 @@ import SwiftUI
 
 struct CardView: View {
     @ObservedObject var viewModel: MainViewModel
-    @Binding var card: Card
+    @Binding var restaurant: Restaurant
     @Binding var isShowingMenuDetail: Bool
     
     var body: some View {
         VStack(spacing: 0) {
-            if !(card.menu.date[viewModel.currentDateString]?["main"]?.isEmpty ?? true) {
+            if viewModel.isShowingTodayMenu(of: restaurant) {
                 menus()
             } else {
                 menuReportLink()
@@ -38,7 +38,7 @@ struct CardView: View {
                     .foregroundColor(Color("primary.date"))
                     .padding(.top, 10)
                 Spacer()
-                Text("제공해주신 분 : \(card.menu.date[viewModel.currentDateString]?["provider"] ?? "짠주리")")
+                Text("제공해주신 분 : \(restaurant.todayMenu?.provider ?? "-")")
                     .font(.pretendard(.semiBold, size: 10))
                     .foregroundColor(Color("grey_500"))
                     .padding(.top, 10)
@@ -52,7 +52,7 @@ struct CardView: View {
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
                     .padding(.bottom, 24)
-                Text(card.menu.date[viewModel.currentDateString]?["main"] ?? "-")
+                Text(restaurant.todayMenu?.main ?? "-")
                     .font(.pretendard(.regular, size: 12))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(2)
@@ -68,7 +68,7 @@ struct CardView: View {
                     .frame(width: 70, alignment: .leading)
                     .padding(.bottom, 24)
                     .padding(.top, 6)
-                Text(card.menu.date[viewModel.currentDateString]?["side"] ?? "-")
+                Text(restaurant.todayMenu?.side ?? "-")
                     .font(.pretendard(.regular, size: 12))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(2)
@@ -84,7 +84,7 @@ struct CardView: View {
                     .foregroundColor(Color("primary.orange"))
                     .frame(width: 70, alignment: .leading)
                     .padding(.vertical, 6)
-                Text(card.menu.date[viewModel.currentDateString]?["dessert"] ?? "-")
+                Text(restaurant.todayMenu?.dessert ?? "-")
                     .font(.pretendard(.regular, size: 12))
                     .foregroundColor(Color("dark_1"))
                     .lineLimit(1)
@@ -115,13 +115,12 @@ struct CardView: View {
     func details() -> some View {
         VStack(spacing: 5) {
             HStack(alignment: .top, spacing: 0) {
-                Text(card.restaurant.name)
+                Text(restaurant.name)
                     .font(.pretendard(.semiBold, size: 14))
                     .foregroundColor(Color("grey_900"))
                 Spacer()
-                if !(card.menu.date[viewModel.currentDateString]?["main"]?.isEmpty ?? true) {
+                if viewModel.isShowingTodayMenu(of: restaurant) {
                     Button {
-                        /* TODO - 자세히 보기 -> 가게 모달 생성? 또는 카드뷰 자체 탭 시 가게 모달 생성 */
                         isShowingMenuDetail = true
                     } label: {
                         Text("자세히 보기")
@@ -138,7 +137,7 @@ struct CardView: View {
                             .font(.pretendard(.semiBold, size: 12))
                             .foregroundColor(Color("grey_900"))
                         Spacer()
-                        Text("\(card.restaurant.price.cardPrice)원")
+                        Text("\(restaurant.price.cardPrice)원")
                             .font(.pretendard(.regular, size: 10))
                             .foregroundColor(Color("grey_900"))
                     }
@@ -147,7 +146,7 @@ struct CardView: View {
                             .font(.pretendard(.semiBold, size: 12))
                             .foregroundColor(Color("grey_900"))
                         Spacer()
-                        Text("\(card.restaurant.time.openTime)~\(card.restaurant.time.closeTime)")
+                        Text("\(restaurant.time.openTime)~\(restaurant.time.closeTime)")
                             .font(.pretendard(.regular, size: 10))
                             .foregroundColor(Color("grey_900"))
                     }
@@ -156,7 +155,7 @@ struct CardView: View {
                             .font(.pretendard(.semiBold, size: 12))
                             .foregroundColor(Color("grey_900"))
                         Spacer()
-                        Text(card.restaurant.phoneNumber)
+                        Text(restaurant.phoneNumber)
                             .font(.pretendard(.regular, size: 10))
                             .foregroundColor(Color("grey_900"))
                     }
@@ -165,12 +164,12 @@ struct CardView: View {
                             .font(.pretendard(.semiBold, size: 12))
                             .foregroundColor(Color("grey_900"))
                         Spacer()
-                        Text(card.restaurant.location.description)
+                        Text(restaurant.location.description)
                             .font(.pretendard(.regular, size: 10))
                             .foregroundColor(Color("grey_900"))
                     }
                 }
-                AsyncImage(url: URL(string: card.restaurant.imgUrl)) { image in
+                AsyncImage(url: URL(string: restaurant.imgUrl)) { image in
                     image
                         .resizable()
                         .scaledToFit()
@@ -187,6 +186,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(viewModel: MainViewModel(), card: .constant(Card.dummy), isShowingMenuDetail: .constant(false))
+        CardView(viewModel: MainViewModel(), restaurant: .constant(Restaurant.dummy), isShowingMenuDetail: .constant(false))
     }
 }
