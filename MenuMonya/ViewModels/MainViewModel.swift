@@ -162,6 +162,8 @@ class MainViewModel: ObservableObject {
                     }
                 }
             }
+            
+            self.isUpdatingCards = false
         }
         
         firestoreManager.setupValueFromRemoteConfig { formURL in
