@@ -58,6 +58,8 @@
 		604D601A29F27D2C008DB8E5 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604D601729F27D2C008DB8E5 /* FontManager.swift */; };
 		60506F3429F797A40044531A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60506F3329F797A40044531A /* LocationManager.swift */; };
 		60506F3729F7A22D0044531A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60506F3629F7A22D0044531A /* UIColor+Extensions.swift */; };
+		6053353B2A1C5537009B7140 /* FirstLaunchAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6053353A2A1C5537009B7140 /* FirstLaunchAlert.swift */; };
+		6053353D2A1C55B4009B7140 /* FirstLaunchCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6053353C2A1C55B4009B7140 /* FirstLaunchCard.swift */; };
 		6099867E29F38CFE000B8D25 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6099867D29F38CFE000B8D25 /* MainViewModel.swift */; };
 		6099868129F39969000B8D25 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6099868029F39969000B8D25 /* CardView.swift */; };
 		6099868329F39D98000B8D25 /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6099868229F39D98000B8D25 /* CustomDivider.swift */; };
@@ -126,6 +128,8 @@
 		604D601B29F27D5A008DB8E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60506F3329F797A40044531A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		60506F3629F7A22D0044531A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		6053353A2A1C5537009B7140 /* FirstLaunchAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchAlert.swift; sourceTree = "<group>"; };
+		6053353C2A1C55B4009B7140 /* FirstLaunchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchCard.swift; sourceTree = "<group>"; };
 		6099867D29F38CFE000B8D25 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		6099868029F39969000B8D25 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		6099868229F39D98000B8D25 /* CustomDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 		6045CD302A0BAC7A00492C6F /* AlertCards */ = {
 			isa = PBXGroup;
 			children = (
+				6053353C2A1C55B4009B7140 /* FirstLaunchCard.swift */,
 				609DB7C929FC21D1002D2B6B /* LocationPermissionAlertCard.swift */,
 				609DB7C129FC03D1002D2B6B /* MenuAlertCard.swift */,
 			);
@@ -396,6 +401,7 @@
 		609DB7C329FC0659002D2B6B /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
+				6053353A2A1C5537009B7140 /* FirstLaunchAlert.swift */,
 				609DB7C429FC067C002D2B6B /* MenuDetailAlert.swift */,
 				609DB7C629FC213D002D2B6B /* LocationPermissionAlert.swift */,
 			);
@@ -736,11 +742,13 @@
 				609DB7C529FC067C002D2B6B /* MenuDetailAlert.swift in Sources */,
 				603BE2D82A0274ED005B2018 /* LoadingView.swift in Sources */,
 				604D5FEC29F27769008DB8E5 /* MainView.swift in Sources */,
+				6053353B2A1C5537009B7140 /* FirstLaunchAlert.swift in Sources */,
 				6099868329F39D98000B8D25 /* CustomDivider.swift in Sources */,
 				60BD117129F29C2800000FCB /* MapView.swift in Sources */,
 				603BE2D32A02714A005B2018 /* LoadingImage.swift in Sources */,
 				609DB7C229FC03D1002D2B6B /* MenuAlertCard.swift in Sources */,
 				60506F3729F7A22D0044531A /* UIColor+Extensions.swift in Sources */,
+				6053353D2A1C55B4009B7140 /* FirstLaunchCard.swift in Sources */,
 				609DB7C729FC213D002D2B6B /* LocationPermissionAlert.swift in Sources */,
 				6045CD2F2A0BA7B800492C6F /* Errors.swift in Sources */,
 				604D601829F27D2C008DB8E5 /* FontManager.swift in Sources */,
@@ -930,7 +938,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ericyong.menumonya;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -970,7 +978,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ericyong.menumonya;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

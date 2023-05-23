@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct MainView: View {
+    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
     @StateObject var viewModel = MainViewModel()
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
     @State var isShowingMenuDetail = false
@@ -37,6 +38,9 @@ struct MainView: View {
             }
             if isShowingLocationAlert {
                 LocationPermissionAlert(viewModel: viewModel, isShowingLocationAlert: $isShowingLocationAlert)
+            }
+            if isFirstLaunch {
+                FirstLaunchAlert(isFirstLaunch: $isFirstLaunch)
             }
             if viewModel.isUpdatingCards {
                 LoadingView()

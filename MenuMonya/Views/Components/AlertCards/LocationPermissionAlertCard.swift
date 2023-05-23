@@ -50,7 +50,7 @@ struct LocationPermissionAlertCard: View {
         .padding(.horizontal, 30)
         .background(Color("background.cardview"))
         .cornerRadius(10)
-        .shadow(radius: 1)
+        .shadow(radius: 10)
     }
 }
 
