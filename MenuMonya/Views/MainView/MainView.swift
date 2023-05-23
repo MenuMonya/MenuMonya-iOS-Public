@@ -82,40 +82,53 @@ struct MainView: View {
     
     @ViewBuilder
     func mainViewHeader() -> some View {
-        HStack(spacing: 8) {
-            Button {
-                viewModel.locationSelection = .gangnam
-                viewModel.moveCameraToLocation(at: .gangnam)
-                viewModel.isFocusedOnMarker = false
-                viewModel.setMarkerImagesToDefault()
-            } label: {
-                if viewModel.locationSelection == .gangnam {
-                    Image("gangnam.enabled")
-                } else {
-                    Image("gangnam.disabled")
+        ScrollView(.horizontal) {
+            HStack(spacing: 10) {
+                ForEach(viewModel.regions.indices, id: \.self) { index in
+                    Button {
+                        viewModel.regions[viewModel.selectedLocationIndex].isSelected = false
+                        viewModel.regions[index].isSelected = true
+                        viewModel.selectedLocationIndex = index
+                    } label: {
+                        if viewModel.regions[index].isSelected {
+                            Text(viewModel.regions[index].name)
+                                .font(.pretendard(.semiBold, size: 14))
+                                .foregroundColor(Color("button.title.enabled"))
+                                .padding(.vertical, 7)
+                                .padding(.horizontal, 16)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .foregroundColor(Color("primary.orange"))
+                                }
+                        } else {
+                            Text(viewModel.regions[index].name)
+                                .font(.pretendard(.semiBold, size: 14))
+                                .foregroundColor(Color("button.title.disabled"))
+                                .padding(.vertical, 7)
+                                .padding(.horizontal, 16)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .stroke(Color("grey_300"), lineWidth: 1)
+                                }
+                        }
+                    }
+                }
+                .padding(.vertical, 10)
+                
+                Link(destination: viewModel.surveyLink ?? URL(string: "https://bit.ly/3oDijQp")!) {
+                    Text("지역건의")
+                        .font(.pretendard(.semiBold, size: 14))
+                        .foregroundColor(Color("button.title.enabled"))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 16)
+                        .background {
+                            RoundedRectangle(cornerRadius: 30)
+                                .foregroundColor(Color("primary.orange"))
+                        }
                 }
             }
-            .padding(.vertical, 10)
             .padding(.leading, 14)
-            Button {
-                viewModel.locationSelection = .yeoksam
-                viewModel.moveCameraToLocation(at: .yeoksam)
-                viewModel.isFocusedOnMarker = false
-                viewModel.setMarkerImagesToDefault()
-            } label: {
-                if viewModel.locationSelection == .yeoksam {
-                    Image("yeoksam.enabled")
-                } else {
-                    Image("yeoksam.disabled")
-                }
-            }
-            Spacer()
-            Link(destination: viewModel.surveyLink ?? URL(string: "https://bit.ly/3oDijQp")!) {
-                Image("icon.feedback")
-            }
-            .padding(.trailing, 18)
         }
-        .background(Color("background.header"))
     }
     
     // 내 주변 버튼
@@ -150,11 +163,11 @@ struct MainView: View {
                         }
                     }
                 } label: {
-                    if viewModel.locationSelection == .myLocation {
-                        Image("nearMe.enabled")
-                    } else {
-                        Image("nearMe.disabled")
-                    }
+                    //                    if viewModel.locationSelection == .myLocation {
+                    //                        Image("nearMe.enabled")
+                    //                    } else {
+                    //                        Image("nearMe.disabled")
+                    //                    }
                 }
             }
             .padding(.trailing, 14)

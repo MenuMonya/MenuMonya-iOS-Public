@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
+/// 식당 모델
 struct Restaurant: Codable, Hashable {
     static func == (lhs: Restaurant, rhs: Restaurant) -> Bool {
         if lhs.documentID == rhs.documentID {

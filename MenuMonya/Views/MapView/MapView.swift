@@ -38,20 +38,8 @@ struct NaverMapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
         let coordination: NMGLatLng
-        if viewModel.locationSelection == .gangnam {
+        if viewModel.locationSelection == .selectedLocatin {
             coordination = NMGLatLng(from: Constants.gangnamCoordinations)
-            uiView.mapView.locationOverlay.hidden = true
-            if isFirstCameraUpdate {
-                let cameraUpdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
-                cameraUpdate.animation = .fly
-                cameraUpdate.animationDuration = 1
-                uiView.mapView.moveCamera(cameraUpdate)
-                DispatchQueue.main.async {
-                    isFirstCameraUpdate = false
-                }
-            }
-        } else if viewModel.locationSelection == .yeoksam {
-            coordination = NMGLatLng(from: Constants.yeoksamCoordinations)
             uiView.mapView.locationOverlay.hidden = true
             if isFirstCameraUpdate {
                 let cameraUpdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
