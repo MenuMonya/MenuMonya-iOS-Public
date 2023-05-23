@@ -12,8 +12,9 @@ import FirebaseRemoteConfig
 class FirestoreManager  {
     
     let db = Firestore.firestore()
-   
-    // 식당 리스트 가져오기
+    
+    /// 식당 리스트 가져오기
+    /// - Parameter completion: 컴플리션 핸들러
     func fetchRestaurants(completion: @escaping([Restaurant]) -> Void) {
         var restaurants = [Restaurant]()
         
@@ -39,7 +40,34 @@ class FirestoreManager  {
         }
     }
     
-    // Remot Config 사용해 값 설정하기
+    /// 지역 리스트 가져오기
+    /// - Parameter completion: 컴플리션 핸들러
+    func fetchRegions(completion: @escaping([Region]) -> Void) {
+        var regions = [Region]()
+        
+        let regionsCollection = db.collection("regions")
+        regionsCollection
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                guard let docs = snapshot?.documents else { return }
+                for doc in docs {
+                    do {
+                        let region = try doc.data(as: Region.self)
+                        regions.append(region)
+                    }
+                    catch {
+                        print(error)
+                    }
+                }
+                completion(regions)
+            }
+    }
+    
+    /// Remote Config에서 값 가져와 설정
+    /// - Parameter completion: 컴플리션 핸들러
     func setupValueFromRemoteConfig(completion: @escaping(String?) -> Void) {
         let remoteConfig = RemoteConfig.remoteConfig()
         let settings = RemoteConfigSettings()
@@ -51,7 +79,7 @@ class FirestoreManager  {
             if status == .success {
                 remoteConfig.activate() { (changed, error) in
                     print(changed, error as Any)
-                    let resultValue = remoteConfig["FEEDBACK_URL_PROD"].stringValue
+                    let resultValue = remoteConfig["REGION_REPORT_URL"].stringValue
                     completion(resultValue)
                 }
             } else {

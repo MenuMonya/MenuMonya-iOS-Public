@@ -10,16 +10,17 @@ import NMapsMap
 import CoreLocation
 
 enum LocationSelection {
-    case gangnam
-    case yeoksam
+    case selectedLocatin
     case myLocation
 }
 
 class MainViewModel: ObservableObject {
+    @Published var regions: [Region] = []
     @Published var restaurants: [Restaurant] = []
     @Published var markers: [NMFMarker] = []
     
-    @Published var locationSelection: LocationSelection = .gangnam
+    @Published var locationSelection: LocationSelection = .selectedLocatin
+    @Published var selectedLocationIndex = 0
     @Published var selectedMarkerRestaurantID = ""
     @Published var selectedRestaurantIndex: CGFloat = 0
     @Published var currentDateString = ""
@@ -45,6 +46,10 @@ class MainViewModel: ObservableObject {
         
         setCurrentDateString()
         setCurrentDateKorean()
+        
+        firestoreManager.fetchRegions { regions in
+            self.regions = regions.map { $0 }
+        }
         
         // 식당 정보 fetch 후 card 모델에 담기
         firestoreManager.fetchRestaurants { restaurants in
@@ -149,7 +154,6 @@ class MainViewModel: ObservableObject {
                     self.restaurants[index] = restaurant
                 }
             }
-            
             for i in 0..<self.restaurants.count {
                 // 가격 포매팅
                 let numberFormatter = NumberFormatter()
@@ -162,7 +166,6 @@ class MainViewModel: ObservableObject {
                     }
                 }
             }
-            
             self.isUpdatingCards = false
         }
         
@@ -235,16 +238,21 @@ class MainViewModel: ObservableObject {
     
     func moveCameraToLocation(at location: LocationSelection) {
         switch location {
-        case .gangnam:
-            let coordination = NMGLatLng(from: Constants.gangnamCoordinations)
+        case .selectedLocatin:
+            let coordination = NMGLatLng(from: CLLocationCoordinate2D(latitude: regions[selectedLocationIndex].latitude, longitude: regions[selectedLocationIndex].longitude))
             let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
             cameraupdate.animation = .easeOut
             mapView?.moveCamera(cameraupdate)
-        case .yeoksam:
-            let coordination = NMGLatLng(from: Constants.yeoksamCoordinations)
-            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
-            cameraupdate.animation = .easeOut
-            mapView?.moveCamera(cameraupdate)
+//        case .gangnam:
+//            let coordination = NMGLatLng(from: Constants.gangnamCoordinations)
+//            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+//            cameraupdate.animation = .easeOut
+//            mapView?.moveCamera(cameraupdate)
+//        case .yeoksam:
+//            let coordination = NMGLatLng(from: Constants.yeoksamCoordinations)
+//            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+//            cameraupdate.animation = .easeOut
+//            mapView?.moveCamera(cameraupdate)
         case .myLocation:
             let coordination = mapView!.locationOverlay.location
             let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
