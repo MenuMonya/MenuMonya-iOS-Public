@@ -32,6 +32,12 @@ struct MainView: View {
                         .zIndex((viewModel.isFocusedOnMarker ? 0 : 2))
                     restaurantCardScrollView()
                 }
+                .onChange(of: viewModel.isMarkersAdded) { isCompleted in
+                    if isCompleted {
+                        viewModel.setRestaurantsAnMarkersInSelectedRegion()
+                        viewModel.moveCameraToLocation(at: .selectedLocation)
+                    }
+                }
             }
             if isShowingMenuDetail {
                 MenuDetailAlert(viewModel: viewModel, isShowingMenuDetail: $isShowingMenuDetail)
@@ -86,9 +92,13 @@ struct MainView: View {
             HStack(spacing: 10) {
                 ForEach(viewModel.regions.indices, id: \.self) { index in
                     Button {
-                        viewModel.regions[viewModel.selectedLocationIndex].isSelected = false
+                        viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
                         viewModel.regions[index].isSelected = true
-                        viewModel.selectedLocationIndex = index
+                        viewModel.selectedRegionIndex = index
+                        viewModel.setRestaurantsAnMarkersInSelectedRegion()
+                        viewModel.moveCameraToLocation(at: .selectedLocation)
+                        viewModel.setMarkerImagesToDefault()
+                        viewModel.isFocusedOnMarker = false
                     } label: {
                         if viewModel.regions[index].isSelected {
                             Text(viewModel.regions[index].name)
@@ -163,11 +173,11 @@ struct MainView: View {
                         }
                     }
                 } label: {
-                    //                    if viewModel.locationSelection == .myLocation {
-                    //                        Image("nearMe.enabled")
-                    //                    } else {
-                    //                        Image("nearMe.disabled")
-                    //                    }
+                    if viewModel.locationSelection == .myLocation {
+                        Image("nearMe.enabled")
+                    } else {
+                        Image("nearMe.disabled")
+                    }
                 }
             }
             .padding(.trailing, 14)
@@ -187,7 +197,7 @@ struct MainView: View {
             VStack(spacing: 0) {
                 Spacer()
                 HStack(spacing: 6) {
-                    ForEach($viewModel.restaurants, id: \.self) { restaurant in
+                    ForEach($viewModel.restaurantsInSelectedRegion, id: \.self) { restaurant in
                         CardView(viewModel: viewModel, restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail)
                             .frame(width: pageWidth)
                             .padding(.bottom, 14)
@@ -212,11 +222,12 @@ struct MainView: View {
                                 }
                             } else if value.predictedEndLocation.x - value.location.x < -50 {
                                 // 오른쪽 스냅
-                                if currentIndex < (viewModel.restaurants.count-1) {
+                                if currentIndex < (viewModel.restaurantsInSelectedRegion.count-1) {
                                     currentIndex += 1
                                 }
                             } else {
-                                currentIndex = max(min(currentIndex + increment, viewModel.restaurants.count - 1), 0)
+                                let nextIndex = max(min(currentIndex + increment, viewModel.restaurantsInSelectedRegion.count - 1), 0)
+                                currentIndex = nextIndex
                             }
                             viewModel.moveCameraToMarker(at: currentIndex)
                             viewModel.selectedRestaurantIndex = CGFloat(currentIndex)

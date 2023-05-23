@@ -10,17 +10,19 @@ import NMapsMap
 import CoreLocation
 
 enum LocationSelection {
-    case selectedLocatin
+    case selectedLocation
     case myLocation
 }
 
 class MainViewModel: ObservableObject {
     @Published var regions: [Region] = []
     @Published var restaurants: [Restaurant] = []
+    @Published var restaurantsInSelectedRegion: [Restaurant] = []
     @Published var markers: [NMFMarker] = []
+    @Published var markersInSelectedRegion: [NMFMarker] = []
     
-    @Published var locationSelection: LocationSelection = .selectedLocatin
-    @Published var selectedLocationIndex = 0
+    @Published var locationSelection: LocationSelection = .selectedLocation
+    @Published var selectedRegionIndex = 0
     @Published var selectedMarkerRestaurantID = ""
     @Published var selectedRestaurantIndex: CGFloat = 0
     @Published var currentDateString = ""
@@ -43,31 +45,32 @@ class MainViewModel: ObservableObject {
     let markerImage = NMFOverlayImage(name: "marker.restaurant")
     
     init() {
-        
         setCurrentDateString()
         setCurrentDateKorean()
         
         firestoreManager.fetchRegions { regions in
             self.regions = regions.map { $0 }
-        }
-        
-        // 식당 정보 fetch 후 card 모델에 담기
-        firestoreManager.fetchRestaurants { restaurants in
-            self.restaurants = restaurants.map { $0 }
+            self.regions[self.selectedRegionIndex].isSelected = true
+            self.moveCameraToLocation(at: .selectedLocation)
             
-            for i in 0..<self.restaurants.count {
-                // 가격 포매팅
-                let numberFormatter = NumberFormatter()
-                numberFormatter.numberStyle = .decimal
-                if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
-                    let myNumber = NSNumber(value: integerPrice)
-                    let decimalPrice = numberFormatter.string(from: myNumber)
-                    if let price = decimalPrice {
-                        self.restaurants[i].price.cardPrice = price
+            // 식당 정보 fetch 후 card 모델에 담기
+            self.firestoreManager.fetchRestaurants { restaurants in
+                self.restaurants = restaurants.map { $0 }
+                
+                for i in 0..<self.restaurants.count {
+                    // 가격 포매팅
+                    let numberFormatter = NumberFormatter()
+                    numberFormatter.numberStyle = .decimal
+                    if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
+                        let myNumber = NSNumber(value: integerPrice)
+                        let decimalPrice = numberFormatter.string(from: myNumber)
+                        if let price = decimalPrice {
+                            self.restaurants[i].price.cardPrice = price
+                        }
                     }
                 }
+                self.isFetchCompleted = true
             }
-            self.isFetchCompleted = true
         }
         
         firestoreManager.setupValueFromRemoteConfig { formURL in
@@ -178,6 +181,29 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    // MARK: - 지역 선택에 따라 마커, 식당 추가하기
+    func setRestaurantsAnMarkersInSelectedRegion() {
+        let regionName = self.regions[selectedRegionIndex].name
+        
+        restaurantsInSelectedRegion = []
+        markersInSelectedRegion = []
+        
+        for marker in markers {
+            marker.hidden = true
+        }
+        
+        for index in restaurants.indices {
+            if restaurants[index].locationCategory.contains(regionName) {
+                restaurantsInSelectedRegion.append(restaurants[index])
+                markersInSelectedRegion.append(markers[index])
+            }
+        }
+        
+        for marker in markersInSelectedRegion {
+            marker.hidden = false
+        }
+    }
+    
     // MARK: - 네이버 지도 관련 함수들
     func addMarkers() {
         DispatchQueue.main.async {
@@ -191,7 +217,7 @@ class MainViewModel: ObservableObject {
                 // 마커 터치 시 동작
                 marker.touchHandler = { [weak self] (overlay: NMFOverlay) -> Bool in
                     self?.selectedMarkerRestaurantID = restaurant.documentID!
-                    self?.selectedRestaurantIndex = Double(Int((self?.restaurants.firstIndex(where: { $0.documentID == restaurant.documentID })!)!))
+                    self?.selectedRestaurantIndex = Double(Int((self?.restaurantsInSelectedRegion.firstIndex(where: { $0.documentID == restaurant.documentID })!)!))
                     self?.setMarkerImagesToDefault()
                     // 나만 selected 이미지로 보이기
                     marker.iconImage = self!.selectedMarkerImage
@@ -223,13 +249,13 @@ class MainViewModel: ObservableObject {
     
     func setMarkerImageToSelected(at index: Int) {
         setMarkerImagesToDefault()
-        markers[index].iconImage = selectedMarkerImage
-        markers[index].zIndex = 100
+        markersInSelectedRegion[index].iconImage = selectedMarkerImage
+        markersInSelectedRegion[index].zIndex = 100
     }
     
     func moveCameraToMarker(at selectedIndex: Int) {
-        if selectedIndex < markers.count && selectedIndex >= 0{
-            let cameraUpdate = NMFCameraUpdate(scrollTo: self.markers[selectedIndex].position)
+        if selectedIndex < markersInSelectedRegion.count && selectedIndex >= 0{
+            let cameraUpdate = NMFCameraUpdate(scrollTo: self.markersInSelectedRegion[selectedIndex].position)
             cameraUpdate.animation = .easeOut
             cameraUpdate.pivot = CGPoint(x: 0.5, y: 0.35)
             self.markers[selectedIndex].mapView?.moveCamera(cameraUpdate)
@@ -238,21 +264,11 @@ class MainViewModel: ObservableObject {
     
     func moveCameraToLocation(at location: LocationSelection) {
         switch location {
-        case .selectedLocatin:
-            let coordination = NMGLatLng(from: CLLocationCoordinate2D(latitude: regions[selectedLocationIndex].latitude, longitude: regions[selectedLocationIndex].longitude))
-            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+        case .selectedLocation:
+            let coordination = NMGLatLng(from: CLLocationCoordinate2D(latitude: regions[selectedRegionIndex].latitude, longitude: regions[selectedRegionIndex].longitude))
+            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 14)
             cameraupdate.animation = .easeOut
             mapView?.moveCamera(cameraupdate)
-//        case .gangnam:
-//            let coordination = NMGLatLng(from: Constants.gangnamCoordinations)
-//            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
-//            cameraupdate.animation = .easeOut
-//            mapView?.moveCamera(cameraupdate)
-//        case .yeoksam:
-//            let coordination = NMGLatLng(from: Constants.yeoksamCoordinations)
-//            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
-//            cameraupdate.animation = .easeOut
-//            mapView?.moveCamera(cameraupdate)
         case .myLocation:
             let coordination = mapView!.locationOverlay.location
             let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
