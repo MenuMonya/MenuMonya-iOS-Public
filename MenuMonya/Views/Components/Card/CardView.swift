@@ -173,11 +173,14 @@ struct CardView: View {
                     image
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 66, height: 66)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .frame(width: 70, height: 70)
+                        .cornerRadius(8)
                 } placeholder: {
-                    ProgressView()
-                        .frame(width: 66, height: 66)
+                    Image("default.restaurant")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70, height: 70)
+                        .cornerRadius(8)
                 }
             }
         }
