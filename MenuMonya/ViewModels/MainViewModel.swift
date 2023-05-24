@@ -94,6 +94,7 @@ class MainViewModel: ObservableObject {
     }
     
     // MARK: - 업데이트 체크
+    
     func isUpdateAvailable(completion: @escaping (Bool?, Error?) -> Void) throws -> URLSessionDataTask {
         guard let info = Bundle.main.infoDictionary,
             let currentVersion = info["CFBundleShortVersionString"] as? String,
@@ -128,6 +129,7 @@ class MainViewModel: ObservableObject {
     }
     
     // MARK: - 날짜 포맷
+    
     // 오늘 날짜로 dateString 변경
     func setCurrentDateString() {
         let dateFormatter = DateFormatter()
@@ -143,6 +145,7 @@ class MainViewModel: ObservableObject {
     }
     
     // MARK: - 메뉴 업데이트
+    
     // 다시 실행할 때 마다 메뉴 업데이트
     func updateCardDatas() {
         isUpdatingCards = true
@@ -182,6 +185,7 @@ class MainViewModel: ObservableObject {
     }
     
     // MARK: - 지역 선택에 따라 마커, 식당 추가하기
+    
     func setRestaurantsAnMarkersInSelectedRegion() {
         let regionName = self.regions[selectedRegionIndex].name
         
@@ -205,6 +209,7 @@ class MainViewModel: ObservableObject {
     }
     
     // MARK: - 네이버 지도 관련 함수들
+    
     func addMarkers() {
         DispatchQueue.main.async {
             for restaurant in self.restaurants {
@@ -278,12 +283,19 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Location Mode 변경 관련 함수들
+    
     func setLocationModeToMyLocation() {
         mapView!.locationOverlay.hidden = false
         mapView!.positionMode = .direction
     }
+    
+    func setLocationModeToSelectedLocation() {
+        mapView!.locationOverlay.hidden = true
+    }
    
     // MARK: - 위치 서비스 관련 함수들
+    
     func isLocationServiceEnabled() -> Bool {
         return locationManager.isLocationServiceEnabled()
     }
@@ -296,4 +308,28 @@ class MainViewModel: ObservableObject {
         locationManager.requestUserAuthorization()
     }
     
+    // MARK: - 내 위치 선택 시 나와 가까운 식당들만 선정
+    func setRestaurantsNearMyLocation() {
+        restaurantsInSelectedRegion = []
+        markersInSelectedRegion = []
+        
+        for marker in markers {
+            marker.hidden = true
+        }
+        
+        print(locationManager.currentLocation)
+        
+        for index in restaurants.indices {
+            // 내 위치에서 1000미터 이내 가게들 등록
+            if restaurants[index].location.coordination.distance(from: locationManager.currentLocation) < 1000 {
+                restaurantsInSelectedRegion.append(restaurants[index])
+                markersInSelectedRegion.append(markers[index])
+            }
+        }
+        
+        for marker in markersInSelectedRegion {
+            marker.hidden = false
+        }
+        
+    }
 }

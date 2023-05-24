@@ -23,6 +23,9 @@ struct NaverMapView: UIViewRepresentable {
         view.showZoomControls = false
         view.mapView.positionMode = .direction
         view.mapView.zoomLevel = 15
+        view.showCompass = true
+        view.mapView.logoAlign = .leftTop
+        view.showScaleBar = false
         
         view.mapView.touchDelegate = context.coordinator
         view.mapView.addCameraDelegate(delegate: context.coordinator)

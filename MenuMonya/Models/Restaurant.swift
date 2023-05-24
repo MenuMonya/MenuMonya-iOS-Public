@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import CoreLocation
 
 /// 식당 모델
 struct Restaurant: Codable, Hashable {
@@ -83,6 +84,10 @@ struct Coordination: Codable {
     var longitude: String
     
     static let dummy = Coordination(latitude: "37.498095", longitude: "127.027610")
+    
+    func distance(from location: CLLocation) -> CLLocationDistance {
+        return CLLocation(latitude: Double(latitude)!, longitude: Double(longitude)!).distance(from: location)
+    }
 }
 
 struct Price: Codable {

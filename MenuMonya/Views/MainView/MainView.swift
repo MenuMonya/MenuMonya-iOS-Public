@@ -10,6 +10,8 @@ import FirebaseFirestore
 
 struct MainView: View {
     @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
+    @AppStorage("lastRegionName") var lastRegionName: String = ""
+    
     @StateObject var viewModel = MainViewModel()
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
     @State var isShowingMenuDetail = false
@@ -37,6 +39,14 @@ struct MainView: View {
                         viewModel.setRestaurantsAnMarkersInSelectedRegion()
                         viewModel.moveCameraToLocation(at: .selectedLocation)
                     }
+                }
+                .onAppear {
+                        if let lastRegionIndex = viewModel.regions.firstIndex(where: { $0.name == lastRegionName }) {
+                            viewModel.selectedRegionIndex = lastRegionIndex
+                            print(lastRegionIndex)
+                        }
+                    print("onAppear")
+                    print(lastRegionName)
                 }
             }
             if isShowingMenuDetail {
@@ -92,6 +102,7 @@ struct MainView: View {
             HStack(spacing: 10) {
                 ForEach(viewModel.regions.indices, id: \.self) { index in
                     Button {
+                        viewModel.locationSelection = .selectedLocation
                         viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
                         viewModel.regions[index].isSelected = true
                         viewModel.selectedRegionIndex = index
@@ -99,6 +110,8 @@ struct MainView: View {
                         viewModel.moveCameraToLocation(at: .selectedLocation)
                         viewModel.setMarkerImagesToDefault()
                         viewModel.isFocusedOnMarker = false
+                        viewModel.setLocationModeToSelectedLocation()
+                        lastRegionName = viewModel.regions[index].name
                     } label: {
                         if viewModel.regions[index].isSelected {
                             Text(viewModel.regions[index].name)
@@ -149,6 +162,7 @@ struct MainView: View {
                 Spacer()
                 Button {
                     viewModel.isFocusedOnMarker = false
+                    viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
                     viewModel.setMarkerImagesToDefault()
                     // 위치 정보 권한 설정하지 않았다면
                     let isLocationServiceEnabled = viewModel.isLocationServiceEnabled()
@@ -161,8 +175,9 @@ struct MainView: View {
                         // 위치 정보 권한이 있다면
                         if isLocationPermissionAuthorized {
                             viewModel.locationSelection = .myLocation
-                            viewModel.setLocationModeToMyLocation()
                             viewModel.moveCameraToLocation(at: .myLocation)
+                            viewModel.setLocationModeToMyLocation()
+                            viewModel.setRestaurantsNearMyLocation()
                             // 내 주변 식당 보여주기
                             // 1. 내 위치로 카메라 이동 및 내 위치 오버레이 <- 맵뷰에서 구현 완료
                             // 2. 가까운 순으로 레스토랑 정렬 <- ?
