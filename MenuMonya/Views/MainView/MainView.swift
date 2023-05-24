@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 struct MainView: View {
     @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
-    @AppStorage("lastRegionName") var lastRegionName: String = ""
+    @AppStorage("lastRegionName") var lastRegionName: String = "강남"
     
     @StateObject var viewModel = MainViewModel()
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
@@ -36,17 +36,15 @@ struct MainView: View {
                 }
                 .onChange(of: viewModel.isMarkersAdded) { isCompleted in
                     if isCompleted {
-                        viewModel.setRestaurantsAnMarkersInSelectedRegion()
-                        viewModel.moveCameraToLocation(at: .selectedLocation)
-                    }
-                }
-                .onAppear {
                         if let lastRegionIndex = viewModel.regions.firstIndex(where: { $0.name == lastRegionName }) {
+                            viewModel.locationSelection = .selectedLocation
+                            viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
+                            viewModel.regions[lastRegionIndex].isSelected = true
                             viewModel.selectedRegionIndex = lastRegionIndex
-                            print(lastRegionIndex)
+                            viewModel.setRestaurantsAnMarkersInSelectedRegion()
+                            viewModel.moveCameraToLocation(at: .selectedLocation)
                         }
-                    print("onAppear")
-                    print(lastRegionName)
+                    }
                 }
             }
             if isShowingMenuDetail {
@@ -164,26 +162,17 @@ struct MainView: View {
                     viewModel.isFocusedOnMarker = false
                     viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
                     viewModel.setMarkerImagesToDefault()
-                    // 위치 정보 권한 설정하지 않았다면
                     let isLocationServiceEnabled = viewModel.isLocationServiceEnabled()
                     if !isLocationServiceEnabled {
-                        // 팝업 띄우기
                         isShowingLocationAlert = true
-                        // 위치 정보 권한 설정했다면
                     } else {
                         let isLocationPermissionAuthorized = viewModel.isLocationPermissionAuthorized()
-                        // 위치 정보 권한이 있다면
                         if isLocationPermissionAuthorized {
                             viewModel.locationSelection = .myLocation
                             viewModel.moveCameraToLocation(at: .myLocation)
                             viewModel.setLocationModeToMyLocation()
                             viewModel.setRestaurantsNearMyLocation()
-                            // 내 주변 식당 보여주기
-                            // 1. 내 위치로 카메라 이동 및 내 위치 오버레이 <- 맵뷰에서 구현 완료
-                            // 2. 가까운 순으로 레스토랑 정렬 <- ?
-                            // 위치 정보 권한이 없다면
                         } else {
-                            // 위치 정보 권한 요청 alert 띄우기
                             isPresentingLocationAlert = true
                         }
                     }

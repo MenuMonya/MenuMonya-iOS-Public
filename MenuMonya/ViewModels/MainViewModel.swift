@@ -50,8 +50,6 @@ class MainViewModel: ObservableObject {
         
         firestoreManager.fetchRegions { regions in
             self.regions = regions.map { $0 }
-            self.regions[self.selectedRegionIndex].isSelected = true
-            self.moveCameraToLocation(at: .selectedLocation)
             
             // 식당 정보 fetch 후 card 모델에 담기
             self.firestoreManager.fetchRestaurants { restaurants in
