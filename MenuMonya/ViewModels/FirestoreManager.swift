@@ -47,6 +47,7 @@ class FirestoreManager  {
         
         let regionsCollection = db.collection("regions")
         regionsCollection
+            .order(by: "name")
             .getDocuments { snapshot, error in
                 if let error = error {
                     print(error)
