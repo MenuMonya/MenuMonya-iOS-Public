@@ -98,7 +98,7 @@ struct MainView: View {
     
     @ViewBuilder
     func mainViewHeader() -> some View {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) {
                 ForEach(viewModel.regions.indices, id: \.self) { index in
                     Button {
@@ -150,7 +150,7 @@ struct MainView: View {
                         }
                 }
             }
-            .padding(.leading, 14)
+            .padding(.horizontal, 14)
         }
     }
     
