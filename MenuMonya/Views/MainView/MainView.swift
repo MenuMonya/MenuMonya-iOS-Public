@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 struct MainView: View {
     @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
-    @AppStorage("lastRegionName") var lastRegionName: String = "강남"
+    @AppStorage("lastRegionName") var lastRegionName: String = ""
     
     @StateObject var viewModel = MainViewModel()
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
@@ -41,6 +41,11 @@ struct MainView: View {
                             viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
                             viewModel.regions[lastRegionIndex].isSelected = true
                             viewModel.selectedRegionIndex = lastRegionIndex
+                            viewModel.setRestaurantsAnMarkersInSelectedRegion()
+                            viewModel.moveCameraToLocation(at: .selectedLocation)
+                        } else {
+                            viewModel.locationSelection = .selectedLocation
+                            viewModel.regions[viewModel.selectedRegionIndex].isSelected = true
                             viewModel.setRestaurantsAnMarkersInSelectedRegion()
                             viewModel.moveCameraToLocation(at: .selectedLocation)
                         }
