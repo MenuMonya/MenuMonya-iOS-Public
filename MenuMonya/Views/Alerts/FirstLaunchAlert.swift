@@ -14,9 +14,6 @@ struct FirstLaunchAlert: View {
         ZStack {
             Color.black.opacity(0.5)
                 .edgesIgnoringSafeArea(.all)
-//                .onTapGesture {
-//                    isFirstLaunch = false
-//                }
             FirstLaunchCard(isFirstLaunch: $isFirstLaunch)
                 .padding(.horizontal, 14)
         }
