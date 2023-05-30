@@ -63,6 +63,7 @@
 		6099867E29F38CFE000B8D25 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6099867D29F38CFE000B8D25 /* MainViewModel.swift */; };
 		6099868129F39969000B8D25 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6099868029F39969000B8D25 /* CardView.swift */; };
 		6099868329F39D98000B8D25 /* CustomDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6099868229F39D98000B8D25 /* CustomDivider.swift */; };
+		609A62B42A25FF1C00E63146 /* MenuReportText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609A62B32A25FF1C00E63146 /* MenuReportText.swift */; };
 		609DB7C229FC03D1002D2B6B /* MenuAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C129FC03D1002D2B6B /* MenuAlertCard.swift */; };
 		609DB7C529FC067C002D2B6B /* MenuDetailAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C429FC067C002D2B6B /* MenuDetailAlert.swift */; };
 		609DB7C729FC213D002D2B6B /* LocationPermissionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C629FC213D002D2B6B /* LocationPermissionAlert.swift */; };
@@ -131,8 +132,9 @@
 		6053353A2A1C5537009B7140 /* FirstLaunchAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchAlert.swift; sourceTree = "<group>"; };
 		6053353C2A1C55B4009B7140 /* FirstLaunchCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchCard.swift; sourceTree = "<group>"; };
 		6099867D29F38CFE000B8D25 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		6099868029F39969000B8D25 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		6099868029F39969000B8D25 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		6099868229F39D98000B8D25 /* CustomDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDivider.swift; sourceTree = "<group>"; };
+		609A62B32A25FF1C00E63146 /* MenuReportText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuReportText.swift; sourceTree = "<group>"; };
 		609DB7C129FC03D1002D2B6B /* MenuAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAlertCard.swift; sourceTree = "<group>"; };
 		609DB7C429FC067C002D2B6B /* MenuDetailAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDetailAlert.swift; sourceTree = "<group>"; };
 		609DB7C629FC213D002D2B6B /* LocationPermissionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionAlert.swift; sourceTree = "<group>"; };
@@ -200,8 +202,6 @@
 		60389AF229F2F26900877215 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				60389AF329F2F2EA00877215 /* FirestoreManager.swift */,
-				60506F3329F797A40044531A /* LocationManager.swift */,
 				6099867D29F38CFE000B8D25 /* MainViewModel.swift */,
 			);
 			path = ViewModels;
@@ -212,6 +212,7 @@
 			children = (
 				60389AF629F303BA00877215 /* Restaurant.swift */,
 				6004C7AA2A1C63A1007B6FF8 /* Region.swift */,
+				609A62B32A25FF1C00E63146 /* MenuReportText.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -274,6 +275,7 @@
 				604D5FEF29F2779D008DB8E5 /* App */,
 				604D5FEE29F27786008DB8E5 /* Resources */,
 				6028F7A829F76E9200745F4A /* Helpers */,
+				609A62B52A26003C00E63146 /* Services */,
 				60389AF529F303AE00877215 /* Models */,
 				60389AF229F2F26900877215 /* ViewModels */,
 				604D5FED29F2777B008DB8E5 /* Views */,
@@ -396,6 +398,15 @@
 				6028F7A629F76E7400745F4A /* Card */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		609A62B52A26003C00E63146 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				60389AF329F2F2EA00877215 /* FirestoreManager.swift */,
+				60506F3329F797A40044531A /* LocationManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		609DB7C329FC0659002D2B6B /* Alerts */ = {
@@ -742,6 +753,7 @@
 				609DB7C529FC067C002D2B6B /* MenuDetailAlert.swift in Sources */,
 				603BE2D82A0274ED005B2018 /* LoadingView.swift in Sources */,
 				604D5FEC29F27769008DB8E5 /* MainView.swift in Sources */,
+				609A62B42A25FF1C00E63146 /* MenuReportText.swift in Sources */,
 				6053353B2A1C5537009B7140 /* FirstLaunchAlert.swift in Sources */,
 				6099868329F39D98000B8D25 /* CustomDivider.swift in Sources */,
 				6004C7AB2A1C63A1007B6FF8 /* Region.swift in Sources */,
