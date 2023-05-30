@@ -104,9 +104,15 @@ struct CardView: View {
             }
             .padding(.vertical, 29)
             CustomDivider(color: Color("grey_200"))
-            Text("메뉴는 평일 오전 11시에 업데이트됩니다")
-                .font(.pretendard(.regular, size: 12))
-                .padding(.vertical, 6)
+            if restaurant.menuAvailableOnline {
+                Text("메뉴는 평일 오전 11시에 업데이트됩니다")
+                    .font(.pretendard(.regular, size: 12))
+                    .padding(.vertical, 6)
+            } else {
+                Text("해당 식당의 메뉴는 여러분의 제보로 업데이트됩니다")
+                    .font(.pretendard(.regular, size: 12))
+                    .padding(.vertical, 6)
+            }
             CustomDivider(color: Color("grey_200"))
         }
     }
