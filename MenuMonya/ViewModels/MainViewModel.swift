@@ -20,6 +20,8 @@ class MainViewModel: ObservableObject {
     @Published var restaurantsInSelectedRegion: [Restaurant] = []
     @Published var markers: [NMFMarker] = []
     @Published var markersInSelectedRegion: [NMFMarker] = []
+    @Published var menuReportTexts: [MenuReportText] = []
+    @Published var menuReportText: String = "오늘 메뉴 제보하기"
     
     @Published var locationSelection: LocationSelection = .selectedLocation
     @Published var selectedRegionIndex = 0
@@ -28,6 +30,7 @@ class MainViewModel: ObservableObject {
     @Published var currentDateString = ""
     @Published var currentDateKorean = ""
     @Published var surveyLink: URL?
+    @Published var menuReportLink: URL?
     
     @Published var isFetchCompleted = false
     @Published var isMapViewInitiated = false
@@ -73,10 +76,21 @@ class MainViewModel: ObservableObject {
             }
         }
         
-        firestoreManager.setupValueFromRemoteConfig { formURL in
-            if let formURL = formURL {
+        firestoreManager.fetchMenuReportTexts { menuReportTexts in
+            self.menuReportTexts = menuReportTexts.map { $0 }
+            print(self.menuReportTexts)
+        }
+        
+        firestoreManager.setupValueFromRemoteConfig { regionReportURL, menuReportURL in
+            if let regionReportURL = regionReportURL {
                 DispatchQueue.main.async {
-                    self.surveyLink = URL(string: formURL)
+                    self.surveyLink = URL(string: regionReportURL)
+                }
+            }
+            
+            if let menuReportURL = menuReportURL {
+                DispatchQueue.main.async {
+                    self.menuReportLink = URL(string: menuReportURL)
                 }
             }
         }
@@ -175,10 +189,17 @@ class MainViewModel: ObservableObject {
             self.isUpdatingCards = false
         }
         
-        firestoreManager.setupValueFromRemoteConfig { formURL in
-            if let formURL = formURL {
+        // remote config 가져오기
+        firestoreManager.setupValueFromRemoteConfig { regionReportURL, menuReportURL in
+            if let regionReportURL = regionReportURL {
                 DispatchQueue.main.async {
-                    self.surveyLink = URL(string: formURL)
+                    self.surveyLink = URL(string: regionReportURL)
+                }
+            }
+            
+            if let menuReportURL = menuReportURL {
+                DispatchQueue.main.async {
+                    self.menuReportLink = URL(string: menuReportURL)
                 }
             }
         }
@@ -255,6 +276,11 @@ class MainViewModel: ObservableObject {
     
     func setMarkerImageToSelected(at index: Int) {
         setMarkerImagesToDefault()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(60)) { [weak self] in
+            if !self!.menuReportTexts.isEmpty {
+                self!.menuReportText = self!.menuReportTexts.randomElement()?.description ?? "오늘 메뉴 제보하기"
+            }
+        }
         markersInSelectedRegion[index].iconImage = self.isShowingTodayMenu(of: restaurantsInSelectedRegion[index]) ? selectedMarkerImage : selectedMarkerImageWhenNoMenu
         markersInSelectedRegion[index].zIndex = 100
     }

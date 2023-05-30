@@ -99,8 +99,17 @@ struct CardView: View {
         VStack(spacing: 0) {
             CustomDivider(color: Color("grey_200"))
                 .padding(.top, 10)
-            Link(destination: URL(string: "https://open.kakao.com/o/gKPs3pif")!) {
-                Image("button.reportMenu")
+            Link(destination: viewModel.menuReportLink ?? URL(string: "https://pf.kakao.com/_WFAyxj")!) {
+                Text(viewModel.menuReportText)
+                    .font(.pretendard(.medium, size: 16))
+                    .foregroundColor(Color("button.title.enabled"))
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 24)
+                    .background {
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(Color("primary.orange"))
+                            .shadow(radius: 2)
+                    }
             }
             .padding(.vertical, 29)
             CustomDivider(color: Color("grey_200"))

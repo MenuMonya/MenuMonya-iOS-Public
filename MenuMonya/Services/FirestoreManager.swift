@@ -67,9 +67,35 @@ class FirestoreManager  {
             }
     }
     
+    /// 제보 텍스트들 가져오기
+    /// - Parameter completion: 컴플리션 핸들러
+    func fetchMenuReportTexts(completion: @escaping([MenuReportText]) -> Void) {
+        var menuReportTexts = [MenuReportText]()
+        
+        let menuReportTextsCollection = db.collection("menu-report-text")
+        menuReportTextsCollection
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                guard let docs = snapshot?.documents else { return }
+                for doc in docs {
+                    do {
+                        let menuReportText = try doc.data(as: MenuReportText.self)
+                        menuReportTexts.append(menuReportText)
+                    }
+                    catch {
+                        print(error)
+                    }
+                }
+                completion(menuReportTexts)
+            }
+    }
+    
     /// Remote Config에서 값 가져와 설정
     /// - Parameter completion: 컴플리션 핸들러
-    func setupValueFromRemoteConfig(completion: @escaping(String?) -> Void) {
+    func setupValueFromRemoteConfig(completion: @escaping(String?, String?) -> Void) {
         let remoteConfig = RemoteConfig.remoteConfig()
         let settings = RemoteConfigSettings()
         settings.minimumFetchInterval = 0
@@ -80,8 +106,9 @@ class FirestoreManager  {
             if status == .success {
                 remoteConfig.activate() { (changed, error) in
                     print(changed, error as Any)
-                    let resultValue = remoteConfig["REGION_REPORT_URL"].stringValue
-                    completion(resultValue)
+                    let regionReportURL = remoteConfig["REGION_REPORT_URL"].stringValue
+                    let menuReportURL = remoteConfig["REPORT_MENU_URL"].stringValue
+                    completion(regionReportURL, menuReportURL)
                 }
             } else {
                 print("Error: \(error?.localizedDescription ?? "No error available")")

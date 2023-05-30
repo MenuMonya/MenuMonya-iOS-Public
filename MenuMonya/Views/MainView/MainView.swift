@@ -243,8 +243,8 @@ struct MainView: View {
                             viewModel.setMarkerImageToSelected(at: currentIndex)
                         }
                 )
-                .animation(.easeOut, value: currentIndex)
-                .animation(.easeOut, value: dragOffset)
+                .animation(.easeOut(duration: 0.5), value: currentIndex)
+                .animation(.easeOut(duration: 0.5), value: dragOffset)
                 .onChange(of: viewModel.selectedRestaurantIndex) { newValue in
                     currentIndex = Int(newValue)
                 }
