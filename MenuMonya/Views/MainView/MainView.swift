@@ -16,6 +16,7 @@ struct MainView: View {
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
     @State var isShowingMenuDetail = false
     @State var isShowingLocationAlert = false
+    @State var isShowingRestaurantPhoto = false
     @State private var isPresentingLocationAlert = false
     @State private var currentIndex = 0
     @Environment(\.scenePhase) var scenePhase
@@ -57,6 +58,9 @@ struct MainView: View {
             }
             if isShowingLocationAlert {
                 LocationPermissionAlert(viewModel: viewModel, isShowingLocationAlert: $isShowingLocationAlert)
+            }
+            if isShowingRestaurantPhoto {
+                PhotoAlert(viewModel: viewModel, isShowingRestaurantPhoto: $isShowingRestaurantPhoto)
             }
             if isFirstLaunch {
                 FirstLaunchAlert(isFirstLaunch: $isFirstLaunch)
@@ -207,7 +211,7 @@ struct MainView: View {
                 Spacer()
                 HStack(spacing: 6) {
                     ForEach($viewModel.restaurantsInSelectedRegion, id: \.self) { restaurant in
-                        CardView(viewModel: viewModel, restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail)
+                        CardView(viewModel: viewModel, restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail, isShowingRestaurantPhoto: $isShowingRestaurantPhoto)
                             .frame(width: pageWidth)
                             .padding(.bottom, 14)
                     }
@@ -240,11 +244,12 @@ struct MainView: View {
                             }
                             viewModel.moveCameraToMarker(at: currentIndex)
                             viewModel.selectedRestaurantIndex = CGFloat(currentIndex)
+                            viewModel.setRandomMenuReportText()
                             viewModel.setMarkerImageToSelected(at: currentIndex)
                         }
                 )
-                .animation(.easeOut(duration: 0.5), value: currentIndex)
-                .animation(.easeOut(duration: 0.5), value: dragOffset)
+                .animation(.easeOut, value: currentIndex)
+                .animation(.easeOut, value: dragOffset)
                 .onChange(of: viewModel.selectedRestaurantIndex) { newValue in
                     currentIndex = Int(newValue)
                 }

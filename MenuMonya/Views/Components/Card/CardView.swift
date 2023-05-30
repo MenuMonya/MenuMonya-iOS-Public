@@ -11,6 +11,7 @@ struct CardView: View {
     @ObservedObject var viewModel: MainViewModel
     @Binding var restaurant: Restaurant
     @Binding var isShowingMenuDetail: Bool
+    @Binding var isShowingRestaurantPhoto: Bool
     
     var body: some View {
         VStack(spacing: 0) {
@@ -190,6 +191,10 @@ struct CardView: View {
                         .scaledToFit()
                         .frame(width: 70, height: 70)
                         .cornerRadius(8)
+                        .onTapGesture {
+                            viewModel.selectedPhotoURL = URL(string: restaurant.imgUrl)
+                            isShowingRestaurantPhoto = true
+                        }
                 } placeholder: {
                     Image("default.restaurant")
                         .resizable()
@@ -204,6 +209,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(viewModel: MainViewModel(), restaurant: .constant(Restaurant.dummy), isShowingMenuDetail: .constant(false))
+        CardView(viewModel: MainViewModel(), restaurant: .constant(Restaurant.dummy), isShowingMenuDetail: .constant(false), isShowingRestaurantPhoto: .constant(false))
     }
 }

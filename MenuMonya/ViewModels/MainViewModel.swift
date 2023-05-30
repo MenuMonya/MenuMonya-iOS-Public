@@ -31,6 +31,8 @@ class MainViewModel: ObservableObject {
     @Published var currentDateKorean = ""
     @Published var surveyLink: URL?
     @Published var menuReportLink: URL?
+    @Published var selectedPhotoURL: URL?
+    @Published var selectedPhoto: UIImage?
     
     @Published var isFetchCompleted = false
     @Published var isMapViewInitiated = false
@@ -245,6 +247,7 @@ class MainViewModel: ObservableObject {
                     self?.selectedMarkerRestaurantID = restaurant.documentID!
                     self?.selectedRestaurantIndex = Double(Int((self?.restaurantsInSelectedRegion.firstIndex(where: { $0.documentID == restaurant.documentID })!)!))
                     self?.setMarkerImagesToDefault()
+                    self?.setRandomMenuReportText()
                     // 나만 selected 이미지로 보이기
                     marker.iconImage = self!.isShowingTodayMenu(of: restaurant) ? self!.selectedMarkerImage : self!.selectedMarkerImageWhenNoMenu
                     marker.zIndex = 100
@@ -276,13 +279,16 @@ class MainViewModel: ObservableObject {
     
     func setMarkerImageToSelected(at index: Int) {
         setMarkerImagesToDefault()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(60)) { [weak self] in
+        markersInSelectedRegion[index].iconImage = self.isShowingTodayMenu(of: restaurantsInSelectedRegion[index]) ? selectedMarkerImage : selectedMarkerImageWhenNoMenu
+        markersInSelectedRegion[index].zIndex = 100
+    }
+    
+    func setRandomMenuReportText() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(50)) { [weak self] in
             if !self!.menuReportTexts.isEmpty {
                 self!.menuReportText = self!.menuReportTexts.randomElement()?.description ?? "오늘 메뉴 제보하기"
             }
         }
-        markersInSelectedRegion[index].iconImage = self.isShowingTodayMenu(of: restaurantsInSelectedRegion[index]) ? selectedMarkerImage : selectedMarkerImageWhenNoMenu
-        markersInSelectedRegion[index].zIndex = 100
     }
     
     func moveCameraToMarker(at selectedIndex: Int) {
