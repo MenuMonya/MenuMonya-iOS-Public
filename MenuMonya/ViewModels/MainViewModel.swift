@@ -42,7 +42,9 @@ class MainViewModel: ObservableObject {
     let locationManager = LocationManager()
     
     let selectedMarkerImage = NMFOverlayImage(name: "marker.restaurant.selected")
+    let selectedMarkerImageWhenNoMenu = NMFOverlayImage(name: "marker.restaurant.selected.nomenu")
     let markerImage = NMFOverlayImage(name: "marker.restaurant")
+    let markerImageWhenNoMenu = NMFOverlayImage(name: "marker.restaurant.nomenu")
     
     init() {
         setCurrentDateString()
@@ -213,7 +215,7 @@ class MainViewModel: ObservableObject {
             for restaurant in self.restaurants {
                 let marker = NMFMarker()
                 marker.captionText = restaurant.name
-                marker.iconImage = self.markerImage
+                marker.iconImage = self.isShowingTodayMenu(of: restaurant) ? self.markerImage : self.markerImageWhenNoMenu
                 marker.position = NMGLatLng(lat: Double(restaurant.location.coordination.latitude)!, lng: Double(restaurant.location.coordination.longitude)!)
                 marker.isHideCollidedSymbols = true
                 marker.mapView = self.mapView
@@ -223,7 +225,7 @@ class MainViewModel: ObservableObject {
                     self?.selectedRestaurantIndex = Double(Int((self?.restaurantsInSelectedRegion.firstIndex(where: { $0.documentID == restaurant.documentID })!)!))
                     self?.setMarkerImagesToDefault()
                     // 나만 selected 이미지로 보이기
-                    marker.iconImage = self!.selectedMarkerImage
+                    marker.iconImage = self!.isShowingTodayMenu(of: restaurant) ? self!.selectedMarkerImage : self!.selectedMarkerImageWhenNoMenu
                     marker.zIndex = 100
                     let cameraUpdate = NMFCameraUpdate(scrollTo: marker.position)
                     cameraUpdate.animation = .easeOut
@@ -245,14 +247,15 @@ class MainViewModel: ObservableObject {
     
     func setMarkerImagesToDefault() {
         setMarkerZIndexesToDefault()
-        for marker in markers {
-            marker.iconImage = markerImage
+        
+        for index in restaurants.indices {
+            self.markers[index].iconImage = self.isShowingTodayMenu(of: restaurants[index]) ? markerImage : markerImageWhenNoMenu
         }
     }
     
     func setMarkerImageToSelected(at index: Int) {
         setMarkerImagesToDefault()
-        markersInSelectedRegion[index].iconImage = selectedMarkerImage
+        markersInSelectedRegion[index].iconImage = self.isShowingTodayMenu(of: restaurantsInSelectedRegion[index]) ? selectedMarkerImage : selectedMarkerImageWhenNoMenu
         markersInSelectedRegion[index].zIndex = 100
     }
     
