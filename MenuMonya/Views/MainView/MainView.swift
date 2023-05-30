@@ -149,7 +149,7 @@ struct MainView: View {
                         .padding(.horizontal, 16)
                         .background {
                             RoundedRectangle(cornerRadius: 30)
-                                .foregroundColor(Color("primary.orange"))
+                                .foregroundColor(Color("secondary.sky"))
                         }
                 }
             }
