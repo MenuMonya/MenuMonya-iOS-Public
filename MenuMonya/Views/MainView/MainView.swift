@@ -17,6 +17,7 @@ struct MainView: View {
     @State var isShowingMenuDetail = false
     @State var isShowingLocationAlert = false
     @State var isShowingRestaurantPhoto = false
+    @State var isShowingServiceDetail = false
     @State private var isPresentingLocationAlert = false
     @State private var currentIndex = 0
     @Environment(\.scenePhase) var scenePhase
@@ -24,31 +25,33 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: 0) {
-                mainViewHeader()
-                    .padding(.top, 1)
-                ZStack {
-                    NaverMapView(viewModel: viewModel, restaurantIndexWhenScrollEnded: $restaurantIndexWhenScrollEnded)
-                        .ignoresSafeArea()
-                        .zIndex((viewModel.isFocusedOnMarker ? 0 : 1))
-                    myLocationButton()
-                        .zIndex((viewModel.isFocusedOnMarker ? 0 : 2))
-                    restaurantCardScrollView()
-                }
-                .onChange(of: viewModel.isMarkersAdded) { isCompleted in
-                    if isCompleted {
-                        if let lastRegionIndex = viewModel.regions.firstIndex(where: { $0.name == lastRegionName }) {
-                            viewModel.locationSelection = .selectedLocation
-                            viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
-                            viewModel.regions[lastRegionIndex].isSelected = true
-                            viewModel.selectedRegionIndex = lastRegionIndex
-                            viewModel.setRestaurantsAnMarkersInSelectedRegion()
-                            viewModel.moveCameraToLocation(at: .selectedLocation)
-                        } else {
-                            viewModel.locationSelection = .selectedLocation
-                            viewModel.regions[viewModel.selectedRegionIndex].isSelected = true
-                            viewModel.setRestaurantsAnMarkersInSelectedRegion()
-                            viewModel.moveCameraToLocation(at: .selectedLocation)
+            Group {
+                VStack(spacing: 0) {
+                    mainViewHeader()
+                        .padding(.top, 1)
+                    ZStack {
+                        NaverMapView(viewModel: viewModel, restaurantIndexWhenScrollEnded: $restaurantIndexWhenScrollEnded)
+                            .ignoresSafeArea()
+                            .zIndex((viewModel.isFocusedOnMarker ? 0 : 1))
+                        myLocationButton()
+                            .zIndex((viewModel.isFocusedOnMarker ? 0 : 2))
+                        restaurantCardScrollView()
+                    }
+                    .onChange(of: viewModel.isMarkersAdded) { isCompleted in
+                        if isCompleted {
+                            if let lastRegionIndex = viewModel.regions.firstIndex(where: { $0.name == lastRegionName }) {
+                                viewModel.locationSelection = .selectedLocation
+                                viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
+                                viewModel.regions[lastRegionIndex].isSelected = true
+                                viewModel.selectedRegionIndex = lastRegionIndex
+                                viewModel.setRestaurantsAnMarkersInSelectedRegion()
+                                viewModel.moveCameraToLocation(at: .selectedLocation)
+                            } else {
+                                viewModel.locationSelection = .selectedLocation
+                                viewModel.regions[viewModel.selectedRegionIndex].isSelected = true
+                                viewModel.setRestaurantsAnMarkersInSelectedRegion()
+                                viewModel.moveCameraToLocation(at: .selectedLocation)
+                            }
                         }
                     }
                 }
@@ -61,6 +64,9 @@ struct MainView: View {
             }
             if isShowingRestaurantPhoto {
                 PhotoAlert(viewModel: viewModel, isShowingRestaurantPhoto: $isShowingRestaurantPhoto)
+            }
+            if isShowingServiceDetail {
+                ServiceDetailAlert(isShowingServiceDetail: $isShowingServiceDetail)
             }
             if isFirstLaunch {
                 FirstLaunchAlert(isFirstLaunch: $isFirstLaunch)
@@ -211,7 +217,7 @@ struct MainView: View {
                 Spacer()
                 HStack(spacing: 6) {
                     ForEach($viewModel.restaurantsInSelectedRegion, id: \.self) { restaurant in
-                        CardView(viewModel: viewModel, restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail, isShowingRestaurantPhoto: $isShowingRestaurantPhoto)
+                        CardView(viewModel: viewModel, restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail, isShowingRestaurantPhoto: $isShowingRestaurantPhoto, isShowingServiceDetails: $isShowingServiceDetail)
                             .frame(width: pageWidth)
                             .padding(.bottom, 14)
                     }

@@ -66,6 +66,8 @@
 		609A62B42A25FF1C00E63146 /* MenuReportText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609A62B32A25FF1C00E63146 /* MenuReportText.swift */; };
 		609A62B72A26276500E63146 /* PhotoAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609A62B62A26276500E63146 /* PhotoAlertCard.swift */; };
 		609A62B92A262C0400E63146 /* PhotoAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609A62B82A262C0400E63146 /* PhotoAlert.swift */; };
+		609A62BB2A2653A300E63146 /* ServiceDetailAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609A62BA2A2653A300E63146 /* ServiceDetailAlertCard.swift */; };
+		609A62BD2A26555800E63146 /* ServiceDetailAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609A62BC2A26555800E63146 /* ServiceDetailAlert.swift */; };
 		609DB7C229FC03D1002D2B6B /* MenuAlertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C129FC03D1002D2B6B /* MenuAlertCard.swift */; };
 		609DB7C529FC067C002D2B6B /* MenuDetailAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C429FC067C002D2B6B /* MenuDetailAlert.swift */; };
 		609DB7C729FC213D002D2B6B /* LocationPermissionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609DB7C629FC213D002D2B6B /* LocationPermissionAlert.swift */; };
@@ -139,6 +141,8 @@
 		609A62B32A25FF1C00E63146 /* MenuReportText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuReportText.swift; sourceTree = "<group>"; };
 		609A62B62A26276500E63146 /* PhotoAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlertCard.swift; sourceTree = "<group>"; };
 		609A62B82A262C0400E63146 /* PhotoAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlert.swift; sourceTree = "<group>"; };
+		609A62BA2A2653A300E63146 /* ServiceDetailAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailAlertCard.swift; sourceTree = "<group>"; };
+		609A62BC2A26555800E63146 /* ServiceDetailAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailAlert.swift; sourceTree = "<group>"; };
 		609DB7C129FC03D1002D2B6B /* MenuAlertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuAlertCard.swift; sourceTree = "<group>"; };
 		609DB7C429FC067C002D2B6B /* MenuDetailAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDetailAlert.swift; sourceTree = "<group>"; };
 		609DB7C629FC213D002D2B6B /* LocationPermissionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermissionAlert.swift; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 				609DB7C929FC21D1002D2B6B /* LocationPermissionAlertCard.swift */,
 				609DB7C129FC03D1002D2B6B /* MenuAlertCard.swift */,
 				609A62B62A26276500E63146 /* PhotoAlertCard.swift */,
+				609A62BA2A2653A300E63146 /* ServiceDetailAlertCard.swift */,
 			);
 			path = AlertCards;
 			sourceTree = "<group>";
@@ -421,6 +426,7 @@
 				609DB7C629FC213D002D2B6B /* LocationPermissionAlert.swift */,
 				609DB7C429FC067C002D2B6B /* MenuDetailAlert.swift */,
 				609A62B82A262C0400E63146 /* PhotoAlert.swift */,
+				609A62BC2A26555800E63146 /* ServiceDetailAlert.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -766,6 +772,8 @@
 				6099868329F39D98000B8D25 /* CustomDivider.swift in Sources */,
 				6004C7AB2A1C63A1007B6FF8 /* Region.swift in Sources */,
 				60BD117129F29C2800000FCB /* MapView.swift in Sources */,
+				609A62BB2A2653A300E63146 /* ServiceDetailAlertCard.swift in Sources */,
+				609A62BD2A26555800E63146 /* ServiceDetailAlert.swift in Sources */,
 				603BE2D32A02714A005B2018 /* LoadingImage.swift in Sources */,
 				609DB7C229FC03D1002D2B6B /* MenuAlertCard.swift in Sources */,
 				60506F3729F7A22D0044531A /* UIColor+Extensions.swift in Sources */,

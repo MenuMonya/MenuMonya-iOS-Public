@@ -12,6 +12,7 @@ struct CardView: View {
     @Binding var restaurant: Restaurant
     @Binding var isShowingMenuDetail: Bool
     @Binding var isShowingRestaurantPhoto: Bool
+    @Binding var isShowingServiceDetails: Bool
     
     var body: some View {
         VStack(spacing: 0) {
@@ -114,14 +115,22 @@ struct CardView: View {
             }
             .padding(.vertical, 29)
             CustomDivider(color: Color("grey_200"))
-            if restaurant.menuAvailableOnline {
-                Text("메뉴는 평일 오전 11시에 업데이트됩니다")
-                    .font(.pretendard(.regular, size: 12))
-                    .padding(.vertical, 6)
-            } else {
-                Text("해당 식당의 메뉴는 여러분의 제보로 업데이트됩니다")
-                    .font(.pretendard(.regular, size: 12))
-                    .padding(.vertical, 6)
+            HStack(spacing: 0) {
+                if restaurant.menuAvailableOnline {
+                    Text("메뉴는 평일 오전 11시에 업데이트됩니다")
+                        .font(.pretendard(.regular, size: 12))
+                        .padding(.vertical, 6)
+                } else {
+                    Text("해당 식당의 메뉴는 여러분의 제보로 업데이트됩니다")
+                        .font(.pretendard(.regular, size: 12))
+                        .padding(.vertical, 6)
+                }
+                Button {
+                    isShowingServiceDetails = true
+                    print("button tapped")
+                } label: {
+                    Image("icon.questionmark")
+                }
             }
             CustomDivider(color: Color("grey_200"))
         }
@@ -209,6 +218,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(viewModel: MainViewModel(), restaurant: .constant(Restaurant.dummy), isShowingMenuDetail: .constant(false), isShowingRestaurantPhoto: .constant(false))
+        CardView(viewModel: MainViewModel(), restaurant: .constant(Restaurant.dummy), isShowingMenuDetail: .constant(false), isShowingRestaurantPhoto: .constant(false), isShowingServiceDetails: .constant(false))
     }
 }
