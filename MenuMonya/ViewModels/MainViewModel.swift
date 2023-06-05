@@ -10,21 +10,29 @@ import NMapsMap
 import CoreLocation
 
 enum LocationSelection {
-    case gangnam
-    case yeoksam
+    case selectedLocation
     case myLocation
 }
 
 class MainViewModel: ObservableObject {
+    @Published var regions: [Region] = []
     @Published var restaurants: [Restaurant] = []
+    @Published var restaurantsInSelectedRegion: [Restaurant] = []
     @Published var markers: [NMFMarker] = []
+    @Published var markersInSelectedRegion: [NMFMarker] = []
+    @Published var menuReportTexts: [MenuReportText] = []
+    @Published var menuReportText: String = "오늘 메뉴 제보하기"
     
-    @Published var locationSelection: LocationSelection = .gangnam
+    @Published var locationSelection: LocationSelection = .selectedLocation
+    @Published var selectedRegionIndex = 0
     @Published var selectedMarkerRestaurantID = ""
     @Published var selectedRestaurantIndex: CGFloat = 0
     @Published var currentDateString = ""
     @Published var currentDateKorean = ""
     @Published var surveyLink: URL?
+    @Published var menuReportLink: URL?
+    @Published var selectedPhotoURL: URL?
+    @Published var selectedPhoto: UIImage?
     
     @Published var isFetchCompleted = false
     @Published var isMapViewInitiated = false
@@ -39,36 +47,52 @@ class MainViewModel: ObservableObject {
     let locationManager = LocationManager()
     
     let selectedMarkerImage = NMFOverlayImage(name: "marker.restaurant.selected")
+    let selectedMarkerImageWhenNoMenu = NMFOverlayImage(name: "marker.restaurant.selected.nomenu")
     let markerImage = NMFOverlayImage(name: "marker.restaurant")
+    let markerImageWhenNoMenu = NMFOverlayImage(name: "marker.restaurant.nomenu")
     
     init() {
-        
         setCurrentDateString()
         setCurrentDateKorean()
         
-        // 식당 정보 fetch 후 card 모델에 담기
-        firestoreManager.fetchRestaurants { restaurants in
-            self.restaurants = restaurants.map { $0 }
+        firestoreManager.fetchRegions { regions in
+            self.regions = regions.map { $0 }
             
-            for i in 0..<self.restaurants.count {
-                // 가격 포매팅
-                let numberFormatter = NumberFormatter()
-                numberFormatter.numberStyle = .decimal
-                if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
-                    let myNumber = NSNumber(value: integerPrice)
-                    let decimalPrice = numberFormatter.string(from: myNumber)
-                    if let price = decimalPrice {
-                        self.restaurants[i].price.cardPrice = price
+            // 식당 정보 fetch 후 card 모델에 담기
+            self.firestoreManager.fetchRestaurants { restaurants in
+                self.restaurants = restaurants.map { $0 }
+                
+                for i in 0..<self.restaurants.count {
+                    // 가격 포매팅
+                    let numberFormatter = NumberFormatter()
+                    numberFormatter.numberStyle = .decimal
+                    if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
+                        let myNumber = NSNumber(value: integerPrice)
+                        let decimalPrice = numberFormatter.string(from: myNumber)
+                        if let price = decimalPrice {
+                            self.restaurants[i].price.cardPrice = price
+                        }
                     }
                 }
+                self.isFetchCompleted = true
             }
-            self.isFetchCompleted = true
         }
         
-        firestoreManager.setupValueFromRemoteConfig { formURL in
-            if let formURL = formURL {
+        firestoreManager.fetchMenuReportTexts { menuReportTexts in
+            self.menuReportTexts = menuReportTexts.map { $0 }
+            print(self.menuReportTexts)
+        }
+        
+        firestoreManager.setupValueFromRemoteConfig { regionReportURL, menuReportURL in
+            if let regionReportURL = regionReportURL {
                 DispatchQueue.main.async {
-                    self.surveyLink = URL(string: formURL)
+                    self.surveyLink = URL(string: regionReportURL)
+                }
+            }
+            
+            if let menuReportURL = menuReportURL {
+                DispatchQueue.main.async {
+                    self.menuReportLink = URL(string: menuReportURL)
                 }
             }
         }
@@ -86,6 +110,7 @@ class MainViewModel: ObservableObject {
     }
     
     // MARK: - 업데이트 체크
+    
     func isUpdateAvailable(completion: @escaping (Bool?, Error?) -> Void) throws -> URLSessionDataTask {
         guard let info = Bundle.main.infoDictionary,
             let currentVersion = info["CFBundleShortVersionString"] as? String,
@@ -120,6 +145,7 @@ class MainViewModel: ObservableObject {
     }
     
     // MARK: - 날짜 포맷
+    
     // 오늘 날짜로 dateString 변경
     func setCurrentDateString() {
         let dateFormatter = DateFormatter()
@@ -135,63 +161,125 @@ class MainViewModel: ObservableObject {
     }
     
     // MARK: - 메뉴 업데이트
+    
     // 다시 실행할 때 마다 메뉴 업데이트
     func updateCardDatas() {
         isUpdatingCards = true
+        isFocusedOnMarker = false
+        locationSelection = .selectedLocation
+        
+        // 날짜 정보 다시 fetch하기
         setCurrentDateString()
-        print("card update executed")
-        /* TODO : 업데이트된 식단 명단도 반영 가능! -> card / 레스토랑 리스트 초기화 후 다시 받아오기? */
-        // 식당 정보도 다시 불러와야 할까?
-        // 일단 있는 식당만 찾아서 넣어주고, 추가된 식당은 생각하지 말자!
-        firestoreManager.fetchRestaurants { restaurants in
-            for restaurant in restaurants {
-                if let index = self.restaurants.firstIndex(where: { $0.documentID == restaurant.documentID }) {
-                    self.restaurants[index] = restaurant
-                }
-            }
+        setCurrentDateKorean()
+        
+        // 지역 및 식당 정보 다시 fetch하기
+        firestoreManager.fetchRegions { regions in
+            self.regions = regions.map { $0 }
             
-            for i in 0..<self.restaurants.count {
-                // 가격 포매팅
-                let numberFormatter = NumberFormatter()
-                numberFormatter.numberStyle = .decimal
-                if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
-                    let myNumber = NSNumber(value: integerPrice)
-                    let decimalPrice = numberFormatter.string(from: myNumber)
-                    if let price = decimalPrice {
-                        self.restaurants[i].price.cardPrice = price
+            // 식당 정보 fetch 후 card 모델에 담기
+            self.firestoreManager.fetchRestaurants { restaurants in
+                self.restaurants = restaurants.map { $0 }
+                
+                for i in 0..<self.restaurants.count {
+                    // 가격 포매팅
+                    let numberFormatter = NumberFormatter()
+                    numberFormatter.numberStyle = .decimal
+                    if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
+                        let myNumber = NSNumber(value: integerPrice)
+                        let decimalPrice = numberFormatter.string(from: myNumber)
+                        if let price = decimalPrice {
+                            self.restaurants[i].price.cardPrice = price
+                        }
                     }
                 }
+                
+                // fetch된 식당 정보 기반으로 마커 이미지 재설정
+                for index in self.markers.indices {
+                    self.markers[index].iconImage = self.isShowingTodayMenu(of: restaurants[index]) ? self.markerImage : self.markerImageWhenNoMenu
+                    self.markers[index].touchHandler = { [weak self] (overlay: NMFOverlay) -> Bool in
+                        self?.selectedMarkerRestaurantID = restaurants[index].documentID!
+                        self?.selectedRestaurantIndex = Double(Int((self?.restaurantsInSelectedRegion.firstIndex(where: { $0.documentID == restaurants[index].documentID })!)!))
+                        self?.setMarkerImagesToDefault()
+                        self?.setRandomMenuReportText()
+                        // 나만 selected 이미지로 보이기
+                        self?.markers[index].iconImage = self!.isShowingTodayMenu(of: restaurants[index]) ? self!.selectedMarkerImage : self!.selectedMarkerImageWhenNoMenu
+                        self?.markers[index].zIndex = 100
+                        let cameraUpdate = NMFCameraUpdate(scrollTo: (self?.markers[index].position)!)
+                        cameraUpdate.animation = .easeOut
+                        cameraUpdate.pivot = CGPoint(x: 0.5, y: 0.35)
+                        self?.markers[index].mapView!.moveCamera(cameraUpdate)
+                        self?.isFocusedOnMarker = true
+                        return true // 이벤트 소비, -mapView:didtTapMap:point 이벤트는 발생하지 않음
+                    }
+                }
+                
+                // 지역별 식당 배열 초기화 / 현재 지역으로 재설정
+                self.setRestaurantsAndMarkersInSelectedRegion()
+                self.regions[self.selectedRegionIndex].isSelected = true
+                self.moveCameraToLocation(at: .selectedLocation)
+                self.isUpdatingCards = false
             }
-            
-            self.isUpdatingCards = false
         }
         
-        firestoreManager.setupValueFromRemoteConfig { formURL in
-            if let formURL = formURL {
+        // remote config 가져오기
+        firestoreManager.setupValueFromRemoteConfig { regionReportURL, menuReportURL in
+            if let regionReportURL = regionReportURL {
                 DispatchQueue.main.async {
-                    self.surveyLink = URL(string: formURL)
+                    self.surveyLink = URL(string: regionReportURL)
+                }
+            }
+            
+            if let menuReportURL = menuReportURL {
+                DispatchQueue.main.async {
+                    self.menuReportLink = URL(string: menuReportURL)
                 }
             }
         }
     }
     
+    // MARK: - 지역 선택에 따라 마커, 식당 추가하기
+    
+    func setRestaurantsAndMarkersInSelectedRegion() {
+        let regionName = self.regions[selectedRegionIndex].name
+        
+        restaurantsInSelectedRegion = []
+        markersInSelectedRegion = []
+        
+        for marker in markers {
+            marker.hidden = true
+        }
+        
+        for index in restaurants.indices {
+            if restaurants[index].locationCategory.contains(regionName) {
+                restaurantsInSelectedRegion.append(restaurants[index])
+                markersInSelectedRegion.append(markers[index])
+            }
+        }
+        
+        for marker in markersInSelectedRegion {
+            marker.hidden = false
+        }
+    }
+    
     // MARK: - 네이버 지도 관련 함수들
+    
     func addMarkers() {
         DispatchQueue.main.async {
             for restaurant in self.restaurants {
                 let marker = NMFMarker()
                 marker.captionText = restaurant.name
-                marker.iconImage = self.markerImage
+                marker.iconImage = self.isShowingTodayMenu(of: restaurant) ? self.markerImage : self.markerImageWhenNoMenu
                 marker.position = NMGLatLng(lat: Double(restaurant.location.coordination.latitude)!, lng: Double(restaurant.location.coordination.longitude)!)
                 marker.isHideCollidedSymbols = true
                 marker.mapView = self.mapView
                 // 마커 터치 시 동작
                 marker.touchHandler = { [weak self] (overlay: NMFOverlay) -> Bool in
                     self?.selectedMarkerRestaurantID = restaurant.documentID!
-                    self?.selectedRestaurantIndex = Double(Int((self?.restaurants.firstIndex(where: { $0.documentID == restaurant.documentID })!)!))
+                    self?.selectedRestaurantIndex = Double(Int((self?.restaurantsInSelectedRegion.firstIndex(where: { $0.documentID == restaurant.documentID })!)!))
                     self?.setMarkerImagesToDefault()
+                    self?.setRandomMenuReportText()
                     // 나만 selected 이미지로 보이기
-                    marker.iconImage = self!.selectedMarkerImage
+                    marker.iconImage = self!.isShowingTodayMenu(of: restaurant) ? self!.selectedMarkerImage : self!.selectedMarkerImageWhenNoMenu
                     marker.zIndex = 100
                     let cameraUpdate = NMFCameraUpdate(scrollTo: marker.position)
                     cameraUpdate.animation = .easeOut
@@ -213,20 +301,29 @@ class MainViewModel: ObservableObject {
     
     func setMarkerImagesToDefault() {
         setMarkerZIndexesToDefault()
-        for marker in markers {
-            marker.iconImage = markerImage
+        
+        for index in restaurants.indices {
+            self.markers[index].iconImage = self.isShowingTodayMenu(of: restaurants[index]) ? markerImage : markerImageWhenNoMenu
         }
     }
     
     func setMarkerImageToSelected(at index: Int) {
         setMarkerImagesToDefault()
-        markers[index].iconImage = selectedMarkerImage
-        markers[index].zIndex = 100
+        markersInSelectedRegion[index].iconImage = self.isShowingTodayMenu(of: restaurantsInSelectedRegion[index]) ? selectedMarkerImage : selectedMarkerImageWhenNoMenu
+        markersInSelectedRegion[index].zIndex = 100
+    }
+    
+    func setRandomMenuReportText() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(50)) { [weak self] in
+            if !self!.menuReportTexts.isEmpty {
+                self!.menuReportText = self!.menuReportTexts.randomElement()?.description ?? "오늘 메뉴 제보하기"
+            }
+        }
     }
     
     func moveCameraToMarker(at selectedIndex: Int) {
-        if selectedIndex < markers.count && selectedIndex >= 0{
-            let cameraUpdate = NMFCameraUpdate(scrollTo: self.markers[selectedIndex].position)
+        if selectedIndex < markersInSelectedRegion.count && selectedIndex >= 0{
+            let cameraUpdate = NMFCameraUpdate(scrollTo: self.markersInSelectedRegion[selectedIndex].position)
             cameraUpdate.animation = .easeOut
             cameraUpdate.pivot = CGPoint(x: 0.5, y: 0.35)
             self.markers[selectedIndex].mapView?.moveCamera(cameraUpdate)
@@ -235,14 +332,9 @@ class MainViewModel: ObservableObject {
     
     func moveCameraToLocation(at location: LocationSelection) {
         switch location {
-        case .gangnam:
-            let coordination = NMGLatLng(from: Constants.gangnamCoordinations)
-            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
-            cameraupdate.animation = .easeOut
-            mapView?.moveCamera(cameraupdate)
-        case .yeoksam:
-            let coordination = NMGLatLng(from: Constants.yeoksamCoordinations)
-            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
+        case .selectedLocation:
+            let coordination = NMGLatLng(from: CLLocationCoordinate2D(latitude: regions[selectedRegionIndex].latitude, longitude: regions[selectedRegionIndex].longitude))
+            let cameraupdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 14)
             cameraupdate.animation = .easeOut
             mapView?.moveCamera(cameraupdate)
         case .myLocation:
@@ -254,12 +346,19 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Location Mode 변경 관련 함수들
+    
     func setLocationModeToMyLocation() {
         mapView!.locationOverlay.hidden = false
         mapView!.positionMode = .direction
     }
+    
+    func setLocationModeToSelectedLocation() {
+        mapView!.locationOverlay.hidden = true
+    }
    
     // MARK: - 위치 서비스 관련 함수들
+    
     func isLocationServiceEnabled() -> Bool {
         return locationManager.isLocationServiceEnabled()
     }
@@ -272,4 +371,28 @@ class MainViewModel: ObservableObject {
         locationManager.requestUserAuthorization()
     }
     
+    // MARK: - 내 위치 선택 시 나와 가까운 식당들만 선정
+    func setRestaurantsNearMyLocation() {
+        restaurantsInSelectedRegion = []
+        markersInSelectedRegion = []
+        
+        for marker in markers {
+            marker.hidden = true
+        }
+        
+        print(locationManager.currentLocation)
+        
+        for index in restaurants.indices {
+            // 내 위치에서 1000미터 이내 가게들 등록
+            if restaurants[index].location.coordination.distance(from: locationManager.currentLocation) < 1000 {
+                restaurantsInSelectedRegion.append(restaurants[index])
+                markersInSelectedRegion.append(markers[index])
+            }
+        }
+        
+        for marker in markersInSelectedRegion {
+            marker.hidden = false
+        }
+        
+    }
 }

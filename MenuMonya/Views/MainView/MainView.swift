@@ -9,10 +9,15 @@ import SwiftUI
 import FirebaseFirestore
 
 struct MainView: View {
+    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
+    @AppStorage("lastRegionName") var lastRegionName: String = ""
+    
     @StateObject var viewModel = MainViewModel()
     @State private var restaurantIndexWhenScrollEnded: CGFloat = 0
     @State var isShowingMenuDetail = false
     @State var isShowingLocationAlert = false
+    @State var isShowingRestaurantPhoto = false
+    @State var isShowingServiceDetail = false
     @State private var isPresentingLocationAlert = false
     @State private var currentIndex = 0
     @Environment(\.scenePhase) var scenePhase
@@ -20,16 +25,35 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: 0) {
-                mainViewHeader()
-                    .padding(.top, 1)
-                ZStack {
-                    NaverMapView(viewModel: viewModel, restaurantIndexWhenScrollEnded: $restaurantIndexWhenScrollEnded)
-                        .ignoresSafeArea()
-                        .zIndex((viewModel.isFocusedOnMarker ? 0 : 1))
-                    myLocationButton()
-                        .zIndex((viewModel.isFocusedOnMarker ? 0 : 2))
-                    restaurantCardScrollView()
+            Group {
+                VStack(spacing: 0) {
+                    mainViewHeader()
+                        .padding(.top, 1)
+                    ZStack {
+                        NaverMapView(viewModel: viewModel, restaurantIndexWhenScrollEnded: $restaurantIndexWhenScrollEnded)
+                            .ignoresSafeArea()
+                            .zIndex((viewModel.isFocusedOnMarker ? 0 : 1))
+                        myLocationButton()
+                            .zIndex((viewModel.isFocusedOnMarker ? 0 : 2))
+                        restaurantCardScrollView()
+                    }
+                    .onChange(of: viewModel.isMarkersAdded) { isCompleted in
+                        if isCompleted {
+                            if let lastRegionIndex = viewModel.regions.firstIndex(where: { $0.name == lastRegionName }) {
+                                viewModel.locationSelection = .selectedLocation
+                                viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
+                                viewModel.regions[lastRegionIndex].isSelected = true
+                                viewModel.selectedRegionIndex = lastRegionIndex
+                                viewModel.setRestaurantsAndMarkersInSelectedRegion()
+                                viewModel.moveCameraToLocation(at: .selectedLocation)
+                            } else {
+                                viewModel.locationSelection = .selectedLocation
+                                viewModel.regions[viewModel.selectedRegionIndex].isSelected = true
+                                viewModel.setRestaurantsAndMarkersInSelectedRegion()
+                                viewModel.moveCameraToLocation(at: .selectedLocation)
+                            }
+                        }
+                    }
                 }
             }
             if isShowingMenuDetail {
@@ -37,6 +61,15 @@ struct MainView: View {
             }
             if isShowingLocationAlert {
                 LocationPermissionAlert(viewModel: viewModel, isShowingLocationAlert: $isShowingLocationAlert)
+            }
+            if isShowingRestaurantPhoto {
+                PhotoAlert(viewModel: viewModel, isShowingRestaurantPhoto: $isShowingRestaurantPhoto)
+            }
+            if isShowingServiceDetail {
+                ServiceDetailAlert(isShowingServiceDetail: $isShowingServiceDetail)
+            }
+            if isFirstLaunch {
+                FirstLaunchAlert(isFirstLaunch: $isFirstLaunch)
             }
             if viewModel.isUpdatingCards {
                 LoadingView()
@@ -78,40 +111,60 @@ struct MainView: View {
     
     @ViewBuilder
     func mainViewHeader() -> some View {
-        HStack(spacing: 8) {
-            Button {
-                viewModel.locationSelection = .gangnam
-                viewModel.moveCameraToLocation(at: .gangnam)
-                viewModel.isFocusedOnMarker = false
-                viewModel.setMarkerImagesToDefault()
-            } label: {
-                if viewModel.locationSelection == .gangnam {
-                    Image("gangnam.enabled")
-                } else {
-                    Image("gangnam.disabled")
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 10) {
+                ForEach(viewModel.regions.indices, id: \.self) { index in
+                    Button {
+                        viewModel.locationSelection = .selectedLocation
+                        viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
+                        viewModel.regions[index].isSelected = true
+                        viewModel.selectedRegionIndex = index
+                        viewModel.setRestaurantsAndMarkersInSelectedRegion()
+                        viewModel.moveCameraToLocation(at: .selectedLocation)
+                        viewModel.setMarkerImagesToDefault()
+                        viewModel.isFocusedOnMarker = false
+                        viewModel.setLocationModeToSelectedLocation()
+                        lastRegionName = viewModel.regions[index].name
+                    } label: {
+                        if viewModel.regions[index].isSelected {
+                            Text(viewModel.regions[index].name)
+                                .font(.pretendard(.semiBold, size: 14))
+                                .foregroundColor(Color("button.title.enabled"))
+                                .padding(.vertical, 7)
+                                .padding(.horizontal, 16)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .foregroundColor(Color("primary.orange"))
+                                }
+                        } else {
+                            Text(viewModel.regions[index].name)
+                                .font(.pretendard(.semiBold, size: 14))
+                                .foregroundColor(Color("button.title.disabled"))
+                                .padding(.vertical, 7)
+                                .padding(.horizontal, 16)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 30)
+                                        .stroke(Color("grey_300"), lineWidth: 1)
+                                }
+                        }
+                    }
+                }
+                .padding(.vertical, 10)
+                
+                Link(destination: viewModel.surveyLink ?? URL(string: "https://bit.ly/3oDijQp")!) {
+                    Text("지역건의")
+                        .font(.pretendard(.semiBold, size: 14))
+                        .foregroundColor(Color("button.title.enabled"))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 16)
+                        .background {
+                            RoundedRectangle(cornerRadius: 30)
+                                .foregroundColor(Color("secondary.sky"))
+                        }
                 }
             }
-            .padding(.vertical, 10)
-            .padding(.leading, 14)
-            Button {
-                viewModel.locationSelection = .yeoksam
-                viewModel.moveCameraToLocation(at: .yeoksam)
-                viewModel.isFocusedOnMarker = false
-                viewModel.setMarkerImagesToDefault()
-            } label: {
-                if viewModel.locationSelection == .yeoksam {
-                    Image("yeoksam.enabled")
-                } else {
-                    Image("yeoksam.disabled")
-                }
-            }
-            Spacer()
-            Link(destination: viewModel.surveyLink ?? URL(string: "https://bit.ly/3oDijQp")!) {
-                Image("icon.feedback")
-            }
-            .padding(.trailing, 18)
+            .padding(.horizontal, 14)
         }
-        .background(Color("background.header"))
     }
     
     // 내 주변 버튼
@@ -122,26 +175,19 @@ struct MainView: View {
                 Spacer()
                 Button {
                     viewModel.isFocusedOnMarker = false
+                    viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
                     viewModel.setMarkerImagesToDefault()
-                    // 위치 정보 권한 설정하지 않았다면
                     let isLocationServiceEnabled = viewModel.isLocationServiceEnabled()
                     if !isLocationServiceEnabled {
-                        // 팝업 띄우기
                         isShowingLocationAlert = true
-                        // 위치 정보 권한 설정했다면
                     } else {
                         let isLocationPermissionAuthorized = viewModel.isLocationPermissionAuthorized()
-                        // 위치 정보 권한이 있다면
                         if isLocationPermissionAuthorized {
                             viewModel.locationSelection = .myLocation
-                            viewModel.setLocationModeToMyLocation()
                             viewModel.moveCameraToLocation(at: .myLocation)
-                            // 내 주변 식당 보여주기
-                            // 1. 내 위치로 카메라 이동 및 내 위치 오버레이 <- 맵뷰에서 구현 완료
-                            // 2. 가까운 순으로 레스토랑 정렬 <- ?
-                            // 위치 정보 권한이 없다면
+                            viewModel.setLocationModeToMyLocation()
+                            viewModel.setRestaurantsNearMyLocation()
                         } else {
-                            // 위치 정보 권한 요청 alert 띄우기
                             isPresentingLocationAlert = true
                         }
                     }
@@ -170,8 +216,8 @@ struct MainView: View {
             VStack(spacing: 0) {
                 Spacer()
                 HStack(spacing: 6) {
-                    ForEach($viewModel.restaurants, id: \.self) { restaurant in
-                        CardView(viewModel: viewModel, restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail)
+                    ForEach($viewModel.restaurantsInSelectedRegion, id: \.self) { restaurant in
+                        CardView(viewModel: viewModel, restaurant: restaurant, isShowingMenuDetail: $isShowingMenuDetail, isShowingRestaurantPhoto: $isShowingRestaurantPhoto, isShowingServiceDetails: $isShowingServiceDetail)
                             .frame(width: pageWidth)
                             .padding(.bottom, 14)
                     }
@@ -195,14 +241,16 @@ struct MainView: View {
                                 }
                             } else if value.predictedEndLocation.x - value.location.x < -50 {
                                 // 오른쪽 스냅
-                                if currentIndex < (viewModel.restaurants.count-1) {
+                                if currentIndex < (viewModel.restaurantsInSelectedRegion.count-1) {
                                     currentIndex += 1
                                 }
                             } else {
-                                currentIndex = max(min(currentIndex + increment, viewModel.restaurants.count - 1), 0)
+                                let nextIndex = max(min(currentIndex + increment, viewModel.restaurantsInSelectedRegion.count - 1), 0)
+                                currentIndex = nextIndex
                             }
                             viewModel.moveCameraToMarker(at: currentIndex)
                             viewModel.selectedRestaurantIndex = CGFloat(currentIndex)
+                            viewModel.setRandomMenuReportText()
                             viewModel.setMarkerImageToSelected(at: currentIndex)
                         }
                 )

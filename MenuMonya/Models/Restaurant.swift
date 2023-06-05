@@ -8,7 +8,9 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import CoreLocation
 
+/// 식당 모델
 struct Restaurant: Codable, Hashable {
     static func == (lhs: Restaurant, rhs: Restaurant) -> Bool {
         if lhs.documentID == rhs.documentID {
@@ -35,8 +37,9 @@ struct Restaurant: Codable, Hashable {
     var todayMenu: Menu?
     var type: String
     var updatedTime: String
+    var menuAvailableOnline: Bool
     
-    static let dummy = Restaurant(imgUrl: "", location: Location.dummy, locationCategory: ["강남"], locationCategoryOrder: ["강남?"], name: "더미 식당", phoneNumber: "02-123-4567", price: Price.dummy, time: OperatingTime.dummy, todayMenu: Menu.dummy, type: "더미 식당 유형", updatedTime: "더미 식당 업데이트 시간")
+    static let dummy = Restaurant(imgUrl: "", location: Location.dummy, locationCategory: ["강남"], locationCategoryOrder: ["강남?"], name: "더미 식당", phoneNumber: "02-123-4567", price: Price.dummy, time: OperatingTime.dummy, todayMenu: Menu.dummy, type: "더미 식당 유형", updatedTime: "더미 식당 업데이트 시간", menuAvailableOnline: true)
 }
 
 struct Menu: Codable {
@@ -82,6 +85,10 @@ struct Coordination: Codable {
     var longitude: String
     
     static let dummy = Coordination(latitude: "37.498095", longitude: "127.027610")
+    
+    func distance(from location: CLLocation) -> CLLocationDistance {
+        return CLLocation(latitude: Double(latitude)!, longitude: Double(longitude)!).distance(from: location)
+    }
 }
 
 struct Price: Codable {

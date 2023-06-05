@@ -23,6 +23,9 @@ struct NaverMapView: UIViewRepresentable {
         view.showZoomControls = false
         view.mapView.positionMode = .direction
         view.mapView.zoomLevel = 15
+        view.showCompass = true
+        view.mapView.logoAlign = .leftTop
+        view.showScaleBar = false
         
         view.mapView.touchDelegate = context.coordinator
         view.mapView.addCameraDelegate(delegate: context.coordinator)
@@ -37,33 +40,6 @@ struct NaverMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-        let coordination: NMGLatLng
-        if viewModel.locationSelection == .gangnam {
-            coordination = NMGLatLng(from: Constants.gangnamCoordinations)
-            uiView.mapView.locationOverlay.hidden = true
-            if isFirstCameraUpdate {
-                let cameraUpdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
-                cameraUpdate.animation = .fly
-                cameraUpdate.animationDuration = 1
-                uiView.mapView.moveCamera(cameraUpdate)
-                DispatchQueue.main.async {
-                    isFirstCameraUpdate = false
-                }
-            }
-        } else if viewModel.locationSelection == .yeoksam {
-            coordination = NMGLatLng(from: Constants.yeoksamCoordinations)
-            uiView.mapView.locationOverlay.hidden = true
-            if isFirstCameraUpdate {
-                let cameraUpdate = NMFCameraUpdate(scrollTo: coordination, zoomTo: 15)
-                cameraUpdate.animation = .fly
-                cameraUpdate.animationDuration = 1
-                uiView.mapView.moveCamera(cameraUpdate)
-                DispatchQueue.main.async {
-                    isFirstCameraUpdate = false
-                }
-            }
-        }
-        
         if viewModel.isFetchCompleted && viewModel.isMapViewInitiated && !viewModel.isMarkersAdded {
             viewModel.addMarkers()
             DispatchQueue.main.async {
