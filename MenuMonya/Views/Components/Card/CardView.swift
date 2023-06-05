@@ -197,7 +197,7 @@ struct CardView: View {
                 AsyncImage(url: URL(string: restaurant.imgUrl)) { image in
                     image
                         .resizable()
-                        .scaledToFit()
+                        .scaledToFill()
                         .frame(width: 70, height: 70)
                         .cornerRadius(8)
                         .onTapGesture {
@@ -207,7 +207,7 @@ struct CardView: View {
                 } placeholder: {
                     Image("default.restaurant")
                         .resizable()
-                        .scaledToFit()
+                        .scaledToFill()
                         .frame(width: 70, height: 70)
                         .cornerRadius(8)
                 }
