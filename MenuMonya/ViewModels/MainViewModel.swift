@@ -165,30 +165,60 @@ class MainViewModel: ObservableObject {
     // 다시 실행할 때 마다 메뉴 업데이트
     func updateCardDatas() {
         isUpdatingCards = true
+        isFocusedOnMarker = false
+        locationSelection = .selectedLocation
+        
+        // 날짜 정보 다시 fetch하기
         setCurrentDateString()
-        print("card update executed")
-        /* TODO : 업데이트된 식단 명단도 반영 가능! -> card / 레스토랑 리스트 초기화 후 다시 받아오기? */
-        // 식당 정보도 다시 불러와야 할까?
-        // 일단 있는 식당만 찾아서 넣어주고, 추가된 식당은 생각하지 말자!
-        firestoreManager.fetchRestaurants { restaurants in
-            for restaurant in restaurants {
-                if let index = self.restaurants.firstIndex(where: { $0.documentID == restaurant.documentID }) {
-                    self.restaurants[index] = restaurant
-                }
-            }
-            for i in 0..<self.restaurants.count {
-                // 가격 포매팅
-                let numberFormatter = NumberFormatter()
-                numberFormatter.numberStyle = .decimal
-                if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
-                    let myNumber = NSNumber(value: integerPrice)
-                    let decimalPrice = numberFormatter.string(from: myNumber)
-                    if let price = decimalPrice {
-                        self.restaurants[i].price.cardPrice = price
+        setCurrentDateKorean()
+        
+        // 지역 및 식당 정보 다시 fetch하기
+        firestoreManager.fetchRegions { regions in
+            self.regions = regions.map { $0 }
+            
+            // 식당 정보 fetch 후 card 모델에 담기
+            self.firestoreManager.fetchRestaurants { restaurants in
+                self.restaurants = restaurants.map { $0 }
+                
+                for i in 0..<self.restaurants.count {
+                    // 가격 포매팅
+                    let numberFormatter = NumberFormatter()
+                    numberFormatter.numberStyle = .decimal
+                    if let integerPrice = Int(self.restaurants[i].price.cardPrice) {
+                        let myNumber = NSNumber(value: integerPrice)
+                        let decimalPrice = numberFormatter.string(from: myNumber)
+                        if let price = decimalPrice {
+                            self.restaurants[i].price.cardPrice = price
+                        }
                     }
                 }
+                
+                // fetch된 식당 정보 기반으로 마커 이미지 재설정
+                for index in self.markers.indices {
+                    self.markers[index].iconImage = self.isShowingTodayMenu(of: restaurants[index]) ? self.markerImage : self.markerImageWhenNoMenu
+                    self.markers[index].touchHandler = { [weak self] (overlay: NMFOverlay) -> Bool in
+                        self?.selectedMarkerRestaurantID = restaurants[index].documentID!
+                        self?.selectedRestaurantIndex = Double(Int((self?.restaurantsInSelectedRegion.firstIndex(where: { $0.documentID == restaurants[index].documentID })!)!))
+                        self?.setMarkerImagesToDefault()
+                        self?.setRandomMenuReportText()
+                        // 나만 selected 이미지로 보이기
+                        self?.markers[index].iconImage = self!.isShowingTodayMenu(of: restaurants[index]) ? self!.selectedMarkerImage : self!.selectedMarkerImageWhenNoMenu
+                        self?.markers[index].zIndex = 100
+                        let cameraUpdate = NMFCameraUpdate(scrollTo: (self?.markers[index].position)!)
+                        cameraUpdate.animation = .easeOut
+                        cameraUpdate.pivot = CGPoint(x: 0.5, y: 0.35)
+                        self?.markers[index].mapView!.moveCamera(cameraUpdate)
+                        self?.isFocusedOnMarker = true
+                        return true // 이벤트 소비, -mapView:didtTapMap:point 이벤트는 발생하지 않음
+                    }
+                }
+                
+                // 지역별 식당 배열 초기화 / 현재 지역으로 재설정
+                self.setRestaurantsAndMarkersInSelectedRegion()
+                self.regions[self.selectedRegionIndex].isSelected = true
+                self.moveCameraToLocation(at: .selectedLocation)
+                self.isUpdatingCards = false
             }
-            self.isUpdatingCards = false
         }
         
         // remote config 가져오기
