@@ -239,7 +239,7 @@ class MainViewModel: ObservableObject {
     
     // MARK: - 지역 선택에 따라 마커, 식당 추가하기
     
-    func setRestaurantsAnMarkersInSelectedRegion() {
+    func setRestaurantsAndMarkersInSelectedRegion() {
         let regionName = self.regions[selectedRegionIndex].name
         
         restaurantsInSelectedRegion = []

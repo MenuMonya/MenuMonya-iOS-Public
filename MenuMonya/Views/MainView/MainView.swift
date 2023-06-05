@@ -44,12 +44,12 @@ struct MainView: View {
                                 viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
                                 viewModel.regions[lastRegionIndex].isSelected = true
                                 viewModel.selectedRegionIndex = lastRegionIndex
-                                viewModel.setRestaurantsAnMarkersInSelectedRegion()
+                                viewModel.setRestaurantsAndMarkersInSelectedRegion()
                                 viewModel.moveCameraToLocation(at: .selectedLocation)
                             } else {
                                 viewModel.locationSelection = .selectedLocation
                                 viewModel.regions[viewModel.selectedRegionIndex].isSelected = true
-                                viewModel.setRestaurantsAnMarkersInSelectedRegion()
+                                viewModel.setRestaurantsAndMarkersInSelectedRegion()
                                 viewModel.moveCameraToLocation(at: .selectedLocation)
                             }
                         }
@@ -119,7 +119,7 @@ struct MainView: View {
                         viewModel.regions[viewModel.selectedRegionIndex].isSelected = false
                         viewModel.regions[index].isSelected = true
                         viewModel.selectedRegionIndex = index
-                        viewModel.setRestaurantsAnMarkersInSelectedRegion()
+                        viewModel.setRestaurantsAndMarkersInSelectedRegion()
                         viewModel.moveCameraToLocation(at: .selectedLocation)
                         viewModel.setMarkerImagesToDefault()
                         viewModel.isFocusedOnMarker = false
